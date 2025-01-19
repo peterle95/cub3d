@@ -9,6 +9,8 @@ OBJ_DIR=obj/
 SRCS += $(SRC_DIR)window.c
 SRCS += $(SRC_DIR)utils.c
 SRCS += $(SRC_DIR)load_map.c
+SRCS += $(SRC_DIR)map_validation.c
+SRCS += $(SRC_DIR)error_msg.c
 
 LIBFT_DIR=libft
 LIBFT=$(LIBFT_DIR)/libft.a
