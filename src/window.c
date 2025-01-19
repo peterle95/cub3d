@@ -26,7 +26,7 @@ int	main()
 	init_img(&data);
 	mlx_loop_hook(data.mlx, &draw, &data);
 
-	// test merging
+	// test 
 	// mlx_pixel_put(data.mlx, data.mlx_win, 100, 100, 0xFFFFFF);
 
 	mlx_loop(data.mlx);
