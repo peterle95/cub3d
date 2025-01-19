@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:06:27 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/01/19 14:37:01 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/01/19 14:55:36 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int validate_texture_path(char *path)
 {
     int fd;
 
-    if (!path || !ft_strnstr(path, ".xpm", ft_strlen(path)))
+    if (!path || !ft_strnstr(path, ".cub", ft_strlen(path)))
         return (0);
     fd = open(path, O_RDONLY);
     if (fd == -1)
