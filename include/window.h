@@ -50,6 +50,7 @@ typedef struct	s_data
 	int			g;
 	int			b;
 	t_map		map;
+	int			debug_mode;
 }	t_data;
 
 typedef enum s_id
