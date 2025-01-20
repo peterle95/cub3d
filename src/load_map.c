@@ -44,7 +44,7 @@ static int	parse_line(t_data *data, char *line)
 			i = 0;
 			while  (temp[i])
 			{
-				ft_printf("%s\n", temp[i]);
+				printf("%s\n", temp[i]);
 				i++;
 			}
 			data->map.id++;

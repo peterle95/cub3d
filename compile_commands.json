@@ -1,0 +1,74 @@
+[
+  {
+    "arguments": [
+      "/usr/lib64/ccache/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g",
+      "-Iinclude",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/window.o",
+      "src/window.c"
+    ],
+    "directory": "/home/cpt/42/cube3D/vers0/cube3d",
+    "file": "/home/cpt/42/cube3D/vers0/cube3d/src/window.c",
+    "output": "/home/cpt/42/cube3D/vers0/cube3d/obj/window.o"
+  },
+  {
+    "arguments": [
+      "/usr/lib64/ccache/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g",
+      "-Iinclude",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/utils.o",
+      "src/utils.c"
+    ],
+    "directory": "/home/cpt/42/cube3D/vers0/cube3d",
+    "file": "/home/cpt/42/cube3D/vers0/cube3d/src/utils.c",
+    "output": "/home/cpt/42/cube3D/vers0/cube3d/obj/utils.o"
+  },
+  {
+    "arguments": [
+      "/usr/lib64/ccache/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g",
+      "-Iinclude",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/load_map.o",
+      "src/load_map.c"
+    ],
+    "directory": "/home/cpt/42/cube3D/vers0/cube3d",
+    "file": "/home/cpt/42/cube3D/vers0/cube3d/src/load_map.c",
+    "output": "/home/cpt/42/cube3D/vers0/cube3d/obj/load_map.o"
+  },
+  {
+    "arguments": [
+      "/usr/lib64/ccache/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g",
+      "-Iinclude",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/map_validation.o",
+      "src/map_validation.c"
+    ],
+    "directory": "/home/cpt/42/cube3D/vers0/cube3d",
+    "file": "/home/cpt/42/cube3D/vers0/cube3d/src/map_validation.c",
+    "output": "/home/cpt/42/cube3D/vers0/cube3d/obj/map_validation.o"
+  }
+]
