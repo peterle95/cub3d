@@ -6,13 +6,13 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:06:27 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/01/20 11:41:47 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/01/20 11:51:47 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "window.h"
 
-static int validate_map_chars(char **map)
+static int validate_map_chars(char **map, char **map_ids)
 {
     int i;
     int j;
@@ -25,7 +25,7 @@ static int validate_map_chars(char **map)
         j = 0;
         while (map[i][j])
         {
-            if (!ft_strchr(VALID_MAP_CHARS, map[i][j]))
+            if (!ft_strchr(map_ids, map[i][j]))
             {
                 error("Error: Invalid character in map");
                 return (0);
@@ -74,7 +74,7 @@ int validate_map(t_data *data)
         !validate_texture_path(data->map.we) || !validate_texture_path(data->map.ea))
         return (1);
     // Validate map characters and player count
-    if (!validate_map_chars(data->map.map_array))
+    if (!validate_map_chars(data->map.map_array, data->map.map_ids))
         return (1);
 
     // Validate colors

@@ -10,7 +10,6 @@
 # include "mlx.h"
 # include "libft.h"
 
-#define VALID_MAP_CHARS "01NSEW "
 #define VALID_PLAYER_CHARS "NSEW"
 
 typedef struct	s_img_data
