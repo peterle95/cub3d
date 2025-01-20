@@ -1,13 +1,5 @@
 #include "window.h"
 
-char *get_next_line(int fd)
-{
-	fd = 0;
-	fd++;
-	return (0);
-}
-
-
 // add to free funcs
 static int	init_ids(t_data *data)
 {
@@ -44,7 +36,7 @@ static int	parse_line(t_data *data, char *line)
 			i = 0;
 			while  (temp[i])
 			{
-				ft_printf("%s\n", temp[i]);
+				printf("%s\n", temp[i]);
 				i++;
 			}
 			data->map.id++;
@@ -62,8 +54,8 @@ int	load_map_data(t_data *data, char *f_name)
 	char	*line;
 
 	init_ids(data);
-	if (!validate_map(data))
-		return (error("Invalid map configuration"));
+	// if (!validate_map(data))
+	// 	return (error("Invalid map configuration"));
 	fd = open(f_name, O_RDONLY);
 	line = get_next_line(fd);
 	if (line)

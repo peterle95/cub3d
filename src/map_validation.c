@@ -12,7 +12,7 @@
 
 #include "window.h"
 
-static int validate_map_chars(char **map, char **map_ids)
+static int validate_map_chars(char **map, char *valid_chars)
 {
     int i;
     int j;
@@ -25,7 +25,7 @@ static int validate_map_chars(char **map, char **map_ids)
         j = 0;
         while (map[i][j])
         {
-            if (!ft_strchr(map_ids, map[i][j]))
+            if (!ft_strchr(valid_chars, map[i][j]))
             {
                 error("Error: Invalid character in map");
                 return (0);
@@ -74,7 +74,7 @@ int validate_map(t_data *data)
         !validate_texture_path(data->map.we) || !validate_texture_path(data->map.ea))
         return (1);
     // Validate map characters and player count
-    if (!validate_map_chars(data->map.map_array, data->map.map_ids))
+    if (!validate_map_chars(data->map.map_array, "01"))
         return (1);
 
     // Validate colors
