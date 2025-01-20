@@ -1,15 +1,15 @@
 R 1280 800
 
-EA assets/textures/ea.xpm
+EA assets/textures/wall.xpm
 
-SO assets/textures/so.xpm
+SO assets/textures/wall.xpm
 
-NO assets/textures/no.xpm
+NO assets/textures/wall.xpm
 
-WE assets/textures/we.xpm
+WE assets/textures/wall.xpm
 
-C assets/ceiling.xpm
-F assets/floor.xpm
+C assets/textures/ceiling.xpm
+F assets/textures/floor.xpm
 
 
 1111111111111111111111111111111111111111111111111111
