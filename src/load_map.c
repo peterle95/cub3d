@@ -2,6 +2,8 @@
 
 char *get_next_line(int fd)
 {
+	fd = 0;
+	fd++;
 	return (0);
 }
 
@@ -9,6 +11,10 @@ char *get_next_line(int fd)
 // add to free funcs
 static int	init_ids(t_data *data)
 {
+	data->map.no = NULL;
+	data->map.so = NULL;
+	data->map.we = NULL;
+	data->map.ea = NULL;
 	data->map.map_ids = ft_calloc(7, sizeof(char *));
 	// error
 	data->map.map_ids[0] = "NO";

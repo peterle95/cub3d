@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:06:27 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/01/20 10:26:43 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/01/20 11:41:47 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,14 @@ static int validate_texture_path(char *path)
 
 int validate_map(t_data *data)
 {
+    // Check if data or map is NULL
+    if (!data || !data->map.no || !data->map.so || 
+        !data->map.we || !data->map.ea)
+    {
+        error("Error: Map data not properly initialized");
+        return (1);
+    }
+
     // validate .cub map
     
     if (!validate_texture_path(data->map.no) || !validate_texture_path(data->map.so) ||

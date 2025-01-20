@@ -1,5 +1,5 @@
 CLANG=cc
-# CFLAGS=-Wall -Werror -Wextra -MMD
+CFLAGS=-Wall -Werror -Wextra -MMD -g
 INCL=-Iinclude -Ilibft
 LDFLAGS=-Llibft -Lminilibx-linux -lft -lmlx -lXext -lX11 -lz -lm
 NAME=win
