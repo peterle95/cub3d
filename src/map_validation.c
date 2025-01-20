@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:06:27 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/01/20 10:00:12 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/01/20 10:26:43 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,18 @@ static int validate_map_chars(char **map)
         while (map[i][j])
         {
             if (!ft_strchr(VALID_MAP_CHARS, map[i][j]))
+            {
+                error("Error: Invalid character in map");
                 return (0);
+            }
             if (ft_strchr(VALID_PLAYER_CHARS, map[i][j]))
                 player_count++;
             j++;
         }
         i++;
     }
+    if (player_count != 1)
+        error("Error: There must be exactly one player in the map");
     return (player_count == 1);
 }
 
@@ -45,7 +50,10 @@ static int validate_texture_path(char *path)
         return (0);
     fd = open(path, O_RDONLY);
     if (fd == -1)
+    {
+        error("Error: Failed to open texture file");
         return (0);
+    }
     close(fd);
     return (1);
 }
