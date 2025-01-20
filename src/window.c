@@ -21,7 +21,7 @@ int	main()
 	data.debug_mode = 0;
 	if(data.debug_mode == 0)
 		printf("DEBUG MODE ON\n");
-	load_map_data(&data, "note");
+	load_map_data(&data, "test_map.cub");
 	init_colour_fade(&data);
 	data.mlx = mlx_init();
 	data.mlx_win = mlx_new_window(data.mlx, 1920, 1080, "dooomed");
