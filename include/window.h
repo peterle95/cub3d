@@ -10,6 +10,8 @@
 # include "mlx.h"
 # include "libft.h"
 
+#define VALID_PLAYER_CHARS "NSEW"
+
 typedef struct	s_img_data
 {
 	void	*img;
@@ -28,6 +30,13 @@ typedef struct s_map
 	char	*f;
 	char	*c;
 	char	**map_ids;
+	char	**map_array;
+    int     map_height;
+    int     map_width;
+    int     player_x;
+    int     player_y;
+    char    player_dir;
+    int     elements_found;
 	int		id;
 	int		n;
 }	t_map;
@@ -43,6 +52,7 @@ typedef struct	s_data
 	int			g;
 	int			b;
 	t_map		map;
+	int			debug_mode;
 }	t_data;
 
 typedef enum s_id
@@ -59,5 +69,6 @@ int		set_trgb(int t, int r, int g, int b);
 void	add_random_pixels(t_data *data, int width, int height, int num_pixels);
 void	clear_image_to_colour(t_data *data, int colour);
 int		load_map_data(t_data *data, char *f_name);
-
+int		validate_map(t_data *data);
+int		error(char *message);
 #endif

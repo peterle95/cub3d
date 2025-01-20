@@ -1,8 +1,20 @@
 #include "window.h"
 
+char *get_next_line(int fd)
+{
+	fd = 0;
+	fd++;
+	return (0);
+}
+
+
 // add to free funcs
 static int	init_ids(t_data *data)
 {
+	data->map.no = NULL;
+	data->map.so = NULL;
+	data->map.we = NULL;
+	data->map.ea = NULL;
 	data->map.map_ids = ft_calloc(7, sizeof(char *));
 	// error
 	data->map.map_ids[0] = "NO";
@@ -50,6 +62,8 @@ int	load_map_data(t_data *data, char *f_name)
 	char	*line;
 
 	init_ids(data);
+	if (!validate_map(data))
+		return (error("Invalid map configuration"));
 	fd = open(f_name, O_RDONLY);
 	line = get_next_line(fd);
 	if (line)
@@ -72,4 +86,5 @@ int	load_map_data(t_data *data, char *f_name)
 // use depth first/flood fill algo search to check for holes
 // if bonus check for spawn location
 //
+
 

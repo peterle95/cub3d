@@ -1,5 +1,5 @@
 CLANG=cc
-# CFLAGS=-Wall -Werror -Wextra -MMD
+CFLAGS=-Wall -Werror -Wextra -MMD -g
 INCL=-Iinclude -Ilibft
 LDFLAGS=-Llibft -Lminilibx-linux -lft -lmlx -lXext -lX11 -lz -lm
 NAME=win
@@ -9,6 +9,8 @@ OBJ_DIR=obj/
 SRCS += $(SRC_DIR)window.c
 SRCS += $(SRC_DIR)utils.c
 SRCS += $(SRC_DIR)load_map.c
+SRCS += $(SRC_DIR)map_validation.c
+SRCS += $(SRC_DIR)error_msg.c
 
 LIBFT_DIR=libft
 LIBFT=$(LIBFT_DIR)/libft.a
