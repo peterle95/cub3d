@@ -34,7 +34,7 @@ typedef struct s_map
 	char	*ea;
 	char	*f;
 	char	*c;
-	char	**map_ids;
+	char	***map_ids;
 	char	**map_array;
     int     map_height;
     int     map_width;
@@ -77,6 +77,22 @@ int		load_map_data(t_data *data, char *f_name);
 int		validate_map(t_data *data);
 int		error(char *message);
 
+// utils
+void	init_colour_fade(t_data *data);
+int	terminator(t_data *data);
+int	key_up(int keycode, t_data *data);
+void	init_img(t_data *data);
+void	put_pixel_to_img(t_data *data, int x, int y, int color);
+int	set_trgb(int t, int r, int g, int b);
+void	add_random_pixels(t_data *data, int width, int height, int num_pixels);
+void	clear_image_to_colour(t_data *data, int colour);
+void	free_2d_char_arr(char **arr);
+
+// load_map_utils
+int	free_temp_return(char **temp, int r);
+int	parse_map(t_data *data, char *line);
+
+// get_next_line
 char	*get_next_line(int fd);
 char	*fetch(int fd, char **ln);
 char	*freeb(char *buff);

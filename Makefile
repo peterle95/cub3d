@@ -13,6 +13,7 @@ SRCS += $(SRC_DIR)map_validation.c
 SRCS += $(SRC_DIR)error_msg.c
 SRCS += $(SRC_DIR)get_next_line.c
 SRCS += $(SRC_DIR)get_next_line_utils.c
+SRCS += $(SRC_DIR)load_map_utils.c
 
 LIBFT_DIR=libft
 LIBFT=$(LIBFT_DIR)/libft.a

@@ -1,6 +1,5 @@
 #include "window.h"
 
-
 void	init_colour_fade(t_data *data)
 {
 	data->t = 0;
@@ -84,3 +83,18 @@ void	clear_image_to_colour(t_data *data, int colour)
 		}
 	}
 }
+
+void	free_2d_char_arr(char **arr)
+{
+	int	i;
+	
+	i = 0;
+	while (arr && arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
+
+
