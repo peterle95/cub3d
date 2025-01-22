@@ -11,6 +11,7 @@
 # include "libft.h"
 
 #define VALID_PLAYER_CHARS "NSEW"
+#define VALID_MAP_CHARS "01NSEW "
 
 // get_next_line buffer size
 # ifndef BUFFER_SIZE
