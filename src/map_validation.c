@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:06:27 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/01/22 12:56:44 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/01/22 12:59:06 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,40 +160,38 @@ static int validate_texture_path(char *path)
     return (1);
 }
 
-int validate_map(t_data *data)
+static void test_map_validation() 
 {
-    if(data->debug_mode == 0)
+    char *valid_map[] = 
     {
-        char *valid_map[] = 
-        {
         "11111111",
         "10000001",
         "10000001",
         "11111111",
         NULL
-        };
+    };
 
-        char *invalid_map[] = 
-        {
+    char *invalid_map[] = 
+    {
         "11111111",
         "10000001",
         "10000000",  // gap in right wall
         "11111111",
         NULL
-        };
+    };
 
-        char *irregular_map[] = 
-        {
+    char *irregular_map[] = 
+    {
         "  11111",
         "  10001",
         "11100011",
         "10000001",
         "11111111",
         NULL
-        };
+    };
 
-        char *complex_map[] = 
-        {
+    char *complex_map[] = 
+    {
         "  11111",
         "  10001",
         "11100011",
@@ -207,10 +205,10 @@ int validate_map(t_data *data)
         "100000000000000000000000001", 
         " 11111111111111111111111111",
         NULL,
-        };
+    };
 
-        char *complex_map_2[] = 
-        {
+    char *complex_map_2[] = 
+    {
         "    1111          1111111111                          ",
         "    1001          1001   101                          ",
         "111110001         1001111101                          ",
@@ -229,40 +227,43 @@ int validate_map(t_data *data)
         "100000000000001111                                    ",
         "111111111111111                                       ",
         NULL,
-        };
+    };
 
-    
+    printf("Testing valid map:\n");
+    if (is_surrounded_by_walls(valid_map, 4, 8))
+        printf("Valid map test passed!\n\n");
+    else
+        printf("Valid map test failed!\n\n");
 
-        printf("Testing valid map:\n");
-        if (is_surrounded_by_walls(valid_map, 4, 8))
-            printf("Valid map test passed!\n\n");
-        else
-            printf("Valid map test failed!\n\n");
+    printf("Testing invalid map:\n");
+    if (!is_surrounded_by_walls(invalid_map, 4, 8))
+        printf("Invalid map test caught the error (as expected)!\n\n");
+    else
+        printf("Invalid map test failed to catch the error!\n\n");
 
-        printf("Testing invalid map:\n");
-        if (!is_surrounded_by_walls(invalid_map, 4, 8))
-            printf("Invalid map test caught the error (as expected)!\n\n");
-        else
-            printf("Invalid map test failed to catch the error!\n\n");
+    printf("Testing irregular map:\n");
+    if (is_surrounded_by_walls(irregular_map, 5, 8))
+        printf("Irregular map test passed!\n");
+    else
+        printf("Irregular map test failed!\n");
 
-        printf("Testing irregular map:\n");
-        if (is_surrounded_by_walls(irregular_map, 5, 8))
-            printf("Irregular map test passed!\n");
-        else
-            printf("Irregular map test failed!\n");
+    printf("Testing complex map:\n");
+    if (is_surrounded_by_walls(complex_map, 12, 28))
+        printf("Complex map test passed!\n");
+    else
+        printf("Complex map test failed!\n");
 
-        printf("Testing complex map:\n");
-        if (is_surrounded_by_walls(complex_map, 12, 28))
-            printf("Complex map test passed!\n");
-        else
-            printf("Complex map test failed!\n");
+    printf("Testing complex map 2:\n");
+    if (is_surrounded_by_walls(complex_map_2, 17, 54))
+        printf("Complex map 2 test passed!\n");
+    else
+        printf("Complex map 2 test failed!\n");
+}
 
-        printf("Testing complex map 2:\n");
-        if (is_surrounded_by_walls(complex_map_2, 17, 54))
-            printf("Complex map 2 test passed!\n");
-        else
-            printf("Complex map 2 test failed!\n");
-    }
+int validate_map(t_data *data)
+{
+    if(data->debug_mode == 0)
+        test_map_validation();
     // Check if data or map is NULL
     if (!data || !data->map.no || !data->map.so || 
         !data->map.we || !data->map.ea)
