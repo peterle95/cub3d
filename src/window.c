@@ -20,7 +20,7 @@ int	main()
 
 	data.debug_mode = 0;
 	if(data.debug_mode == 0)
-		ft_printf("DEBUG MODE ON\n");
+		printf("DEBUG MODE ON\n");
 	load_map_data(&data, "note");
 	if (!validate_map(&data))
 		return (error("Invalid map configuration"));
