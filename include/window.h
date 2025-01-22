@@ -12,6 +12,11 @@
 
 #define VALID_PLAYER_CHARS "NSEW"
 
+// get_next_line buffer size
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# endif
+
 typedef struct	s_img_data
 {
 	void	*img;
@@ -71,4 +76,16 @@ void	clear_image_to_colour(t_data *data, int colour);
 int		load_map_data(t_data *data, char *f_name);
 int		validate_map(t_data *data);
 int		error(char *message);
+
+char	*get_next_line(int fd);
+char	*fetch(int fd, char **ln);
+char	*freeb(char *buff);
+int		gnl_strlen(char *str);
+int		isin(char *str);
+char	*set(char **ln, int fd);
+char	*set_rem(char **ln, int fd);
+char	*gnl_strjoin(char *buff, char **ln, int fd);
+char	*set_line(char	**ln, int fd);
+char	*freel(char **ln, int fd);
+
 #endif

@@ -15,7 +15,7 @@ int	draw(t_data *data)
 
 int	main()
 {
-	ft_printf(">>> Doomed <<<\n");
+	printf(">>> Doomed <<<\n");
 	t_data	data;
 
 	data.debug_mode = 0;

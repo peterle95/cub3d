@@ -11,7 +11,7 @@ void	init_colour_fade(t_data *data)
 
 int	terminator(t_data *data)
 {
-	ft_printf("Hasta la vista, baby!\n");
+	printf("Hasta la vista, baby!\n");
 	mlx_destroy_window(data->mlx, data->mlx_win);
 	mlx_destroy_display(data->mlx);
 	free(data->mlx);
@@ -38,9 +38,9 @@ void	init_img(t_data *data)
 	data->img_data1->addr = mlx_get_data_addr(data->img_data1->img, &data->img_data1->bits_per_pixel,
 			&data->img_data1->line_length, &data->img_data1->endian);
 	
-	ft_printf("bpp: %d, ll: %d, e: %d\n", data->img_data0->bits_per_pixel,
+	printf("bpp: %d, ll: %d, e: %d\n", data->img_data0->bits_per_pixel,
 			data->img_data0->line_length, data->img_data0->endian);
-	ft_printf("addr: %p\n", data->img_data0->addr);
+	printf("addr: %p\n", data->img_data0->addr);
 }
 
 void	put_pixel_to_img(t_data *data, int x, int y, int color)
