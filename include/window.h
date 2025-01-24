@@ -34,7 +34,8 @@ typedef struct s_map
 	char	*ea;
 	char	*f;
 	char	*c;
-	char	***map_ids;
+	char	**map_ids;
+	char	***texture_paths;
 	char	**map_array;
     int     map_height;
     int     map_width;
