@@ -54,8 +54,6 @@ int	load_map_data(t_data *data, char *f_name)
 	char	*line;
 
 	init_ids(data);
-	// if (!validate_map(data))
-	// 	return (error("Invalid map configuration"));
 	fd = open(f_name, O_RDONLY);
 	line = get_next_line(fd);
 	if (line)

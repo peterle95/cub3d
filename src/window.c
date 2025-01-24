@@ -20,8 +20,10 @@ int	main()
 
 	data.debug_mode = 0;
 	if(data.debug_mode == 0)
-		printf("DEBUG MODE ON\n");
-	load_map_data(&data, "test_map.cub");
+		ft_printf("DEBUG MODE ON\n");
+	load_map_data(&data, "note");
+	if (!validate_map(&data))
+		return (error("Invalid map configuration"));
 	init_colour_fade(&data);
 	data.mlx = mlx_init();
 	data.mlx_win = mlx_new_window(data.mlx, 1920, 1080, "dooomed");
