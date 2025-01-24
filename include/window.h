@@ -39,9 +39,6 @@ typedef struct s_map
 	char	**map_array;
     int     map_height;
     int     map_width;
-    int     player_x;
-    int     player_y;
-    char    player_dir;
     int     elements_found;
 	int		id;
 	int		n;
@@ -59,6 +56,12 @@ typedef struct	s_data
 	int			b;
 	t_map		map;
 	int			debug_mode;
+	double pos_x; // Player position
+	double pos_y;
+	double dir_x; // Player direction vector
+	double dir_y;
+	double plane_x; // Camera plane
+	double plane_y;
 }	t_data;
 
 typedef enum s_id
