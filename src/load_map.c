@@ -1,6 +1,5 @@
 #include "window.h"
 
-// add to free funcs
 // N_CONFIGS
 // N_TEXTURES
 // F and C are always referenced as confic[N_CONFIGS - 2]
@@ -34,6 +33,7 @@ static int	init_ids(t_data *data)
 	return (0);	
 }
 
+// first pull map data into a single string
 static int	parse_map(t_data *data, char *line)
 {
 	int	len;
@@ -47,8 +47,6 @@ static int	parse_map(t_data *data, char *line)
 
 // split each line and append to 
 // 	data->map.config
-// 	data->floor
-// 	data->ceiling
 // parse_map() appends line to row in
 // 	data->map.map_array
 static int	parse_line(t_data *data, char *line)
@@ -76,8 +74,7 @@ static int	parse_line(t_data *data, char *line)
 		data->map.id++;
 		return (0);
 	}
-	return (0);
-	// return (free_map_data(data));
+	return (free_map_data(data));
 }
 
 static void	copy_chars(t_data *data, char *flat_map)
