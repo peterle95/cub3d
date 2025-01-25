@@ -1,6 +1,10 @@
 #include "window.h"
 
 // add to free funcs
+// N_CONFIGS
+// N_TEXTURES
+// F and C are always referenced as confic[N_CONFIGS - 2]
+// and config[N_CONFIGS - 3]
 static int	init_ids(t_data *data)
 {
 	int	i;
@@ -9,15 +13,15 @@ static int	init_ids(t_data *data)
 	data->map.n_rows = 0;
 	data->map.width = 0;
 	data->map.height = 0;
-	data->map.texture_paths = malloc(N_TEXTURE_PATHS * sizeof(char **));
+	data->map.config = malloc(N_CONFIGS * sizeof(char **));
 	// error
 	i = 0;
-	while (i < N_TEXTURE_PATHS)
+	while (i < N_CONFIGS)
 	{
-		data->map.texture_paths[i] = NULL;
+		data->map.config[i] = NULL;
 		i++;
 	}
-	data->map.map_ids = malloc(N_TEXTURE_PATHS * sizeof(char *));
+	data->map.map_ids = malloc(N_CONFIGS * sizeof(char *));
 	// error
 	data->map.map_ids[0] = "NO";
 	data->map.map_ids[1] = "SO";
@@ -25,7 +29,7 @@ static int	init_ids(t_data *data)
 	data->map.map_ids[3] = "EA";
 	data->map.map_ids[4] = "F";
 	data->map.map_ids[5] = "C";
-	data->map.map_ids[N_TEXTURE_PATHS - 1] = NULL;
+	data->map.map_ids[N_CONFIGS - 1] = NULL;
 	data->map.id = 0;
 	return (0);	
 }
@@ -42,7 +46,7 @@ static int	parse_map(t_data *data, char *line)
 }
 
 // split each line and append to 
-// 	data->map.texture_paths
+// 	data->map.config
 // 	data->floor
 // 	data->ceiling
 // parse_map() appends line to row in
@@ -51,28 +55,29 @@ static int	parse_line(t_data *data, char *line)
 {
 	if (line[0] == '\0'|| line[0] == '\n')
 		return (0);
-	if (data->map.id > N_TEXTURE_PATHS - 2)
+	if (data->map.id > N_CONFIGS - 2)
 		return (parse_map(data, line));
-	data->map.texture_paths[data->map.id] = ft_split(line, ' ');
+	data->map.config[data->map.id] = ft_split(line, ' ');
 	//error
-	if (array_len(data->map.texture_paths[data->map.id]) != 2)
+	if (array_len(data->map.config[data->map.id]) != 2)
 		return (free_map_data(data));
-	if (ft_strncmp(data->map.texture_paths[data->map.id][0], data->map.map_ids[data->map.id],
+	if (ft_strncmp(data->map.config[data->map.id][0], data->map.map_ids[data->map.id],
 				ft_strlen(data->map.map_ids[data->map.id]) + 1) == 0)
 	{
 		if (DEBUG)
 		{
 			int i = 0;
-			while (data->map.texture_paths[data->map.id][i])
+			while (data->map.config[data->map.id][i])
 			{
-				printf(":::::%s", data->map.texture_paths[data->map.id][i]);
+				printf(":::::%s", data->map.config[data->map.id][i]);
 					i++;
 			}	
 		}
 		data->map.id++;
 		return (0);
 	}
-	return (free_map_data(data));
+	return (0);
+	// return (free_map_data(data));
 }
 
 static void	copy_chars(t_data *data, char *flat_map)
@@ -132,12 +137,13 @@ static int	flat_map_to_map_array(t_data *data)
 	return (0);
 }
 
-static int	load_map_clean_up(char *line, int fd)
+static int	load_map_clean_up(t_data *data, char *line, int fd)
 {
+	(void)data;
 	while (line)
 	{
 		free(line);
-		get_next_line(fd);
+		line = get_next_line(fd);
 	}
 	close(fd);
 	return(-1);
@@ -152,22 +158,24 @@ int	load_map_data(t_data *data, char *f_name)
 	fd = open(f_name, O_RDONLY);
 	line = get_next_line(fd);
 	if (line && parse_line(data, line) != 0)
-		return load_map_clean_up(line, fd);
+		return load_map_clean_up(data, line, fd);
 	while (line)
 	{
 		free(line);
 		line = get_next_line(fd);
 		if (line && parse_line(data, line) != 0)
-			return load_map_clean_up(line, fd);
+			return load_map_clean_up(data, line, fd);
 	}
-	load_map_clean_up(line, fd);
+	load_map_clean_up(data, line, fd);
 	flat_map_to_map_array(data);
+	free(data->map.flat_map);
 	// add freeing of flat array to load_map_clean_up
 	if (DEBUG)
 	{
 		printf("map_array:\n");
 		print_string_array(data->map.map_array, data->map.n_rows);
 	}
+	close(fd);
 	return (0);
 }
 

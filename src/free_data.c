@@ -1,0 +1,45 @@
+#include "window.h"
+
+static void	free_map_config(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	if (data->map.config)
+	{
+		while (i < N_CONFIGS)
+		{
+			if (data->map.config[i])
+			{
+				j = 0;
+				while (data->map.config[i][j])
+				{
+					free(data->map.config[i][j]);
+					j++;
+				}
+				free(data->map.config[i]);
+			}
+			i++;
+		}
+		free(data->map.config);
+		data->map.config = NULL;
+	}
+}
+
+int	free_map_data(t_data *data)
+{
+
+	// free map.map_ids
+	free(data->map.map_ids);
+	data->map.map_ids = NULL;
+
+	// free map.config
+	free_map_config(data);
+	return (-1);
+}
+
+void	free_data(t_data *data)
+{
+	free_map_data(data);	
+}

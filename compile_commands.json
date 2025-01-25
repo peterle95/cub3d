@@ -185,6 +185,26 @@
       "-Wall",
       "-Werror",
       "-Wextra",
+      "-g",
+      "-D",
+      "DEBUG=1",
+      "-Iinclude",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/free_data.o",
+      "src/free_data.c"
+    ],
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/src/free_data.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/obj/free_data.o"
+  },
+  {
+    "arguments": [
+      "/usr/lib64/ccache/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
       "-c",
       "-o",
       "ft_isalpha.o",

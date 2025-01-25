@@ -11,9 +11,9 @@
 # include "mlx.h"
 # include "libft.h"
 
-# define VALID_MAP_CHARS "01NESW"
+# define VALID_MAP_CHARS "01NESW "
 # define VALID_PLAYER_CHARS "NSEW"
-# define N_TEXTURE_PATHS 7
+# define N_CONFIGS 7
 # define N_TEXTURES 4
 
 # ifndef DEBUG
@@ -37,7 +37,7 @@ typedef struct	s_img_data
 typedef struct s_map
 {
 	char	**map_ids;
-	char	***texture_paths;
+	char	***config;
 	char	*flat_map;
 	int		n_rows;
 	char	**map_array;
@@ -71,10 +71,13 @@ typedef enum s_id
 }	t_id;
 
 // debug
-void print_string_array(char **array, int n);
+void 	print_string_array(char **array, int n);
 
 // error_msg
 int		error(char *message);
+
+// free_data
+void	free_data(t_data *data);
 
 // utils
 void	init_colour_fade(t_data *data);
@@ -95,10 +98,10 @@ int		validate_map(t_data *data);
 
 // load_map_utils
 // static int		parse_map(t_data *data, char *line);
+int		free_map_data(t_data *data);
 bool	member_of_set(char c, char *set);
 int		free_temp_return(char **temp, int r);
 int		array_len(char **arr);
-int		free_map_data(t_data *data);
 
 // get_next_line
 char	*get_next_line(int fd);
