@@ -9,6 +9,7 @@ static int	init_ids(t_data *data)
 	int	i;
 
 	data->map.flat_map = ft_strdup("");
+	// error
 	data->map.n_rows = 0;
 	data->map.width = 0;
 	data->map.height = 0;
@@ -153,6 +154,7 @@ int	load_map_data(t_data *data, char *f_name)
 
 	init_ids(data);
 	fd = open(f_name, O_RDONLY);
+	// error
 	line = get_next_line(fd);
 	if (line && parse_line(data, line) != 0)
 		return load_map_clean_up(data, line, fd);

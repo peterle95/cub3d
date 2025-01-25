@@ -2,6 +2,8 @@
 
 bool	member_of_set(char c, char *set)
 {
+	if (!set)
+		return (false);
     while (*set) 
 	{
         if (*set == c) 
