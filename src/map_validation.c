@@ -58,21 +58,33 @@ static int validate_texture_path(char *path)
     return (1);
 }
 
+static int	validate_textures(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < N_TEXTURES)
+	{
+		if (!validate_texture_path(data->map.texture_paths[i][1]))
+			return (-1);
+		i++;
+	}
+	return (0);
+}
+
 int validate_map(t_data *data)
 {
     // Check if data or map is NULL
-    if (!data || !data->map.no || !data->map.so || 
-        !data->map.we || !data->map.ea)
+    // if (!data || !data->map.no || !data->map.so || 
+    //     !data->map.we || !data->map.ea)
     {
         error("Error: Map data not properly initialized");
         return (1);
     }
 
     // validate .cub map
-    
-    if (!validate_texture_path(data->map.no) || !validate_texture_path(data->map.so) ||
-        !validate_texture_path(data->map.we) || !validate_texture_path(data->map.ea))
-        return (1);
+	if (validate_textures(data) != 0)
+		return (1);
     // Validate map characters and player count
     if (!validate_map_chars(data->map.map_array, "01"))
         return (1);
@@ -87,6 +99,4 @@ int validate_map(t_data *data)
 
     return (0);
 }
-
-
 

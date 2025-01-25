@@ -7,10 +7,18 @@
 # include <X11/Xlib.h>
 # include <time.h>
 # include <fcntl.h>
+# include <stdbool.h>
 # include "mlx.h"
 # include "libft.h"
 
-#define VALID_PLAYER_CHARS "NSEW"
+# define VALID_MAP_CHARS "01NESW"
+# define VALID_PLAYER_CHARS "NSEW"
+# define N_TEXTURE_PATHS 7
+# define N_TEXTURES 4
+
+# ifndef DEBUG
+#  define DEBUG 0
+# endif
 
 // get_next_line buffer size
 # ifndef BUFFER_SIZE
@@ -28,17 +36,13 @@ typedef struct	s_img_data
 
 typedef struct s_map
 {
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea;
-	char	*f;
-	char	*c;
 	char	**map_ids;
 	char	***texture_paths;
+	char	*flat_map;
+	int		n_rows;
 	char	**map_array;
-    int     map_height;
-    int     map_width;
+    int     height;
+    int     width;
     int     player_x;
     int     player_y;
     char    player_dir;
@@ -66,6 +70,13 @@ typedef enum s_id
 	BLACK
 }	t_id;
 
+// debug
+void print_string_array(char **array, int n);
+
+// error_msg
+int		error(char *message);
+
+// utils
 void	init_colour_fade(t_data *data);
 int		terminator(t_data *data);
 int		key_up(int keycode, t_data *data);
@@ -74,24 +85,20 @@ void	put_pixel_to_img(t_data *data, int x, int y, int color);
 int		set_trgb(int t, int r, int g, int b);
 void	add_random_pixels(t_data *data, int width, int height, int num_pixels);
 void	clear_image_to_colour(t_data *data, int colour);
-int		load_map_data(t_data *data, char *f_name);
-int		validate_map(t_data *data);
-int		error(char *message);
-
-// utils
-void	init_colour_fade(t_data *data);
-int	terminator(t_data *data);
-int	key_up(int keycode, t_data *data);
-void	init_img(t_data *data);
-void	put_pixel_to_img(t_data *data, int x, int y, int color);
-int	set_trgb(int t, int r, int g, int b);
-void	add_random_pixels(t_data *data, int width, int height, int num_pixels);
-void	clear_image_to_colour(t_data *data, int colour);
 void	free_2d_char_arr(char **arr);
 
+// load_map
+//	static int		init_ids(t_data *data);
+//	static int	parse_line(t_data *data, char *line)
+int		load_map_data(t_data *data, char *f_name);
+int		validate_map(t_data *data);
+
 // load_map_utils
-int	free_temp_return(char **temp, int r);
-int	parse_map(t_data *data, char *line);
+// static int		parse_map(t_data *data, char *line);
+bool	member_of_set(char c, char *set);
+int		free_temp_return(char **temp, int r);
+int		array_len(char **arr);
+int		free_map_data(t_data *data);
 
 // get_next_line
 char	*get_next_line(int fd);

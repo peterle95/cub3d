@@ -18,10 +18,10 @@ int	main()
 	printf(">>> Doomed <<<\n");
 	t_data	data;
 
-	data.debug_mode = 0;
-	if(data.debug_mode == 0)
+	if(DEBUG)
 		printf("DEBUG MODE ON\n");
-	load_map_data(&data, "test_map.cub");
+	if (load_map_data(&data, "test_map.cub") != 0)
+		return (error("Invalid map configuration"));
 	if (!validate_map(&data))
 		return (error("Invalid map configuration"));
 	init_colour_fade(&data);

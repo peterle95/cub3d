@@ -1,16 +1,51 @@
 #include "window.h"
 
-// must free all elements in data->map.texture_paths
-// which is a 3d char * array
-int	free_temp_return(char **temp, int r)
+bool	member_of_set(char c, char *set)
 {
-	free_2d_char_arr(temp);
-	return (r);
+    while (*set) 
+	{
+        if (*set == c) {
+            return true;
+        }
+        set++;
+    }
+    return false;
 }
 
-// int	parse_map(t_data *data, char *line)
-// {
-// 		
-// }
+int	array_len(char **arr)
+{
+	int	i;
+	
+	i = 0;
+	while (arr[i])
+	{
+		i++;
+	}
+	return (i);
+}
 
-//array { "NO", *"./path_to_texure"}
+int	free_map_data(t_data *data)
+{
+	int	i;
+	int	j;
+
+	// free map.map_ids
+	free(data->map.map_ids); // must free individually
+	// free map.texture_paths
+	i = 0;
+	while (i < N_TEXTURE_PATHS)
+	{
+		if (data->map.texture_paths[i])
+		{
+			j = 0;
+			while (data->map.texture_paths[i][j])
+			{
+				free(data->map.texture_paths[i][j]);
+				j++;
+			}
+		}
+		i++;
+	}
+	return (-1);
+}
+

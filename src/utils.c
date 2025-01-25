@@ -36,10 +36,13 @@ void	init_img(t_data *data)
 	data->img_data1->img = mlx_new_image(data->mlx, 1920, 1080);
 	data->img_data1->addr = mlx_get_data_addr(data->img_data1->img, &data->img_data1->bits_per_pixel,
 			&data->img_data1->line_length, &data->img_data1->endian);
-	
-	printf("bpp: %d, ll: %d, e: %d\n", data->img_data0->bits_per_pixel,
-			data->img_data0->line_length, data->img_data0->endian);
-	printf("addr: %p\n", data->img_data0->addr);
+
+	if (DEBUG)
+	{
+		printf("bpp: %d, ll: %d, e: %d\n", data->img_data0->bits_per_pixel,
+				data->img_data0->line_length, data->img_data0->endian);
+		printf("addr: %p\n", data->img_data0->addr);
+	}
 }
 
 void	put_pixel_to_img(t_data *data, int x, int y, int color)
