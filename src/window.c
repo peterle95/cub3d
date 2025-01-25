@@ -8,13 +8,13 @@ int draw(t_data *data)
     clear_image_to_colour(data, set_trgb(data->t, data->r, data->g, data->b)); 
     
     // Calculate ray position and direction
-    double camera_x = 1;  // Center of the screen
+    double camera_x = 0;  // Center of the screen
     double ray_dir_x = data->dir_x + data->plane_x * camera_x;
     double ray_dir_y = data->dir_y + data->plane_y * camera_x;
     
-    // Use player position directly for screen coordinates
-    int screen_pos_x = (int)(data->pos_x);  // No scaling
-    int screen_pos_y = (int)(data->pos_y);  // No scaling
+    // Scale player position to screen coordinates
+    int screen_pos_x = (int)(data->pos_x * 32); 
+    int screen_pos_y = (int)(data->pos_y * 32); 
     
     // Draw a line in the ray direction (for testing)
     int line_length = 300;  // Increased line length to make it more visible
