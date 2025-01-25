@@ -4,4 +4,4 @@
  win
  minilibx-linux
  *.*
- .cache
+ .cache/
