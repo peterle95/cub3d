@@ -10,6 +10,7 @@
 # include <stdbool.h>
 # include "mlx.h"
 # include "libft.h"
+# include "graphics_types.h"
 
 # define VALID_MAP_CHARS "01NESW "
 # define VALID_PLAYER_CHARS "NSEW"
@@ -102,6 +103,17 @@ int		free_map_data(t_data *data);
 bool	member_of_set(char c, char *set);
 int		free_temp_return(char **temp, int r);
 int		array_len(char **arr);
+
+// graphics_image
+void	init_img(t_data *data);
+void	put_pixel_to_img(t_data *data, int x, int y, int color);
+void	add_pixels(t_data *data, int x, int y);
+void	add_random_pixels(t_data *data, int width, int height, int num_pixels);// test function
+void	clear_image_to_colour(t_data *data, int colour);
+
+// graphics_lines
+t_line	*init_line(int x1, int y1, int x2, int y2);
+void	compute_line_points(t_data *data, t_line *line);
 
 // get_next_line
 char	*get_next_line(int fd);

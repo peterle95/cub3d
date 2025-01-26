@@ -1,11 +1,83 @@
 #include "window.h"
 
-// free properly from beginning to avoid mess later
+void fill_square(t_data *data, int x, int y, int side_length) {
+    int row = y;
+    while (row < y + side_length) {
+        int col = x;
+        while (col < x + side_length) {
+            // Ensure the pixel is within screen bounds
+            if (row >= 0 && row < 1080 && col >= 0 && col < 1920) {
+                // Use put_pixels to place the pixel
+                put_pixel_to_img(data, col, row, 0x00FF0000);
+            }
+            col++;  // Increment column
+        }
+        row++;  // Increment row
+    }
+}
+
+int	draw_grid(t_data *data)
+{
+	int	y;
+	int	x;
+	int	scalar;
+	int	greater;
+	int offset = 100; // for debug visual clarity
+
+	if (data->map.height > data->map.width)
+		greater = data->map.height;
+	else
+		greater = data->map.width;
+	// rather than 1920 needs to be correspoding w or h
+	scalar = 1080 / greater;
+	// + 1 to w and h to account for the last cell having a w and h
+	y = 0;
+	while (y < data->map.height)
+	{
+		x = 0;
+		while (x < data->map.width)
+		{
+			if (data->map.map_array[y][x] == '1')
+				fill_square(data, (x * scalar) + offset, (y * scalar) + offset, scalar);
+			x++;
+		}
+		y++;
+	}
+
+	t_line	*line;
+	// horizontal
+	y = 0;
+	while (y < data->map.height + 1)
+	{
+		// why the - 1 to width to make it work? 
+		line = init_line(0 + offset, (y * scalar) + offset, ((data->map.width - 1) * scalar) + offset, (y * scalar) + offset);
+		compute_line_points(data, line);
+		free(line);
+		y++;
+	}
+	// vertical
+	x = 0;
+	while (x < data->map.width)
+	{
+		line = init_line((x * scalar) + offset, 0 + offset, (x * scalar) + offset, (data->map.height * scalar) + offset);
+		compute_line_points(data, line);
+		free(line);
+		x++;
+	}
+
+	return (0);
+}
 
 int	draw(t_data *data)
 {
 	clear_image_to_colour(data, set_trgb(data->t, data->r, data->g, data->b));
-	add_random_pixels(data, 1920, 1080, 1000);
+	// add_random_pixels(data, 1920, 1080, 1000);
+	// obvs don't want to calculate the lines each time through the draw loop
+	// t_line	*line;
+	// line = init_line(0, 0, 500, 500);
+	// compute_line_points(data, line);
+	draw_grid(data);
+	// free(line);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img_data0->img, 0, 0);
 	if (data->r > 0)
 		data->r--;
@@ -18,6 +90,7 @@ int	init_data(t_data *data)
 	return (0);
 }
 
+// free properly from beginning to avoid mess later
 int	main()
 {
 	printf(">>> Doomed <<<\n");
@@ -26,7 +99,7 @@ int	main()
 	init_data(&data);
 	if(DEBUG)
 		printf("DEBUG MODE ON\n");
-	if (load_map_data(&data, "test_map.cub") != 0)
+	if (load_map_data(&data, "test_map2.cub") != 0)
 		return (error("Invalid map configuration"));
 	if (!validate_map(&data))
 		return (error("Invalid map configuration"));

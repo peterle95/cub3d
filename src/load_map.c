@@ -135,6 +135,7 @@ static int	flat_map_to_map_array(t_data *data)
 		}
 		i++;
 	}
+	data->map.height = data->map.n_rows;
 	copy_chars(data, data->map.flat_map);
 	return (0);
 }

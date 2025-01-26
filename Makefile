@@ -17,6 +17,8 @@ SRCS += $(SRC_DIR)get_next_line.c
 SRCS += $(SRC_DIR)get_next_line_utils.c
 SRCS += $(SRC_DIR)load_map_utils.c
 SRCS += $(SRC_DIR)free_data.c
+SRCS += $(SRC_DIR)graphics_image.c
+SRCS += $(SRC_DIR)graphics_lines.c
 
 LIBFT_DIR=libft
 LIBFT=$(LIBFT_DIR)/libft.a
