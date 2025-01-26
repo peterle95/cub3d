@@ -34,6 +34,7 @@ int	main()
 	data.mlx = mlx_init();
 	data.mlx_win = mlx_new_window(data.mlx, 1920, 1080, "dooomed");
 	mlx_hook(data.mlx_win, 3, 1L << 1, &key_up, &data);
+	mlx_hook(data.mlx_win, 17, 0, &terminator, &data);
 	init_img(&data);
 	mlx_loop_hook(data.mlx, &draw, &data);
 
