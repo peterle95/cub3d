@@ -1,18 +1,19 @@
 #include "window.h"
 
-void fill_square(t_data *data, int x, int y, int side_length) {
-    int row = y;
-    while (row < y + side_length) {
-        int col = x;
-        while (col < x + side_length) {
-            // Ensure the pixel is within screen bounds
-            if (row >= 0 && row < 1080 && col >= 0 && col < 1920) {
-                // Use put_pixels to place the pixel
+void	fill_square(t_data *data, int x, int y, int len_side)
+{
+	int row; 
+	int	col;
+
+	row = y;
+    while (row < y + len_side) {
+        col = x;
+        while (col < x + len_side) {
+            if (row >= 0 && row < 1080 && col >= 0 && col < 1920)
                 put_pixel_to_img(data, col, row, 0x00FF0000);
-            }
-            col++;  // Increment column
+            col++;
         }
-        row++;  // Increment row
+        row++;
     }
 }
 
