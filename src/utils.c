@@ -1,17 +1,22 @@
 #include "window.h"
 
-
 void	init_colour_fade(t_data *data)
 {
 	data->t = 0;
-	data->r = 255;
+	data->r = 0;
 	data->g = 0;
 	data->b = 0;
 }
 
+// oder of mlx_destroy funcs important
+// afrer calling mlx_destroy_image() can
+// then free mem allocated for struct t_img_data
 int	terminator(t_data *data)
 {
 	printf("Hasta la vista, baby!\n");
+	free_data(data);
+	mlx_destroy_image(data->mlx, data->img_data0->img);
+	free(data->img_data0);
 	mlx_destroy_window(data->mlx, data->mlx_win);
 	mlx_destroy_display(data->mlx);
 	free(data->mlx);
@@ -29,18 +34,22 @@ int	key_up(int keycode, t_data *data)
 void	init_img(t_data *data)
 {
 	data->img_data0 = malloc(sizeof(t_img_data));
+	// error
 	data->img_data0->img = mlx_new_image(data->mlx, 1920, 1080);
 	data->img_data0->addr = mlx_get_data_addr(data->img_data0->img, &data->img_data0->bits_per_pixel,
 			&data->img_data0->line_length, &data->img_data0->endian);
 
-	data->img_data1 = malloc(sizeof(t_img_data));
-	data->img_data1->img = mlx_new_image(data->mlx, 1920, 1080);
-	data->img_data1->addr = mlx_get_data_addr(data->img_data1->img, &data->img_data1->bits_per_pixel,
-			&data->img_data1->line_length, &data->img_data1->endian);
-	
-	printf("bpp: %d, ll: %d, e: %d\n", data->img_data0->bits_per_pixel,
-			data->img_data0->line_length, data->img_data0->endian);
-	printf("addr: %p\n", data->img_data0->addr);
+	// data->img_data1 = malloc(sizeof(t_img_data));
+	// data->img_data1->img = mlx_new_image(data->mlx, 1920, 1080);
+	// data->img_data1->addr = mlx_get_data_addr(data->img_data1->img, &data->img_data1->bits_per_pixel,
+	// 		&data->img_data1->line_length, &data->img_data1->endian);
+
+	if (DEBUG)
+	{
+		printf("bpp: %d, ll: %d, e: %d\n", data->img_data0->bits_per_pixel,
+				data->img_data0->line_length, data->img_data0->endian);
+		printf("addr: %p\n", data->img_data0->addr);
+	}
 }
 
 void	put_pixel_to_img(t_data *data, int x, int y, int color)
@@ -84,3 +93,19 @@ void	clear_image_to_colour(t_data *data, int colour)
 		}
 	}
 }
+
+void	free_2d_char_arr(char **arr)
+{
+	int	i;
+	
+	i = 0;
+	while (arr && arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+	arr = NULL;
+}
+
+

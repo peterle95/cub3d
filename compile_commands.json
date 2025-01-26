@@ -6,6 +6,28 @@
       "-Werror",
       "-Wextra",
       "-g",
+      "-D",
+      "DEBUG=1",
+      "-Iinclude",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/debug.o",
+      "src/debug.c"
+    ],
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/src/debug.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/obj/debug.o"
+  },
+  {
+    "arguments": [
+      "/usr/lib64/ccache/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g",
+      "-D",
+      "DEBUG=1",
       "-Iinclude",
       "-Ilibft",
       "-c",
@@ -13,9 +35,9 @@
       "obj/window.o",
       "src/window.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/src/window.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/obj/window.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/src/window.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/obj/window.o"
   },
   {
     "arguments": [
@@ -24,6 +46,8 @@
       "-Werror",
       "-Wextra",
       "-g",
+      "-D",
+      "DEBUG=1",
       "-Iinclude",
       "-Ilibft",
       "-c",
@@ -31,9 +55,9 @@
       "obj/utils.o",
       "src/utils.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/src/utils.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/obj/utils.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/src/utils.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/obj/utils.o"
   },
   {
     "arguments": [
@@ -42,6 +66,8 @@
       "-Werror",
       "-Wextra",
       "-g",
+      "-D",
+      "DEBUG=1",
       "-Iinclude",
       "-Ilibft",
       "-c",
@@ -49,9 +75,9 @@
       "obj/load_map.o",
       "src/load_map.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/src/load_map.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/obj/load_map.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/src/load_map.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/obj/load_map.o"
   },
   {
     "arguments": [
@@ -60,6 +86,8 @@
       "-Werror",
       "-Wextra",
       "-g",
+      "-D",
+      "DEBUG=1",
       "-Iinclude",
       "-Ilibft",
       "-c",
@@ -67,9 +95,9 @@
       "obj/map_validation.o",
       "src/map_validation.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/src/map_validation.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/obj/map_validation.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/src/map_validation.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/obj/map_validation.o"
   },
   {
     "arguments": [
@@ -78,6 +106,8 @@
       "-Werror",
       "-Wextra",
       "-g",
+      "-D",
+      "DEBUG=1",
       "-Iinclude",
       "-Ilibft",
       "-c",
@@ -85,9 +115,9 @@
       "obj/error_msg.o",
       "src/error_msg.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/src/error_msg.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/obj/error_msg.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/src/error_msg.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/obj/error_msg.o"
   },
   {
     "arguments": [
@@ -96,6 +126,8 @@
       "-Werror",
       "-Wextra",
       "-g",
+      "-D",
+      "DEBUG=1",
       "-Iinclude",
       "-Ilibft",
       "-c",
@@ -103,9 +135,9 @@
       "obj/get_next_line.o",
       "src/get_next_line.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/src/get_next_line.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/obj/get_next_line.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/src/get_next_line.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/obj/get_next_line.o"
   },
   {
     "arguments": [
@@ -114,6 +146,8 @@
       "-Werror",
       "-Wextra",
       "-g",
+      "-D",
+      "DEBUG=1",
       "-Iinclude",
       "-Ilibft",
       "-c",
@@ -121,9 +155,49 @@
       "obj/get_next_line_utils.o",
       "src/get_next_line_utils.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/src/get_next_line_utils.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/obj/get_next_line_utils.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/src/get_next_line_utils.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/obj/get_next_line_utils.o"
+  },
+  {
+    "arguments": [
+      "/usr/lib64/ccache/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g",
+      "-D",
+      "DEBUG=1",
+      "-Iinclude",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/load_map_utils.o",
+      "src/load_map_utils.c"
+    ],
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/src/load_map_utils.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/obj/load_map_utils.o"
+  },
+  {
+    "arguments": [
+      "/usr/lib64/ccache/cc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-g",
+      "-D",
+      "DEBUG=1",
+      "-Iinclude",
+      "-Ilibft",
+      "-c",
+      "-o",
+      "obj/free_data.o",
+      "src/free_data.c"
+    ],
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/src/free_data.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/obj/free_data.o"
   },
   {
     "arguments": [
@@ -136,9 +210,9 @@
       "ft_isalpha.o",
       "ft_isalpha.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_isalpha.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_isalpha.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_isalpha.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_isalpha.o"
   },
   {
     "arguments": [
@@ -151,9 +225,9 @@
       "ft_isdigit.o",
       "ft_isdigit.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_isdigit.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_isdigit.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_isdigit.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_isdigit.o"
   },
   {
     "arguments": [
@@ -166,9 +240,9 @@
       "ft_isalnum.o",
       "ft_isalnum.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_isalnum.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_isalnum.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_isalnum.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_isalnum.o"
   },
   {
     "arguments": [
@@ -181,9 +255,9 @@
       "ft_isascii.o",
       "ft_isascii.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_isascii.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_isascii.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_isascii.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_isascii.o"
   },
   {
     "arguments": [
@@ -196,9 +270,9 @@
       "ft_isprint.o",
       "ft_isprint.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_isprint.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_isprint.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_isprint.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_isprint.o"
   },
   {
     "arguments": [
@@ -211,9 +285,9 @@
       "ft_strlen.o",
       "ft_strlen.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_strlen.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_strlen.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_strlen.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_strlen.o"
   },
   {
     "arguments": [
@@ -226,9 +300,9 @@
       "ft_memset.o",
       "ft_memset.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_memset.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_memset.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_memset.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_memset.o"
   },
   {
     "arguments": [
@@ -241,9 +315,9 @@
       "ft_bzero.o",
       "ft_bzero.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_bzero.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_bzero.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_bzero.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_bzero.o"
   },
   {
     "arguments": [
@@ -256,9 +330,9 @@
       "ft_memcpy.o",
       "ft_memcpy.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_memcpy.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_memcpy.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_memcpy.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_memcpy.o"
   },
   {
     "arguments": [
@@ -271,9 +345,9 @@
       "ft_memmove.o",
       "ft_memmove.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_memmove.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_memmove.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_memmove.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_memmove.o"
   },
   {
     "arguments": [
@@ -286,9 +360,9 @@
       "ft_strlcpy.o",
       "ft_strlcpy.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_strlcpy.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_strlcpy.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_strlcpy.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_strlcpy.o"
   },
   {
     "arguments": [
@@ -301,9 +375,9 @@
       "ft_strlcat.o",
       "ft_strlcat.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_strlcat.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_strlcat.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_strlcat.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_strlcat.o"
   },
   {
     "arguments": [
@@ -316,9 +390,9 @@
       "ft_toupper.o",
       "ft_toupper.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_toupper.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_toupper.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_toupper.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_toupper.o"
   },
   {
     "arguments": [
@@ -331,9 +405,9 @@
       "ft_tolower.o",
       "ft_tolower.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_tolower.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_tolower.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_tolower.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_tolower.o"
   },
   {
     "arguments": [
@@ -346,9 +420,9 @@
       "ft_strchr.o",
       "ft_strchr.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_strchr.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_strchr.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_strchr.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_strchr.o"
   },
   {
     "arguments": [
@@ -361,9 +435,9 @@
       "ft_strrchr.o",
       "ft_strrchr.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_strrchr.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_strrchr.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_strrchr.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_strrchr.o"
   },
   {
     "arguments": [
@@ -376,9 +450,9 @@
       "ft_strncmp.o",
       "ft_strncmp.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_strncmp.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_strncmp.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_strncmp.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_strncmp.o"
   },
   {
     "arguments": [
@@ -391,9 +465,9 @@
       "ft_split.o",
       "ft_split.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_split.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_split.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_split.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_split.o"
   },
   {
     "arguments": [
@@ -406,9 +480,9 @@
       "ft_memchr.o",
       "ft_memchr.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_memchr.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_memchr.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_memchr.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_memchr.o"
   },
   {
     "arguments": [
@@ -421,9 +495,9 @@
       "ft_memcmp.o",
       "ft_memcmp.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_memcmp.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_memcmp.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_memcmp.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_memcmp.o"
   },
   {
     "arguments": [
@@ -436,9 +510,9 @@
       "ft_strnstr.o",
       "ft_strnstr.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_strnstr.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_strnstr.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_strnstr.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_strnstr.o"
   },
   {
     "arguments": [
@@ -451,9 +525,9 @@
       "ft_atoi.o",
       "ft_atoi.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_atoi.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_atoi.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_atoi.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_atoi.o"
   },
   {
     "arguments": [
@@ -466,9 +540,9 @@
       "ft_calloc.o",
       "ft_calloc.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_calloc.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_calloc.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_calloc.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_calloc.o"
   },
   {
     "arguments": [
@@ -481,9 +555,9 @@
       "ft_strdup.o",
       "ft_strdup.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_strdup.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_strdup.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_strdup.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_strdup.o"
   },
   {
     "arguments": [
@@ -496,9 +570,9 @@
       "ft_substr.o",
       "ft_substr.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_substr.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_substr.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_substr.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_substr.o"
   },
   {
     "arguments": [
@@ -511,9 +585,9 @@
       "ft_strjoin.o",
       "ft_strjoin.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_strjoin.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_strjoin.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_strjoin.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_strjoin.o"
   },
   {
     "arguments": [
@@ -526,9 +600,9 @@
       "ft_strtrim.o",
       "ft_strtrim.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_strtrim.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_strtrim.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_strtrim.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_strtrim.o"
   },
   {
     "arguments": [
@@ -541,9 +615,9 @@
       "ft_itoa.o",
       "ft_itoa.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_itoa.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_itoa.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_itoa.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_itoa.o"
   },
   {
     "arguments": [
@@ -556,9 +630,9 @@
       "ft_strmapi.o",
       "ft_strmapi.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_strmapi.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_strmapi.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_strmapi.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_strmapi.o"
   },
   {
     "arguments": [
@@ -571,9 +645,9 @@
       "ft_striteri.o",
       "ft_striteri.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_striteri.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_striteri.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_striteri.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_striteri.o"
   },
   {
     "arguments": [
@@ -586,9 +660,9 @@
       "ft_putchar_fd.o",
       "ft_putchar_fd.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_putchar_fd.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_putchar_fd.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_putchar_fd.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_putchar_fd.o"
   },
   {
     "arguments": [
@@ -601,9 +675,9 @@
       "ft_putstr_fd.o",
       "ft_putstr_fd.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_putstr_fd.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_putstr_fd.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_putstr_fd.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_putstr_fd.o"
   },
   {
     "arguments": [
@@ -616,9 +690,9 @@
       "ft_putendl_fd.o",
       "ft_putendl_fd.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_putendl_fd.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_putendl_fd.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_putendl_fd.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_putendl_fd.o"
   },
   {
     "arguments": [
@@ -631,9 +705,9 @@
       "ft_putnbr_fd.o",
       "ft_putnbr_fd.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_putnbr_fd.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_putnbr_fd.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_putnbr_fd.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_putnbr_fd.o"
   },
   {
     "arguments": [
@@ -646,9 +720,9 @@
       "ft_printf.o",
       "ft_printf.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_printf.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_printf.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_printf.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_printf.o"
   },
   {
     "arguments": [
@@ -661,9 +735,9 @@
       "ft_putchar_printf.o",
       "ft_putchar_printf.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_putchar_printf.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_putchar_printf.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_putchar_printf.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_putchar_printf.o"
   },
   {
     "arguments": [
@@ -676,9 +750,9 @@
       "ft_putstr_printf.o",
       "ft_putstr_printf.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_putstr_printf.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_putstr_printf.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_putstr_printf.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_putstr_printf.o"
   },
   {
     "arguments": [
@@ -691,9 +765,9 @@
       "ft_putnbr_printf.o",
       "ft_putnbr_printf.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_putnbr_printf.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_putnbr_printf.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_putnbr_printf.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_putnbr_printf.o"
   },
   {
     "arguments": [
@@ -706,9 +780,9 @@
       "ft_putuint_printf.o",
       "ft_putuint_printf.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_putuint_printf.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_putuint_printf.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_putuint_printf.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_putuint_printf.o"
   },
   {
     "arguments": [
@@ -721,9 +795,9 @@
       "ft_puthex_printf.o",
       "ft_puthex_printf.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_puthex_printf.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_puthex_printf.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_puthex_printf.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_puthex_printf.o"
   },
   {
     "arguments": [
@@ -736,9 +810,9 @@
       "ft_putptr_printf.o",
       "ft_putptr_printf.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_putptr_printf.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_putptr_printf.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_putptr_printf.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_putptr_printf.o"
   },
   {
     "arguments": [
@@ -751,9 +825,9 @@
       "ft_aux_printf.o",
       "ft_aux_printf.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/libft",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_aux_printf.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/libft/ft_aux_printf.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/libft",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_aux_printf.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/libft/ft_aux_printf.o"
   },
   {
     "arguments": [
@@ -765,9 +839,9 @@
       "obj/mlx_init.o",
       "mlx_init.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_init.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_init.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_init.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_init.o"
   },
   {
     "arguments": [
@@ -779,9 +853,9 @@
       "obj/mlx_new_window.o",
       "mlx_new_window.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_new_window.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_new_window.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_new_window.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_new_window.o"
   },
   {
     "arguments": [
@@ -793,9 +867,9 @@
       "obj/mlx_pixel_put.o",
       "mlx_pixel_put.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_pixel_put.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_pixel_put.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_pixel_put.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_pixel_put.o"
   },
   {
     "arguments": [
@@ -807,9 +881,9 @@
       "obj/mlx_loop.o",
       "mlx_loop.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_loop.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_loop.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_loop.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_loop.o"
   },
   {
     "arguments": [
@@ -821,9 +895,9 @@
       "obj/mlx_mouse_hook.o",
       "mlx_mouse_hook.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_mouse_hook.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_mouse_hook.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_mouse_hook.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_mouse_hook.o"
   },
   {
     "arguments": [
@@ -835,9 +909,9 @@
       "obj/mlx_key_hook.o",
       "mlx_key_hook.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_key_hook.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_key_hook.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_key_hook.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_key_hook.o"
   },
   {
     "arguments": [
@@ -849,9 +923,9 @@
       "obj/mlx_expose_hook.o",
       "mlx_expose_hook.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_expose_hook.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_expose_hook.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_expose_hook.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_expose_hook.o"
   },
   {
     "arguments": [
@@ -863,9 +937,9 @@
       "obj/mlx_loop_hook.o",
       "mlx_loop_hook.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_loop_hook.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_loop_hook.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_loop_hook.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_loop_hook.o"
   },
   {
     "arguments": [
@@ -877,9 +951,9 @@
       "obj/mlx_int_anti_resize_win.o",
       "mlx_int_anti_resize_win.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_int_anti_resize_win.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_int_anti_resize_win.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_int_anti_resize_win.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_int_anti_resize_win.o"
   },
   {
     "arguments": [
@@ -891,9 +965,9 @@
       "obj/mlx_int_do_nothing.o",
       "mlx_int_do_nothing.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_int_do_nothing.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_int_do_nothing.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_int_do_nothing.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_int_do_nothing.o"
   },
   {
     "arguments": [
@@ -905,9 +979,9 @@
       "obj/mlx_int_wait_first_expose.o",
       "mlx_int_wait_first_expose.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_int_wait_first_expose.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_int_wait_first_expose.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_int_wait_first_expose.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_int_wait_first_expose.o"
   },
   {
     "arguments": [
@@ -919,9 +993,9 @@
       "obj/mlx_int_get_visual.o",
       "mlx_int_get_visual.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_int_get_visual.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_int_get_visual.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_int_get_visual.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_int_get_visual.o"
   },
   {
     "arguments": [
@@ -933,9 +1007,9 @@
       "obj/mlx_flush_event.o",
       "mlx_flush_event.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_flush_event.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_flush_event.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_flush_event.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_flush_event.o"
   },
   {
     "arguments": [
@@ -947,9 +1021,9 @@
       "obj/mlx_string_put.o",
       "mlx_string_put.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_string_put.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_string_put.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_string_put.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_string_put.o"
   },
   {
     "arguments": [
@@ -961,9 +1035,9 @@
       "obj/mlx_set_font.o",
       "mlx_set_font.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_set_font.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_set_font.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_set_font.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_set_font.o"
   },
   {
     "arguments": [
@@ -975,9 +1049,9 @@
       "obj/mlx_new_image.o",
       "mlx_new_image.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_new_image.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_new_image.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_new_image.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_new_image.o"
   },
   {
     "arguments": [
@@ -989,9 +1063,9 @@
       "obj/mlx_get_data_addr.o",
       "mlx_get_data_addr.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_get_data_addr.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_get_data_addr.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_get_data_addr.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_get_data_addr.o"
   },
   {
     "arguments": [
@@ -1003,9 +1077,9 @@
       "obj/mlx_put_image_to_window.o",
       "mlx_put_image_to_window.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_put_image_to_window.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_put_image_to_window.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_put_image_to_window.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_put_image_to_window.o"
   },
   {
     "arguments": [
@@ -1017,9 +1091,9 @@
       "obj/mlx_get_color_value.o",
       "mlx_get_color_value.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_get_color_value.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_get_color_value.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_get_color_value.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_get_color_value.o"
   },
   {
     "arguments": [
@@ -1031,9 +1105,9 @@
       "obj/mlx_clear_window.o",
       "mlx_clear_window.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_clear_window.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_clear_window.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_clear_window.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_clear_window.o"
   },
   {
     "arguments": [
@@ -1045,9 +1119,9 @@
       "obj/mlx_xpm.o",
       "mlx_xpm.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_xpm.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_xpm.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_xpm.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_xpm.o"
   },
   {
     "arguments": [
@@ -1059,9 +1133,9 @@
       "obj/mlx_int_str_to_wordtab.o",
       "mlx_int_str_to_wordtab.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_int_str_to_wordtab.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_int_str_to_wordtab.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_int_str_to_wordtab.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_int_str_to_wordtab.o"
   },
   {
     "arguments": [
@@ -1073,9 +1147,9 @@
       "obj/mlx_destroy_window.o",
       "mlx_destroy_window.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_destroy_window.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_destroy_window.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_destroy_window.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_destroy_window.o"
   },
   {
     "arguments": [
@@ -1087,9 +1161,9 @@
       "obj/mlx_int_param_event.o",
       "mlx_int_param_event.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_int_param_event.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_int_param_event.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_int_param_event.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_int_param_event.o"
   },
   {
     "arguments": [
@@ -1101,9 +1175,9 @@
       "obj/mlx_int_set_win_event_mask.o",
       "mlx_int_set_win_event_mask.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_int_set_win_event_mask.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_int_set_win_event_mask.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_int_set_win_event_mask.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_int_set_win_event_mask.o"
   },
   {
     "arguments": [
@@ -1115,9 +1189,9 @@
       "obj/mlx_hook.o",
       "mlx_hook.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_hook.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_hook.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_hook.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_hook.o"
   },
   {
     "arguments": [
@@ -1129,9 +1203,9 @@
       "obj/mlx_rgb.o",
       "mlx_rgb.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_rgb.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_rgb.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_rgb.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_rgb.o"
   },
   {
     "arguments": [
@@ -1143,9 +1217,9 @@
       "obj/mlx_destroy_image.o",
       "mlx_destroy_image.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_destroy_image.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_destroy_image.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_destroy_image.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_destroy_image.o"
   },
   {
     "arguments": [
@@ -1157,9 +1231,9 @@
       "obj/mlx_mouse.o",
       "mlx_mouse.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_mouse.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_mouse.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_mouse.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_mouse.o"
   },
   {
     "arguments": [
@@ -1171,9 +1245,9 @@
       "obj/mlx_screen_size.o",
       "mlx_screen_size.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_screen_size.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_screen_size.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_screen_size.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_screen_size.o"
   },
   {
     "arguments": [
@@ -1185,9 +1259,9 @@
       "obj/mlx_destroy_display.o",
       "mlx_destroy_display.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/mlx_destroy_display.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/obj/mlx_destroy_display.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/mlx_destroy_display.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/obj/mlx_destroy_display.o"
   },
   {
     "arguments": [
@@ -1201,8 +1275,8 @@
       "main.o",
       "main.c"
     ],
-    "directory": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/test",
-    "file": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/test/main.c",
-    "output": "/home/cpt/42/cube3D/vers0/cube3d/minilibx-linux/test/main.o"
+    "directory": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/test",
+    "file": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/test/main.c",
+    "output": "/home/cpt/42/cube3d/vers0/cube3d/minilibx-linux/test/main.o"
   }
 ]
