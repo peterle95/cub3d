@@ -1,11 +1,13 @@
 CLANG=cc
 CFLAGS=-Wall -Werror -Wextra -MMD -g
 INCL=-Iinclude -Ilibft
-LDFLAGS=-Llibft -Lminilibx-linux -lft -lmlx -lXext -lX11 -lz -lm
+LIBFLAGS=-Llibft -Lminilibx-linux -lft -lmlx -lXext -lX11 -lz -lm
+PFLAGS=-D DEBUG=1
 NAME=win
 SRC_DIR=src/
 OBJ_DIR=obj/
 
+SRCS += $(SRC_DIR)debug.c
 SRCS += $(SRC_DIR)window.c
 SRCS += $(SRC_DIR)utils.c
 SRCS += $(SRC_DIR)load_map.c
@@ -13,6 +15,8 @@ SRCS += $(SRC_DIR)map_validation.c
 SRCS += $(SRC_DIR)error_msg.c
 SRCS += $(SRC_DIR)get_next_line.c
 SRCS += $(SRC_DIR)get_next_line_utils.c
+SRCS += $(SRC_DIR)load_map_utils.c
+SRCS += $(SRC_DIR)free_data.c
 
 LIBFT_DIR=libft
 LIBFT=$(LIBFT_DIR)/libft.a
@@ -31,12 +35,12 @@ $(MINILIBX):
 		$(MAKE) -C $(dir $@)
 
 $(NAME): $(OBJS) $(LIBFT) $(MINILIBX)
-	$(CLANG) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)
+	$(CLANG) $(CFLAGS) $(OBJS) $(LIBFLAGS) -o $(NAME)
 
 -include $(DEPS)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	$(CLANG) $(CFLAGS) $(INCL) -c $< -o $@
+	$(CLANG) $(CFLAGS) $(PFLAGS) $(INCL) -c $< -o $@
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)

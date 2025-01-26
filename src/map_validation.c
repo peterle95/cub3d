@@ -188,9 +188,23 @@ static int validate_texture_path(char *path)
     return (1);
 }
 
+static int	validate_textures(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < N_TEXTURES)
+	{
+		if (!validate_texture_path(data->map.config[i][1]))
+			return (-1);
+		i++;
+	}
+	return (0);
+}
+
 int validate_map(t_data *data)
 {
-    if(data->debug_mode == 0)
+    if(DEBUG)
     {
         char *valid_map[] = 
         {
@@ -237,29 +251,34 @@ int validate_map(t_data *data)
         NULL,
     };
 
-    char *complex_map_2[] = 
-    {
-        "    1111          1111111111",
-        "    1001          1001   101",
-        "111110001         1001111101",
-        "1000000001        1000000001",
-        "1000000001111111111000000001",
-        "1000000000000000000000000001",
-        "100000000000000000000000001", 
-        " 10000111111111111111100001",
-        " 100001              100001",
-        " 100001              100001",
-        " 100001              100001",
-        " 111111              100001",
-        "              1111111100001",
-        "111111111111111000000000001",
-        "100000000000000000111111111",
-        "100000000000001111         ",
-        "111111111111111            ",
-        NULL,
-    };
+    // char *complex_map_2[] = 
+    // {
+    //     "    1111          1111111111",
+    //     "    1001          1001   101",
+    //     "111110001         1001111101",
+    //     "1000000001        1000000001",
+    //     "1000000001111111111000000001",
+    //     "1000000000000000000000000001",
+    //     "100000000000000000000000001", 
+    //     " 10000111111111111111100001",
+    //     " 100001              100001",
+    //     " 100001              100001",
+    //     " 100001              100001",
+    //     " 111111              100001",
+    //     "              1111111100001",
+    //     "111111111111111000000000001",
+    //     "100000000000000000111111111",
+    //     "100000000000001111         ",
+    //     "111111111111111            ",
+    //     NULL,
+    // };
 
-    
+        printf("Testing parsed map:\n");
+		if (is_surrounded_by_walls(data->map.map_array, data->map.height, data->map.width))
+            printf("Valid map test passed!\n\n");
+		else
+        	printf("Invalid map test failed!\n\n");
+ 
 
         printf("Testing valid map:\n");
         if (is_surrounded_by_walls(valid_map, 4, 8))
@@ -278,24 +297,22 @@ int validate_map(t_data *data)
             printf("Complex map test passed!\n");
     }
     // Check if data or map is NULL
-    if (!data || !data->map.no || !data->map.so || 
-        !data->map.we || !data->map.ea)
+    if (!data || !data->map.config[0][1] || !data->map.config[1][1] || 
+        !data->map.config[2][1] || !data->map.config[3][1])
     {
         error("Error: Map data not properly initialized");
         return (1);
     }
 
     // validate .cub map
-    
-    if (!validate_texture_path(data->map.no) || !validate_texture_path(data->map.so) ||
-        !validate_texture_path(data->map.we) || !validate_texture_path(data->map.ea))
-        return (1);
+	if (validate_textures(data) != 0)
+		return (1);
     // Validate map characters and player count
     if (!validate_map_chars(data->map.map_array, "01"))
         return (1);
 
     // Validate colors
-    if (!validate_rgb(data->map.f) || !validate_rgb(data->map.c))
+    if (!validate_rgb(data->map.config[1][N_CONFIGS - 3]) || !validate_rgb(data->map.config[1][N_CONFIGS - 2]))
         return (1);
 
     // Validate map is surrounded by walls
