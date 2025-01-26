@@ -1,7 +1,8 @@
- libft/
- minilibx-linux/
- compile_commands.json
- win
- minilibx-linux
- *.*
- .cache/
+libft/
+minilibx-linux/
+compile_commands.json
+win
+minilibx-linux
+*.*
+.cache/ 
+vgcore.*
