@@ -3,7 +3,6 @@ minilibx-linux/
 compile_commands.json
 win
 minilibx-linux
-*.*
 .cache/ 
 vgcore.*
 *.a
