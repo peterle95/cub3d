@@ -58,6 +58,8 @@ typedef struct	s_data
 	void		*mlx_win;
 	t_img_data	*img_data0;
 	t_img_data	*img_data1;
+	int			window_width;
+	int			window_height;
 	int			t;
 	int			r;
 	int			g;

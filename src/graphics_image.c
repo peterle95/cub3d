@@ -4,15 +4,9 @@ void	init_img(t_data *data)
 {
 	data->img_data0 = malloc(sizeof(t_img_data));
 	// error
-	data->img_data0->img = mlx_new_image(data->mlx, 1920, 1080);
+	data->img_data0->img = mlx_new_image(data->mlx, data->window_width, data->window_height);
 	data->img_data0->addr = mlx_get_data_addr(data->img_data0->img, &data->img_data0->bits_per_pixel,
 			&data->img_data0->line_length, &data->img_data0->endian);
-
-	// data->img_data1 = malloc(sizeof(t_img_data));
-	// data->img_data1->img = mlx_new_image(data->mlx, 1920, 1080);
-	// data->img_data1->addr = mlx_get_data_addr(data->img_data1->img, &data->img_data1->bits_per_pixel,
-	// 		&data->img_data1->line_length, &data->img_data1->endian);
-
 	if (DEBUG)
 	{
 		printf("bpp: %d, ll: %d, e: %d\n", data->img_data0->bits_per_pixel,
@@ -21,10 +15,9 @@ void	init_img(t_data *data)
 	}
 }
 
-// add width and height to data
 void	put_pixel_to_img(t_data *data, int x, int y, int color)
 {
-	if (x >= 0 && x < 1920 && y >= 0 && y < 1080)
+	if (x >= 0 && x < data->window_width && y >= 0 && y < data->window_height)
 	{
 		char	*dst;
 
@@ -57,12 +50,10 @@ void	clear_image_to_colour(t_data *data, int colour)
 {
 	int	x;
 	int	y;
-	int	width = 1920;
-	int	height = 1080;
 
-	for (y = 0; y < height; y++)
+	for (y = 0; y < data->window_height; y++)
 	{
-		for (x = 0; x < width; x++)
+		for (x = 0; x < data->window_width; x++)
 		{
 			put_pixel_to_img(data, x, y, colour);
 		}

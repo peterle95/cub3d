@@ -2,19 +2,20 @@
 
 void	fill_square(t_data *data, int x, int y, int len_side)
 {
-	int row; 
+	int	row; 
 	int	col;
 
 	row = y;
-    while (row < y + len_side) {
-        col = x;
-        while (col < x + len_side) {
-            if (row >= 0 && row < 1080 && col >= 0 && col < 1920)
-                put_pixel_to_img(data, col, row, 0x00FF0000);
-            col++;
-        }
-        row++;
-    }
+	while (row < y + len_side) 
+	{
+		col = x;
+		while (col < x + len_side) {
+			if (row >= 0 && row < data->window_height && col >= 0 && col < data->window_width)
+				put_pixel_to_img(data, col, row, 0x00FF0000);
+			col++;
+		}
+		row++;
+	}
 }
 
 int	draw_grid(t_data *data)
@@ -30,7 +31,7 @@ int	draw_grid(t_data *data)
 	else
 		greater = data->map.width;
 	// rather than 1920 needs to be correspoding w or h
-	scalar = 1080 / greater;
+	scalar = data->window_height / greater;
 	// + 1 to w and h to account for the last cell having a w and h
 	y = 0;
 	while (y < data->map.height)
@@ -72,7 +73,6 @@ int	draw_grid(t_data *data)
 int	draw(t_data *data)
 {
 	clear_image_to_colour(data, set_trgb(data->t, data->r, data->g, data->b));
-	// add_random_pixels(data, 1920, 1080, 1000);
 	// obvs don't want to calculate the lines each time through the draw loop
 	// t_line	*line;
 	// line = init_line(0, 0, 500, 500);
@@ -88,6 +88,8 @@ int	draw(t_data *data)
 int	init_data(t_data *data)
 {
 	data->map.map_array = NULL;
+	data->window_width = 1920;
+	data->window_height = 1080;
 	return (0);
 }
 
@@ -106,7 +108,7 @@ int	main()
 		return (error("Invalid map configuration"));
 	init_colour_fade(&data);
 	data.mlx = mlx_init();
-	data.mlx_win = mlx_new_window(data.mlx, 1920, 1080, "dooomed");
+	data.mlx_win = mlx_new_window(data.mlx, data.window_width, data.window_height, "dooomed");
 	mlx_hook(data.mlx_win, 3, 1L << 1, &key_up, &data);
 	init_img(&data);
 	mlx_loop_hook(data.mlx, &draw, &data);
