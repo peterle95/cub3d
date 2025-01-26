@@ -1,5 +1,7 @@
 #include "window.h"
 
+// TODO: error handling for malloc fail
+
 // N_CONFIGS
 // N_TEXTURES
 // F and C are always referenced as confic[N_CONFIGS - 2]
@@ -98,11 +100,6 @@ static void	copy_chars(t_data *data, char *flat_map)
 			flat_map++;
 			j = 0;
 		}
-		// if (*flat_map == ' ')
-		// {
-		// 	j++;
-		// 	flat_map++;
-		// }
 		if (member_of_set(*flat_map, VALID_MAP_CHARS))
 		{
 			data->map.map_array[i][j] = *flat_map;
@@ -175,13 +172,11 @@ int	load_map_data(t_data *data, char *f_name)
 	}
 	flat_map_to_map_array(data);
 	load_map_clean_up(data, line, fd);
-	// add freeing of flat array to load_map_clean_up
 	if (DEBUG)
 	{
 		printf("map_array:\n");
 		print_string_array(data->map.map_array, data->map.n_rows);
 	}
-	// close(fd);
 	return (0);
 }
 
