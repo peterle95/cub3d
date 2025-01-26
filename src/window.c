@@ -12,12 +12,18 @@ int	draw(t_data *data)
 	return (0);
 }
 
+int	init_data(t_data *data)
+{
+	data->map.map_array = NULL;
+	return (0);
+}
 
 int	main()
 {
 	printf(">>> Doomed <<<\n");
 	t_data	data;
 
+	init_data(&data);
 	if(DEBUG)
 		printf("DEBUG MODE ON\n");
 	if (load_map_data(&data, "test_map.cub") != 0)

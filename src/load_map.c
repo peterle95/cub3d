@@ -37,8 +37,13 @@ static int	init_ids(t_data *data)
 // first pull map data into a single string
 static int	parse_map(t_data *data, char *line)
 {
-	int	len;
-	data->map.flat_map = ft_strjoin(data->map.flat_map, line);
+	char	*temp;
+	int		len;
+	
+	temp = ft_strdup(data->map.flat_map);
+	free(data->map.flat_map);
+	data->map.flat_map = ft_strjoin(temp, line);
+	free(temp);
 	len = ft_strlen(line); 
 	if (len > data->map.width)
 		data->map.width = len;
@@ -93,12 +98,12 @@ static void	copy_chars(t_data *data, char *flat_map)
 			flat_map++;
 			j = 0;
 		}
-		if (*flat_map == ' ')
-		{
-			j++;
-			flat_map++;
-		}
-		else if (member_of_set(*flat_map, VALID_MAP_CHARS))
+		// if (*flat_map == ' ')
+		// {
+		// 	j++;
+		// 	flat_map++;
+		// }
+		if (member_of_set(*flat_map, VALID_MAP_CHARS))
 		{
 			data->map.map_array[i][j] = *flat_map;
 			flat_map++;
@@ -108,6 +113,7 @@ static void	copy_chars(t_data *data, char *flat_map)
 }
 
 // load data->map.flat_map into data->map.map_array
+// TODO: on error free flat_map
 static int	flat_map_to_map_array(t_data *data)
 {
 	int	i;
@@ -115,7 +121,8 @@ static int	flat_map_to_map_array(t_data *data)
 
 	if (DEBUG)
 		printf("flat_map:\n%s", data->map.flat_map);
-	data->map.map_array = malloc(data->map.n_rows * sizeof(char *));
+	data->map.map_array = malloc((data->map.n_rows + 1) * sizeof(char *));
+	data->map.map_array[data->map.n_rows] = NULL;
 	// error
 	i = 0;
 	j = 0;
@@ -144,6 +151,7 @@ static int	load_map_clean_up(t_data *data, char *line, int fd)
 		line = get_next_line(fd);
 	}
 	close(fd);
+	free(data->map.flat_map);
 	return(-1);
 }
 
@@ -165,16 +173,15 @@ int	load_map_data(t_data *data, char *f_name)
 		if (line && parse_line(data, line) != 0)
 			return load_map_clean_up(data, line, fd);
 	}
-	load_map_clean_up(data, line, fd);
 	flat_map_to_map_array(data);
-	free(data->map.flat_map);
+	load_map_clean_up(data, line, fd);
 	// add freeing of flat array to load_map_clean_up
 	if (DEBUG)
 	{
 		printf("map_array:\n");
 		print_string_array(data->map.map_array, data->map.n_rows);
 	}
-	close(fd);
+	// close(fd);
 	return (0);
 }
 
