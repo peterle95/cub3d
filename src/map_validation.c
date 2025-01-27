@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "window.h"
+#include "cube3d.h"
 
 static int	validate_rgb(char *color)
 {

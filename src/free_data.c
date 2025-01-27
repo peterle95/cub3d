@@ -1,4 +1,4 @@
-#include "window.h"
+#include "cube3d.h"
 
 static void	free_map_config(t_data *data)
 {
