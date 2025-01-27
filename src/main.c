@@ -13,7 +13,6 @@ int	render_with_transpareny(t_data *data, t_texture *t, int mx, int my)
 		{
 			int pixel = (y * t->size_line) + (x * (t->bpp / 8));
 			int color = *(int *)(t->addr + pixel);
-			// Skip the transparent color (e.g., 0x00000000 or None)
 			if (color != 0xFFFFFF) {
 				mlx_pixel_put(data->mlx, data->mlx_win, mx+x, my+y, color);
 			}
