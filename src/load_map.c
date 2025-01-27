@@ -1,4 +1,4 @@
-#include "window.h"
+#include "cube3d.h"
 
 // TODO: error handling for malloc fail
 
@@ -12,7 +12,6 @@ static int	init_ids(t_data *data)
 
 	data->map.flat_map = ft_strdup("");
 	// error
-	data->map.n_rows = 0;
 	data->map.width = 0;
 	data->map.height = 0;
 	data->map.config = malloc(N_CONFIGS * sizeof(char **));
@@ -49,7 +48,7 @@ static int	parse_map(t_data *data, char *line)
 	len = ft_strlen(line); 
 	if (len > data->map.width)
 		data->map.width = len;
-	data->map.n_rows++;
+	data->map.height++;
 	return (0);
 }
 
@@ -118,12 +117,12 @@ static int	flat_map_to_map_array(t_data *data)
 
 	if (DEBUG)
 		printf("flat_map:\n%s", data->map.flat_map);
-	data->map.map_array = malloc((data->map.n_rows + 1) * sizeof(char *));
-	data->map.map_array[data->map.n_rows] = NULL;
+	data->map.map_array = malloc((data->map.height + 1) * sizeof(char *));
+	data->map.map_array[data->map.height] = NULL;
 	// error
 	i = 0;
 	j = 0;
-	while (i < data->map.n_rows)
+	while (i < data->map.height)
 	{
 		data->map.map_array[i] = ft_calloc(data->map.width + 1, sizeof(char));
 		// error
@@ -135,7 +134,7 @@ static int	flat_map_to_map_array(t_data *data)
 		}
 		i++;
 	}
-	data->map.height = data->map.n_rows;
+	data->map.height = data->map.height;
 	copy_chars(data, data->map.flat_map);
 	return (0);
 }
@@ -176,7 +175,7 @@ int	load_map_data(t_data *data, char *f_name)
 	if (DEBUG)
 	{
 		printf("map_array:\n");
-		print_string_array(data->map.map_array, data->map.n_rows);
+		print_string_array(data->map.map_array, data->map.height);
 	}
 	return (0);
 }

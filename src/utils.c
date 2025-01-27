@@ -1,4 +1,4 @@
-#include "window.h"
+#include "cube3d.h"
 
 
 // oder of mlx_destroy funcs important
@@ -14,13 +14,6 @@ int	terminator(t_data *data)
 	mlx_destroy_display(data->mlx);
 	free(data->mlx);
 	exit(0);
-}
-
-int	key_up(int keycode, t_data *data)
-{
-	if (65307 == keycode)
-		terminator(data);
-	return (0);
 }
 
 void	init_colour_fade(t_data *data)

@@ -1,4 +1,4 @@
-#include "window.h"
+#include "cube3d.h"
 
 bool	member_of_set(char c, char *set)
 {

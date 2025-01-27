@@ -1,4 +1,4 @@
-#include "window.h"
+#include "cube3d.h"
 
 t_line	*init_line(int x1, int y1, int x2, int y2)
 {

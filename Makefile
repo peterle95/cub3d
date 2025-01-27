@@ -3,12 +3,12 @@ CFLAGS=-Wall -Werror -Wextra -MMD -g
 INCL=-Iinclude -Ilibft
 LIBFLAGS=-Llibft -Lminilibx-linux -lft -lmlx -lXext -lX11 -lz -lm
 PFLAGS=-D DEBUG=1
-NAME=win
+NAME=cube3d
 SRC_DIR=src/
 OBJ_DIR=obj/
 
 SRCS += $(SRC_DIR)debug.c
-SRCS += $(SRC_DIR)window.c
+SRCS += $(SRC_DIR)main.c
 SRCS += $(SRC_DIR)utils.c
 SRCS += $(SRC_DIR)load_map.c
 SRCS += $(SRC_DIR)map_validation.c
@@ -19,6 +19,8 @@ SRCS += $(SRC_DIR)load_map_utils.c
 SRCS += $(SRC_DIR)free_data.c
 SRCS += $(SRC_DIR)graphics_image.c
 SRCS += $(SRC_DIR)graphics_lines.c
+SRCS += $(SRC_DIR)graphics_grid.c
+SRCS += $(SRC_DIR)keyboard_input.c
 
 LIBFT_DIR=libft
 LIBFT=$(LIBFT_DIR)/libft.a
@@ -58,4 +60,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
-

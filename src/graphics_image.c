@@ -1,4 +1,4 @@
-#include "window.h"
+#include "cube3d.h"
 
 void	init_img(t_data *data)
 {
