@@ -5,6 +5,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include <X11/Xlib.h>
+# include <X11/cursorfont.h>
 # include <time.h>
 # include <fcntl.h>
 # include <stdbool.h>
@@ -15,7 +16,6 @@
 # define VALID_MAP_CHARS "01NESW "
 # define VALID_PLAYER_CHARS "NSEW"
 # define N_CONFIGS 7
-# define N_TEXTURES 4
 
 # ifndef DEBUG
 #  define DEBUG 0
@@ -59,6 +59,7 @@ typedef struct	s_data
 	t_img_data	*img_data1;
 	int			window_width;
 	int			window_height;
+	t_textures	textures;
 	int			t;
 	int			r;
 	int			g;
