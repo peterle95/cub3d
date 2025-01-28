@@ -146,6 +146,7 @@ int	main(int argc, char **argv)
 	data.mlx = mlx_init();
 	data.mlx_win = mlx_new_window(data.mlx, data.window_width, data.window_height, "dooomed");
 	init_img(&data);
+	// TODO: load correct textures
 	load_textures(&data, "./src/assets/textures/player_marker.xpm", "player_marker");
 	init_hooks(&data);
 	mlx_mouse_hide(data.mlx, data.mlx_win);
