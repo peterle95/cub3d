@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:15:52 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/01/28 13:43:34 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/01/28 13:58:40 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,29 @@ static void draw_floor_ceiling(t_data *data)
     unsigned int ceiling = 0x87CEEB; // Default sky blue
     unsigned int floor = 0x8B4513;   // Default saddle brown
 
-    for (int y = 0; y < data->window_height; y++)
+    int y = 0;
+    int x;
+    while (y < data->window_height)
     {
         if (y < data->window_height / 2)
         {
-            for (int x = 0; x < data->window_width; x++)
+            x = 0;
+            while (x < data->window_width)
+            {
                 put_pixel_to_img(data, x, y, ceiling);
+                x++;
+            }
         }
         else
         {
-            for (int x = 0; x < data->window_width; x++)
+            x = 0;
+            while (x < data->window_width)
+            {
                 put_pixel_to_img(data, x, y, floor);
+                x++;
+            }
         }
+        y++;
     }
 }
 
@@ -36,34 +47,53 @@ void draw_textured_line(t_data *data, t_ray *ray, int x, int draw_start, int dra
 {
     // Add bounds checking for texture access
     int tex_num;
-    if (ray->side == 0) {
-        if (ray->ray_dir_x < 0) {
+    int y;
+    double wall_x;
+    int tex_x;
+    int tex_y;
+    double step;
+    double tex_pos;
+    int color;
+    t_texture *tex = &data->textures.img[tex_num];
+
+    if (ray->side == 0) 
+    {
+        if (ray->ray_dir_x < 0) 
+        {
             tex_num = 3;  // West
-        } else {
+        } 
+        else 
+        {
             tex_num = 2;  // East
         }
-    } else {
-        if (ray->ray_dir_y < 0) {
+    } 
+    else 
+    {
+        if (ray->ray_dir_y < 0) 
+        {
             tex_num = 0;  // North
-        } else {
+        } 
+        else 
+        {
             tex_num = 1;  // South
         }
     }
-    
-    t_texture *tex = &data->textures.img[tex_num];
     
     // Add safety checks
     if (!tex || !tex->ptr || !tex->addr || tex->width <= 0 || tex->height <= 0)
     {
         // Fallback to solid color if texture is invalid
-        int color = (ray->side == 1) ? 0x00FF0000 : 0x00CC0000;
-        for (int y = draw_start; y < draw_end; y++)
+        color = (ray->side == 1) ? 0x00FF0000 : 0x00CC0000;
+        y = draw_start;
+        while (y < draw_end)
+        {
             put_pixel_to_img(data, x, y, color);
+            y++;
+        }
         return;
     }
 
     // Rest of the function remains the same, starting from wall_x calculation
-    double wall_x;
     if (ray->side == 0)
         wall_x = ray->pos_y + ray->perp_wall_dist * ray->ray_dir_y;
     else
@@ -71,15 +101,16 @@ void draw_textured_line(t_data *data, t_ray *ray, int x, int draw_start, int dra
     wall_x -= floor(wall_x);
     
     // Add bounds checking for texture coordinates
-    int tex_x = (int)(wall_x * tex->width);
+    tex_x = (int)(wall_x * tex->width);
     tex_x = tex_x < 0 ? 0 : (tex_x >= tex->width ? tex->width - 1 : tex_x);
 
-    double step = 1.0 * tex->height / (draw_end - draw_start);
-    double tex_pos = (draw_start - data->window_height / 2 + (draw_end - draw_start) / 2) * step;
+    step = 1.0 * tex->height / (draw_end - draw_start);
+    tex_pos = (draw_start - data->window_height / 2 + (draw_end - draw_start) / 2) * step;
 
-    for (int y = draw_start; y < draw_end; y++)
+    y = draw_start;
+    while (y < draw_end)
     {
-        int tex_y = (int)tex_pos & (tex->height - 1);
+        tex_y = (int)tex_pos & (tex->height - 1);
         tex_pos += step;
         
         // Add bounds checking for pixel calculation
@@ -92,17 +123,19 @@ void draw_textured_line(t_data *data, t_ray *ray, int x, int draw_start, int dra
                 put_pixel_to_img(data, x, y, color);
             }
         }
+        y++;
     }
 }
 
 static void init_ray(t_ray *ray, t_data *data, int x)
 {
+    double camera_x;
     // Initialize ray position with player position
     ray->pos_x = data->player.x;
     ray->pos_y = data->player.y;
     
     // Calculate ray direction
-    double camera_x = 2 * x / (double)data->window_width - 1;
+    camera_x = 2 * x / (double)data->window_width - 1;
     ray->ray_dir_x = data->player.dir_x + data->player.plane_x * camera_x;
     ray->ray_dir_y = data->player.dir_y + data->player.plane_y * camera_x;
     
@@ -195,9 +228,14 @@ void perform_dda(t_data *data, t_ray *ray)
 
 void render_frame(t_data *data)
 {
+    int x;
+    int line_height;
+    int draw_start;
+    int draw_end;
+    
     draw_floor_ceiling(data);
-
-    for (int x = 0; x < data->window_width; x++)
+    x = 0;
+    while (x < data->window_width)
     {
         t_ray ray;
         init_ray(&ray, data, x);
@@ -205,28 +243,34 @@ void render_frame(t_data *data)
         perform_dda(data, &ray);
 
         // Calculate height of line to draw on screen
-        int line_height = (int)(data->window_height / ray.perp_wall_dist);
+        line_height = (int)(data->window_height / ray.perp_wall_dist);
 
         // Calculate lowest and highest pixel to fill in current stripe
-        int draw_start = -line_height / 2 + data->window_height / 2;
+        draw_start = -line_height / 2 + data->window_height / 2;
         if (draw_start < 0)
             draw_start = 0;
-        int draw_end = line_height / 2 + data->window_height / 2;
+        draw_end = line_height / 2 + data->window_height / 2;
         if (draw_end >= data->window_height)
             draw_end = data->window_height - 1;
 
         draw_textured_line(data, &ray, x, draw_start, draw_end);
+        x++;
     }
 }
 
 void init_player_position(t_data *data)
 {
+    int y;
+    int x;
+    char c;
     // Find player position in map
-    for (int y = 0; y < data->map.height; y++)
+    y = 0;
+    while (y < data->map.height)
     {
-        for (int x = 0; x < data->map.width; x++)
+        x = 0;
+        while (x < data->map.width)
         {
-            char c = data->map.map_array[y][x];
+            c = data->map.map_array[y][x];
             if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
             {
                 // Set position (add 0.5 to place player in center of tile)
@@ -252,6 +296,8 @@ void init_player_position(t_data *data)
                 }
                 return;
             }
+            x++;
         }
+        y++;
     }
 }
