@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmolzer <pmolzer@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:06:27 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/01/21 16:00:24 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/01/28 13:31:37 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,18 +174,40 @@ static int validate_map_chars(char **map, char *valid_chars)
 // This function validates the texture path provided for a texture file.
 static int validate_texture_path(char *path)
 {
+    char *full_path;
     int fd;
-
-    if (!path || !ft_strnstr(path, ".xpm", ft_strlen(path)))
-        return (0);
+    
+    // Try direct path first
     fd = open(path, O_RDONLY);
-    if (fd == -1)
+    if (fd != -1)
     {
-        error("Error: Failed to open texture file");
-        return (0);
+        close(fd);
+        return (1);
     }
-    close(fd);
-    return (1);
+
+    // Try with src/ prefix
+    full_path = ft_strjoin("src/", path);
+    fd = open(full_path, O_RDONLY);
+    if (fd != -1)
+    {
+        close(fd);
+        free(full_path);
+        return (1);
+    }
+    free(full_path);
+
+    // Try with ./ prefix
+    full_path = ft_strjoin("./", path);
+    fd = open(full_path, O_RDONLY);
+    if (fd != -1)
+    {
+        close(fd);
+        free(full_path);
+        return (1);
+    }
+    free(full_path);
+
+    return (0);
 }
 
 static int	validate_textures(t_data *data)
@@ -204,98 +226,6 @@ static int	validate_textures(t_data *data)
 
 int validate_map(t_data *data)
 {
-    if(DEBUG)
-    {
-        char *valid_map[] = 
-        {
-        "11111111",
-        "10000001",
-        "10000001",
-        "11111111",
-        NULL
-        };
-
-      char *invalid_map[] = 
-      {
-        "11111111",
-        "10000001",
-        "10000000",  // gap in right wall
-        "11111111",
-        NULL
-    };
-
-    char *irregular_map[] = 
-    {
-        "  11111",
-        "  10001",
-        "11100011",
-        "10000001",
-        "11111111",
-        NULL
-    };
-
-    char *complex_map[] = 
-    {
-        "  11111",
-        "  10001",
-        "11100011",
-        "10000001",
-        "11111101          1111111111",
-        "    1001          1001   101",
-        "111110001         1001111101",
-        "1000000001        1000000001",
-        "1000000001111111111000000001",
-        "1000000000000000000000000001",
-        "100000000000000000000000001", 
-        " 11111111111111111111111111",
-        NULL,
-    };
-
-    // char *complex_map_2[] = 
-    // {
-    //     "    1111          1111111111",
-    //     "    1001          1001   101",
-    //     "111110001         1001111101",
-    //     "1000000001        1000000001",
-    //     "1000000001111111111000000001",
-    //     "1000000000000000000000000001",
-    //     "100000000000000000000000001", 
-    //     " 10000111111111111111100001",
-    //     " 100001              100001",
-    //     " 100001              100001",
-    //     " 100001              100001",
-    //     " 111111              100001",
-    //     "              1111111100001",
-    //     "111111111111111000000000001",
-    //     "100000000000000000111111111",
-    //     "100000000000001111         ",
-    //     "111111111111111            ",
-    //     NULL,
-    // };
-
-        printf("Testing parsed map:\n");
-		if (is_surrounded_by_walls(data->map.map_array, data->map.height, data->map.width))
-            printf("Valid map test passed!\n\n");
-		else
-        	printf("Invalid map test failed!\n\n");
- 
-
-        printf("Testing valid map:\n");
-        if (is_surrounded_by_walls(valid_map, 4, 8))
-            printf("Valid map test passed!\n\n");
-
-        printf("Testing invalid map:\n");
-        if (!is_surrounded_by_walls(invalid_map, 4, 8))
-            printf("Invalid map test caught the error (as expected)!\n\n");
-
-        printf("Testing irregular map:\n");
-        if (is_surrounded_by_walls(irregular_map, 5, 8))
-            printf("Irregular map test passed!\n");
-    
-        printf("Testing complex map:\n");
-        if (is_surrounded_by_walls(complex_map, 12, 31))
-            printf("Complex map test passed!\n");
-    }
     // Check if data or map is NULL
     if (!data || !data->map.config[0][1] || !data->map.config[1][1] || 
         !data->map.config[2][1] || !data->map.config[3][1])
@@ -316,9 +246,8 @@ int validate_map(t_data *data)
         return (1);
 
     // Validate map is surrounded by walls
-     /*!is_surrounded_by_walls(data->map.map_array, data->map.map_height, 
-               data->map.map_width))
-        return (1);*/
+    if (!is_surrounded_by_walls(data->map.map_array, data->map.height, data->map.width))
+        return (1);
 
     return (0);
 }
