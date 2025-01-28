@@ -51,6 +51,13 @@ typedef struct s_map
 	int		n;
 }	t_map;
 
+typedef struct s_player
+{
+	int	x;
+	int	y;
+	int	speed;
+}	t_player;
+
 typedef struct	s_data
 {
 	void		*mlx;
@@ -60,6 +67,7 @@ typedef struct	s_data
 	int			window_width;
 	int			window_height;
 	t_textures	textures;
+	t_player	player;
 	int			t;
 	int			r;
 	int			g;
@@ -67,6 +75,14 @@ typedef struct	s_data
 	t_map		map;
 	int			debug_mode;
 }	t_data;
+
+typedef enum s_dir
+{
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT
+}	t_dir;
 
 typedef enum s_id
 {
@@ -122,7 +138,10 @@ int		draw_grid(t_data *data);
 // static void	fill_square(t_data *data, int x, int y, int len_side)
 
 // keyboard_input
-int	key_down(int keycode, t_data *data);
+int		key_down(int keycode, t_data *data);
+
+// player_movement
+int		player_move(t_data *data, int dir);
 
 // get_next_line
 char	*get_next_line(int fd);

@@ -1,9 +1,11 @@
 #include "cube3d.h"
 
-int	render_with_transpareny(t_data *data, t_texture *t, int mx, int my)
+int	render_with_transpareny(t_data *data, t_texture *t, int img_x, int img_y)
 {
 	int	y;
 	int	x;
+	int pixel;
+	int color;
 
 	y = 0;
 	while (y < t->height)
@@ -11,11 +13,10 @@ int	render_with_transpareny(t_data *data, t_texture *t, int mx, int my)
 		x = 0;
 		while (x < t->width)
 		{
-			int pixel = (y * t->size_line) + (x * (t->bpp / 8));
-			int color = *(int *)(t->addr + pixel);
-			if (color != 0xFFFFFF) {
-				mlx_pixel_put(data->mlx, data->mlx_win, mx+x, my+y, color);
-			}
+			pixel = (y * t->size_line) + (x * (t->bpp / 8));
+			color = *(int *)(t->addr + pixel);
+			if (color != 0xFFFFFF)
+				mlx_pixel_put(data->mlx, data->mlx_win, img_x + x, img_y + y, color);
 			x++;
 		}
 		y++;
@@ -25,8 +26,8 @@ int	render_with_transpareny(t_data *data, t_texture *t, int mx, int my)
 
 int	draw(t_data *data)
 {
-	int	win_x;
-	int	win_y;
+	// int	win_x;
+	// int	win_y;
 
 	clear_image_to_colour(data, set_trgb(data->t, data->r, data->g, data->b));
 	// obvs don't want to calculate the lines each time through the draw loop
@@ -34,13 +35,13 @@ int	draw(t_data *data)
 	// line = init_line(0, 0, 500, 500);
 	// compute_line_points(data, line);
 	draw_grid(data);
-	if (mlx_mouse_get_pos(data->mlx, data->mlx_win, &win_x, &win_y))
-		printf("Mouse position: (%d, %d)\n", win_x, win_y);
+	// if (mlx_mouse_get_pos(data->mlx, data->mlx_win, &win_x, &win_y))
+	// 	printf("Mouse position: (%d, %d)\n", win_x, win_y);
 	// free(line);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img_data0->img, 0, 0);
 	// mlx_put_image_to_window(data->mlx, data->mlx_win, data->textures.img[0], win_x, win_y);
 	
-	render_with_transpareny(data, &data->textures.img[0], win_x, win_y);
+	render_with_transpareny(data, &data->textures.img[0], data->player.x, data->player.y);
 	
 	if (data->r > 0)
 		data->r--;
@@ -56,13 +57,6 @@ int	mouse_mv(int mousecode, int x, int y, t_data *data)
 	return (0);
 }
 
-int mouse_move(int x, int y, t_data *data)
-{
-	(void)data,
-    printf("x: %d y: %d\n", x, y);
-	return (0);
-}
-
 int	init_data(t_data *data)
 {
 	data->map.map_array = NULL;
@@ -75,7 +69,6 @@ int	init_hooks(t_data *data)
 {
 	mlx_hook(data->mlx_win, 3, 1L << 1, &key_up, data);
 	mlx_hook(data->mlx_win, 2, 1L << 0, &key_down, data);
-	mlx_hook(data->mlx_win, 6, 0l, &mouse_move, data);
 	mlx_mouse_hook(data->mlx_win, &mouse_mv, data);
 	mlx_loop_hook(data->mlx, &draw, data);
 	return (0);
@@ -94,6 +87,27 @@ int	load_textures(t_data *data, char *path, char *id)
 			&(data->textures.img[0].endian));
 	printf("texture addr: %p\n", data->textures.img[0].addr);
 	return (0);	
+}
+
+int	init_player(t_data *data)
+{
+	data->player.x = 0;
+	data->player.y = 0;
+	data->player.speed = 2;
+	return (0);
+}
+
+int	player_move(t_data *data, int dir)
+{
+	if (UP == dir)
+		data->player.y -= data->player.speed;
+	if (DOWN == dir)
+		data->player.y += data->player.speed;
+	if (LEFT == dir)
+		data->player.x -= data->player.speed;
+	if (RIGHT == dir)
+		data->player.x += data->player.speed;
+	return (0);
 }
 
 // free properly from beginning to avoid mess later
@@ -118,9 +132,8 @@ int	main(int argc, char **argv)
 	init_img(&data);
 	load_textures(&data, "./src/assets/textures/player_marker.xpm", "player_marker");
 	init_hooks(&data);
-
 	mlx_mouse_hide(data.mlx, data.mlx_win);
-
+	init_player(&data);
 	mlx_loop(data.mlx);
 }
 
