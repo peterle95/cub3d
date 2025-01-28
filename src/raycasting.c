@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:15:52 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/01/28 13:58:40 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/01/28 14:03:05 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 static void draw_floor_ceiling(t_data *data)
 {
-    unsigned int ceiling = 0x87CEEB; // Default sky blue
-    unsigned int floor = 0x8B4513;   // Default saddle brown
-
-    int y = 0;
+    unsigned int ceiling;
+    unsigned int floor;
+    int y;
     int x;
+
+    ceiling = 0x87CEEB; // Default sky blue
+    floor = 0x8B4513; // Default saddle brown
+    y = 0;
     while (y < data->window_height)
     {
         if (y < data->window_height / 2)
@@ -54,7 +57,7 @@ void draw_textured_line(t_data *data, t_ray *ray, int x, int draw_start, int dra
     double step;
     double tex_pos;
     int color;
-    t_texture *tex = &data->textures.img[tex_num];
+    t_texture *tex;
 
     if (ray->side == 0) 
     {
@@ -78,7 +81,10 @@ void draw_textured_line(t_data *data, t_ray *ray, int x, int draw_start, int dra
             tex_num = 1;  // South
         }
     }
-    
+
+    // Declare and initialize tex here
+    tex = &data->textures.img[tex_num];
+
     // Add safety checks
     if (!tex || !tex->ptr || !tex->addr || tex->width <= 0 || tex->height <= 0)
     {
