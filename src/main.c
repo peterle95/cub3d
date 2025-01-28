@@ -26,21 +26,14 @@ int	render_with_transpareny(t_data *data, t_texture *t, int img_x, int img_y)
 
 int	draw(t_data *data)
 {
-	// int	win_x;
-	// int	win_y;
-
 	clear_image_to_colour(data, set_trgb(data->t, data->r, data->g, data->b));
-	// obvs don't want to calculate the lines each time through the draw loop
-	// t_line	*line;
-	// line = init_line(0, 0, 500, 500);
-	// compute_line_points(data, line);
-	draw_grid(data);
-	// if (mlx_mouse_get_pos(data->mlx, data->mlx_win, &win_x, &win_y))
-	// 	printf("Mouse position: (%d, %d)\n", win_x, win_y);
-	// free(line);
-	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img_data0->img, 0, 0);
-	// mlx_put_image_to_window(data->mlx, data->mlx_win, data->textures.img[0], win_x, win_y);
 	
+	// Render the 3D view
+	render_frame(data);
+	
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img_data0->img, 0, 0);
+	
+	// Draw player sprite if needed
 	render_with_transpareny(data, &data->textures.img[0], data->player.x, data->player.y);
 	
 	if (data->r > 0)
@@ -62,6 +55,15 @@ int	init_data(t_data *data)
 	data->map.map_array = NULL;
 	data->window_width = 1920;
 	data->window_height = 1080;
+	
+	// Initialize player position and direction, to be updated with map data
+	data->player.x = 22;  // Starting position
+	data->player.y = 12;
+	data->player.dir_x = -1;  // Initial direction vector
+	data->player.dir_y = 0;
+	data->player.plane_x = 0;  // Camera plane
+	data->player.plane_y = 0.66; // FOV is about 66 degrees
+	
 	return (0);
 }
 
@@ -134,6 +136,7 @@ int	main(int argc, char **argv)
 	init_hooks(&data);
 	mlx_mouse_hide(data.mlx, data.mlx_win);
 	init_player(&data);
+	init_player_position(&data);
 	mlx_loop(data.mlx);
 }
 

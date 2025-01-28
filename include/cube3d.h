@@ -56,7 +56,30 @@ typedef struct s_player
 	int	x;
 	int	y;
 	int	speed;
+	double dir_x;    // Direction vector
+	double dir_y;
+	double plane_x;  // Camera plane
+	double plane_y;
 }	t_player;
+
+typedef struct s_ray
+{
+    double pos_x;
+    double pos_y;
+    double ray_dir_x;
+    double ray_dir_y;
+    int map_x;
+    int map_y;
+    double side_dist_x;
+    double side_dist_y;
+    double delta_dist_x;
+    double delta_dist_y;
+    double perp_wall_dist;
+    int step_x;
+    int step_y;
+    int hit;
+    int side;
+} t_ray;
 
 typedef struct	s_data
 {
@@ -155,4 +178,9 @@ char	*gnl_strjoin(char *buff, char **ln, int fd);
 char	*set_line(char	**ln, int fd);
 char	*freel(char **ln, int fd);
 
+// raycasting
+void	perform_dda(t_data *data, t_ray *ray);
+void	draw_textured_line(t_data *data, t_ray *ray, int x, int draw_start, int draw_end);
+void	render_frame(t_data *data);
+void	init_player_position(t_data *data);
 #endif
