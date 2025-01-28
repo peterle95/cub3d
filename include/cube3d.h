@@ -5,6 +5,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include <X11/Xlib.h>
+# include <X11/cursorfont.h>
 # include <time.h>
 # include <fcntl.h>
 # include <stdbool.h>
@@ -15,7 +16,6 @@
 # define VALID_MAP_CHARS "01NESW "
 # define VALID_PLAYER_CHARS "NSEW"
 # define N_CONFIGS 7
-# define N_TEXTURES 4
 
 # ifndef DEBUG
 #  define DEBUG 0
@@ -51,6 +51,13 @@ typedef struct s_map
 	int		n;
 }	t_map;
 
+typedef struct s_player
+{
+	int	x;
+	int	y;
+	int	speed;
+}	t_player;
+
 typedef struct	s_data
 {
 	void		*mlx;
@@ -59,6 +66,8 @@ typedef struct	s_data
 	t_img_data	*img_data1;
 	int			window_width;
 	int			window_height;
+	t_textures	textures;
+	t_player	player;
 	int			t;
 	int			r;
 	int			g;
@@ -66,6 +75,14 @@ typedef struct	s_data
 	t_map		map;
 	int			debug_mode;
 }	t_data;
+
+typedef enum s_dir
+{
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT
+}	t_dir;
 
 typedef enum s_id
 {
@@ -121,7 +138,10 @@ int		draw_grid(t_data *data);
 // static void	fill_square(t_data *data, int x, int y, int len_side)
 
 // keyboard_input
-int	key_down(int keycode, t_data *data);
+int		key_down(int keycode, t_data *data);
+
+// player_movement
+int		player_move(t_data *data, int dir);
 
 // get_next_line
 char	*get_next_line(int fd);

@@ -66,6 +66,9 @@ static int	parse_line(t_data *data, char *line)
 	//error
 	if (array_len(data->map.config[data->map.id]) != 2)
 		return (free_map_data(data));
+	// if the ids do not need to be in a "strict order" this evlaution can be changed
+	// to look through the whole id list for a match rather than the current id
+	// and map.id will simply comfirm all required elements have bee parsed
 	if (ft_strncmp(data->map.config[data->map.id][0], data->map.map_ids[data->map.id],
 				ft_strlen(data->map.map_ids[data->map.id]) + 1) == 0)
 	{
