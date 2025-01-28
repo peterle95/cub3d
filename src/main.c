@@ -1,5 +1,19 @@
 #include "cube3d.h"
 
+// Function to handle window close event
+int close_window(t_data *data)
+{
+    if (data->textures.img[0].ptr)
+        mlx_destroy_image(data->mlx, data->textures.img[0].ptr);
+    if (data->img_data0->img)
+        mlx_destroy_image(data->mlx, data->img_data0->img);
+    if (data->mlx_win)
+        mlx_destroy_window(data->mlx, data->mlx_win);
+    exit(0);
+    return (0);
+}
+
+
 int	render_with_transpareny(t_data *data, t_texture *t, int img_x, int img_y)
 {
 	int	y;
@@ -71,6 +85,7 @@ int	init_hooks(t_data *data)
 {
 	mlx_hook(data->mlx_win, 3, 1L << 1, &key_up, data);
 	mlx_hook(data->mlx_win, 2, 1L << 0, &key_down, data);
+	mlx_hook(data->mlx_win, ClientMessage, 0, close_window, data);
 	mlx_mouse_hook(data->mlx_win, &mouse_mv, data);
 	mlx_loop_hook(data->mlx, &draw, data);
 	return (0);
@@ -112,7 +127,6 @@ int	player_move(t_data *data, int dir)
 	return (0);
 }
 
-// free properly from beginning to avoid mess later
 int	main(int argc, char **argv)
 {
 	t_data	data;
