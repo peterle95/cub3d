@@ -259,9 +259,9 @@ void perform_dda(t_data *data, t_ray *ray)
 void	render_frame(t_data *data)
 {
 	int		x;
-	t_line_params line;
-    t_ray ray;
-    int line_height;
+	t_line_params	line;
+	t_ray	ray;
+	int		line_height;
 
 	x = 0;
 	draw_floor_ceiling(data);
