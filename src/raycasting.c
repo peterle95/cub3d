@@ -6,94 +6,123 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:15:52 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/01/29 13:10:51 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/01/29 14:10:52 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static void draw_floor_ceiling(t_data *data)
+static void	draw_floor_ceiling(t_data *data)
 {
-    unsigned int ceiling;
-    unsigned int floor;
-    int y;
-    int x;
+	unsigned int	ceiling;
+	unsigned int	floor;
+	int		y;
+	int		x;
 
-    ceiling = 0x87CEEB; // Default sky blue
-    floor = 0x8B4513; // Default saddle brown
-    y = 0;
-    while (y < data->window_height)
-    {
-        if (y < data->window_height / 2)
-        {
-            x = 0;
-            while (x < data->window_width)
-            {
-                put_pixel_to_img(data, x, y, ceiling);
-                x++;
-            }
-        }
-        else
-        {
-            x = 0;
-            while (x < data->window_width)
-            {
-                put_pixel_to_img(data, x, y, floor);
-                x++;
-            }
-        }
-        y++;
-    }
+    // change this to actual texture
+	ceiling = 0x87CEEB; 
+	floor = 0x8B4513; 
+	y = 0;
+	while (y < data->window_height)
+	{
+		if (y < data->window_height / 2)
+		{
+			x = 0;
+			while (x < data->window_width)
+			{
+				put_pixel_to_img(data, x, y, ceiling);
+				x++;
+			}
+		}
+		else
+		{
+			x = 0;
+			while (x < data->window_width)
+			{
+				put_pixel_to_img(data, x, y, floor);
+				x++;
+			}
+		}
+		y++;
+	}
 }
 
-static int get_texture_number(t_ray *ray)
+static int	get_texture_number(t_ray *ray)
 {
-    if (ray->side == 0)
-        return (ray->ray_dir_x < 0) ? 3 : 2;  // West : East
-    return (ray->ray_dir_y < 0) ? 0 : 1;      // North : South
+	if (ray->side == 0)
+	{
+		if (ray->ray_dir_x < 0)
+			return 3;  // West
+		else
+			return 2;  // East
+	}
+	else
+	{
+		if (ray->ray_dir_y < 0)
+			return 0;  // North
+		else
+			return 1;  // South
+	}
 }
 
-static void draw_fallback_line(t_data *data, t_line_params *line)
+static void	draw_fallback_line(t_data *data, t_line_params *line)
 {
-    int color = (line->ray->side == 1) ? 0x00FF0000 : 0x00CC0000;
-    while (line->draw_start < line->draw_end)
-    {
-        put_pixel_to_img(data, line->x, line->draw_start, color);
-        line->draw_start++;
-    }
-}
+    int color;
 
-static double calculate_wall_x(t_ray *ray)
-{
-    double wall_x;
-    
-    if (ray->side == 0)
-        wall_x = ray->pos_y + ray->perp_wall_dist * ray->ray_dir_y;
+    // change this to actual texture 
+    if (line->ray->side == 1)
+        color = 0x00FF0000;
     else
-        wall_x = ray->pos_x + ray->perp_wall_dist * ray->ray_dir_x;
-    return (wall_x - floor(wall_x));
+        color = 0x00CC0000;
+	while (line->draw_start < line->draw_end)
+	{
+		put_pixel_to_img(data, line->x, line->draw_start, color);
+		line->draw_start++;
+	}
 }
 
-static void draw_texture_pixel(t_data *data, t_texture *tex, int params[4], double tex_pos)
+static double	calculate_wall_x(t_ray *ray)
 {
-    int tex_y = (int)tex_pos & (tex->height - 1);
-    
-    if (tex_y >= 0 && tex_y < tex->height)
-    {
-        int pixel = (tex_y * tex->size_line) + (params[2] * (tex->bpp / 8));
-        if (pixel >= 0 && pixel < (tex->size_line * tex->height))
-        {
-            unsigned int color = *(unsigned int*)(tex->addr + pixel);
-            put_pixel_to_img(data, params[0], params[1], color);
-        }
-    }
+	double	wall_x;
+
+	if (ray->side == 0)
+		wall_x = ray->pos_y + ray->perp_wall_dist * ray->ray_dir_y;
+	else
+		wall_x = ray->pos_x + ray->perp_wall_dist * ray->ray_dir_x;
+	return (wall_x - floor(wall_x));
+}
+
+static void	draw_texture_pixel(t_data *data, t_texture *tex, int params[4], double tex_pos)
+{
+    int tex_y;
+	int		pixel;
+	unsigned int	color;
+
+
+    tex_y = (int)tex_pos & (tex->height - 1);
+	if (tex_y >= 0 && tex_y < tex->height)
+	{
+		pixel = (tex_y * tex->size_line) + (params[2] * (tex->bpp / 8));
+		if (pixel >= 0 && pixel < (tex->size_line * tex->height))
+		{
+			color = *(unsigned int*)(tex->addr + pixel);
+			put_pixel_to_img(data, params[0], params[1], color);
+		}
+	}
 }
 
 static int calculate_tex_x(t_ray *ray, t_texture *tex)
 {
-    double wall_x = calculate_wall_x(ray);
-    int tex_x = (int)(wall_x * tex->width);
-    return (tex_x < 0) ? 0 : ((tex_x >= tex->width) ? tex->width - 1 : tex_x);
+    double wall_x;
+    int tex_x;
+
+    wall_x = calculate_wall_x(ray);
+    tex_x = (int)(wall_x * tex->width);
+    if (tex_x < 0)
+        return 0;
+    if (tex_x >= tex->width)
+        return tex->width - 1;
+    return tex_x;
 }
 
 static void calculate_step_pos(t_data *data, t_line_params *line, t_texture *tex, double step_pos[2])
@@ -105,10 +134,11 @@ static void calculate_step_pos(t_data *data, t_line_params *line, t_texture *tex
 
 void draw_textured_line(t_data *data, t_line_params *line)
 {
-    t_texture *tex = &data->textures.img[get_texture_number(line->ray)];
+    t_texture *tex;
     double step_pos[2];
     int params[4];
     
+    tex = &data->textures.img[get_texture_number(line->ray)];
     if (!tex || !tex->ptr || !tex->addr || tex->width <= 0 || tex->height <= 0)
     {
         draw_fallback_line(data, line);
@@ -253,46 +283,50 @@ void render_frame(t_data *data)
     }
 }
 
-void init_player_position(t_data *data)
+void	init_player_position(t_data *data)
 {
-    int y;
-    int x;
-    char c;
+	int		y;
+	int		x;
+	char	c;
     // Find player position in map
-    y = 0;
-    while (y < data->map.height)
-    {
-        x = 0;
-        while (x < data->map.width)
-        {
-            c = data->map.map_array[y][x];
-            if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
-            {
+	y = 0;
+	while (y < data->map.height)
+	{
+		x = 0;
+		while (x < data->map.width)
+		{
+			c = data->map.map_array[y][x];
+			if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+			{
                 // Set position (add 0.5 to place player in center of tile)
-                data->player.x = x + 0.5;
-                data->player.y = y + 0.5;
+				data->player.x = x + 0.5;
+				data->player.y = y + 0.5;
                 
                 // Set initial direction and plane based on spawn direction
-                if (c == 'N') {
-                    data->player.dir_x = 0; data->player.dir_y = -1;
-                    data->player.plane_x = 0.66; data->player.plane_y = 0;
-                }
-                else if (c == 'S') {
-                    data->player.dir_x = 0; data->player.dir_y = 1;
-                    data->player.plane_x = -0.66; data->player.plane_y = 0;
-                }
-                else if (c == 'E') {
-                    data->player.dir_x = 1; data->player.dir_y = 0;
-                    data->player.plane_x = 0; data->player.plane_y = 0.66;
-                }
-                else if (c == 'W') {
-                    data->player.dir_x = -1; data->player.dir_y = 0;
-                    data->player.plane_x = 0; data->player.plane_y = -0.66;
-                }
-                return;
-            }
-            x++;
-        }
-        y++;
-    }
+			if (c == 'N') 
+			{
+				data->player.dir_x = 0; data->player.dir_y = -1;
+				data->player.plane_x = 0.66; data->player.plane_y = 0;
+			}
+			else if (c == 'S') 
+			{
+				data->player.dir_x = 0; data->player.dir_y = 1;
+				data->player.plane_x = -0.66; data->player.plane_y = 0;
+			}
+			else if (c == 'E') 
+			{
+				data->player.dir_x = 1; data->player.dir_y = 0;
+				data->player.plane_x = 0; data->player.plane_y = 0.66;
+			}
+			else if (c == 'W')
+			{
+				data->player.dir_x = -1; data->player.dir_y = 0;
+				data->player.plane_x = 0; data->player.plane_y = -0.66;
+			}
+				return;
+			}
+			x++;
+		}
+		y++;
+	}
 }
