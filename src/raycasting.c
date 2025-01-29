@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:15:52 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/01/29 14:10:52 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/01/29 14:18:06 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@ static void	draw_fallback_line(t_data *data, t_line_params *line)
         color = 0x00FF0000;
     else
         color = 0x00CC0000;
-	while (line->draw_start < line->draw_end)
-	{
-		put_pixel_to_img(data, line->x, line->draw_start, color);
-		line->draw_start++;
-	}
+    while (line->draw_start < line->draw_end)
+    {
+        put_pixel_to_img(data, line->x, line->draw_start, color);
+        line->draw_start++;
+    }
 }
 
 static double	calculate_wall_x(t_ray *ray)
@@ -256,16 +256,17 @@ void perform_dda(t_data *data, t_ray *ray)
     printf("Final distance: %f\n", ray->perp_wall_dist);
 }
 
-void render_frame(t_data *data)
+void	render_frame(t_data *data)
 {
-    int x = 0;
-    t_line_params line;
-    
-    draw_floor_ceiling(data);
-    while (x < data->window_width)
-    {
-        t_ray ray;
-        int line_height;
+	int		x;
+	t_line_params line;
+    t_ray ray;
+    int line_height;
+
+	x = 0;
+	draw_floor_ceiling(data);
+	while (x < data->window_width)
+	{
         init_ray(&ray, data, x);
         calculate_step_and_side_dist(&ray);
         perform_dda(data, &ray);
