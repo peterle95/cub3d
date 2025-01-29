@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:15:52 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/01/28 14:03:05 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/01/29 12:23:26 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,90 +46,78 @@ static void draw_floor_ceiling(t_data *data)
     }
 }
 
-void draw_textured_line(t_data *data, t_ray *ray, int x, int draw_start, int draw_end)
+static int get_texture_number(t_ray *ray)
 {
-    // Add bounds checking for texture access
-    int tex_num;
-    int y;
+    if (ray->side == 0)
+        return (ray->ray_dir_x < 0) ? 3 : 2;  // West : East
+    return (ray->ray_dir_y < 0) ? 0 : 1;      // North : South
+}
+
+static void draw_fallback_line(t_data *data, t_ray *ray, int x, int draw_start, int draw_end)
+{
+    int color = (ray->side == 1) ? 0x00FF0000 : 0x00CC0000;
+    while (draw_start < draw_end)
+    {
+        put_pixel_to_img(data, x, draw_start, color);
+        draw_start++;
+    }
+}
+
+static double calculate_wall_x(t_ray *ray)
+{
     double wall_x;
-    int tex_x;
-    int tex_y;
-    double step;
-    double tex_pos;
-    int color;
-    t_texture *tex;
-
-    if (ray->side == 0) 
-    {
-        if (ray->ray_dir_x < 0) 
-        {
-            tex_num = 3;  // West
-        } 
-        else 
-        {
-            tex_num = 2;  // East
-        }
-    } 
-    else 
-    {
-        if (ray->ray_dir_y < 0) 
-        {
-            tex_num = 0;  // North
-        } 
-        else 
-        {
-            tex_num = 1;  // South
-        }
-    }
-
-    // Declare and initialize tex here
-    tex = &data->textures.img[tex_num];
-
-    // Add safety checks
-    if (!tex || !tex->ptr || !tex->addr || tex->width <= 0 || tex->height <= 0)
-    {
-        // Fallback to solid color if texture is invalid
-        color = (ray->side == 1) ? 0x00FF0000 : 0x00CC0000;
-        y = draw_start;
-        while (y < draw_end)
-        {
-            put_pixel_to_img(data, x, y, color);
-            y++;
-        }
-        return;
-    }
-
-    // Rest of the function remains the same, starting from wall_x calculation
+    
     if (ray->side == 0)
         wall_x = ray->pos_y + ray->perp_wall_dist * ray->ray_dir_y;
     else
         wall_x = ray->pos_x + ray->perp_wall_dist * ray->ray_dir_x;
-    wall_x -= floor(wall_x);
+    return (wall_x - floor(wall_x));
+}
+
+static void draw_texture_pixel(t_data *data, t_texture *tex, int params[4], double tex_pos)
+{
+    int x = params[0];
+    int y = params[1];
+    int tex_x = params[2];
+    int tex_y = (int)tex_pos & (tex->height - 1);
     
-    // Add bounds checking for texture coordinates
-    tex_x = (int)(wall_x * tex->width);
+    if (tex_y >= 0 && tex_y < tex->height)
+    {
+        int pixel = (tex_y * tex->size_line) + (tex_x * (tex->bpp / 8));
+        if (pixel >= 0 && pixel < (tex->size_line * tex->height))
+        {
+            unsigned int color = *(unsigned int*)(tex->addr + pixel);
+            put_pixel_to_img(data, x, y, color);
+        }
+    }
+}
+
+void draw_textured_line(t_data *data, t_ray *ray, int x, int draw_start, int draw_end)
+{
+    t_texture *tex = &data->textures.img[get_texture_number(ray)];
+    
+    if (!tex || !tex->ptr || !tex->addr || tex->width <= 0 || tex->height <= 0)
+    {
+        draw_fallback_line(data, ray, x, draw_start, draw_end);
+        return;
+    }
+
+    double wall_x = calculate_wall_x(ray);
+    int tex_x = (int)(wall_x * tex->width);
     tex_x = tex_x < 0 ? 0 : (tex_x >= tex->width ? tex->width - 1 : tex_x);
 
-    step = 1.0 * tex->height / (draw_end - draw_start);
-    tex_pos = (draw_start - data->window_height / 2 + (draw_end - draw_start) / 2) * step;
+    double step = 1.0 * tex->height / (draw_end - draw_start);
+    double tex_pos = (draw_start - data->window_height / 2 + (draw_end - draw_start) / 2) * step;
 
-    y = draw_start;
-    while (y < draw_end)
+    int params[4];
+    params[0] = x;
+    params[2] = tex_x;
+
+    for (int y = draw_start; y < draw_end; y++)
     {
-        tex_y = (int)tex_pos & (tex->height - 1);
+        params[1] = y;
+        draw_texture_pixel(data, tex, params, tex_pos);
         tex_pos += step;
-        
-        // Add bounds checking for pixel calculation
-        if (tex_y >= 0 && tex_y < tex->height)
-        {
-            int pixel = (tex_y * tex->size_line) + (tex_x * (tex->bpp / 8));
-            if (pixel >= 0 && pixel < (tex->size_line * tex->height))
-            {
-                unsigned int color = *(unsigned int*)(tex->addr + pixel);
-                put_pixel_to_img(data, x, y, color);
-            }
-        }
-        y++;
     }
 }
 
