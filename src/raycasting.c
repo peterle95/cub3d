@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:15:52 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/01/29 12:23:26 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/01/29 13:10:51 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ static int get_texture_number(t_ray *ray)
     return (ray->ray_dir_y < 0) ? 0 : 1;      // North : South
 }
 
-static void draw_fallback_line(t_data *data, t_ray *ray, int x, int draw_start, int draw_end)
+static void draw_fallback_line(t_data *data, t_line_params *line)
 {
-    int color = (ray->side == 1) ? 0x00FF0000 : 0x00CC0000;
-    while (draw_start < draw_end)
+    int color = (line->ray->side == 1) ? 0x00FF0000 : 0x00CC0000;
+    while (line->draw_start < line->draw_end)
     {
-        put_pixel_to_img(data, x, draw_start, color);
-        draw_start++;
+        put_pixel_to_img(data, line->x, line->draw_start, color);
+        line->draw_start++;
     }
 }
 
@@ -76,48 +76,54 @@ static double calculate_wall_x(t_ray *ray)
 
 static void draw_texture_pixel(t_data *data, t_texture *tex, int params[4], double tex_pos)
 {
-    int x = params[0];
-    int y = params[1];
-    int tex_x = params[2];
     int tex_y = (int)tex_pos & (tex->height - 1);
     
     if (tex_y >= 0 && tex_y < tex->height)
     {
-        int pixel = (tex_y * tex->size_line) + (tex_x * (tex->bpp / 8));
+        int pixel = (tex_y * tex->size_line) + (params[2] * (tex->bpp / 8));
         if (pixel >= 0 && pixel < (tex->size_line * tex->height))
         {
             unsigned int color = *(unsigned int*)(tex->addr + pixel);
-            put_pixel_to_img(data, x, y, color);
+            put_pixel_to_img(data, params[0], params[1], color);
         }
     }
 }
 
-void draw_textured_line(t_data *data, t_ray *ray, int x, int draw_start, int draw_end)
+static int calculate_tex_x(t_ray *ray, t_texture *tex)
 {
-    t_texture *tex = &data->textures.img[get_texture_number(ray)];
+    double wall_x = calculate_wall_x(ray);
+    int tex_x = (int)(wall_x * tex->width);
+    return (tex_x < 0) ? 0 : ((tex_x >= tex->width) ? tex->width - 1 : tex_x);
+}
+
+static void calculate_step_pos(t_data *data, t_line_params *line, t_texture *tex, double step_pos[2])
+{
+    step_pos[0] = 1.0 * tex->height / (line->draw_end - line->draw_start);
+    step_pos[1] = (line->draw_start - data->window_height / 2 
+                  + (line->draw_end - line->draw_start) / 2) * step_pos[0];
+}
+
+void draw_textured_line(t_data *data, t_line_params *line)
+{
+    t_texture *tex = &data->textures.img[get_texture_number(line->ray)];
+    double step_pos[2];
+    int params[4];
     
     if (!tex || !tex->ptr || !tex->addr || tex->width <= 0 || tex->height <= 0)
     {
-        draw_fallback_line(data, ray, x, draw_start, draw_end);
+        draw_fallback_line(data, line);
         return;
     }
 
-    double wall_x = calculate_wall_x(ray);
-    int tex_x = (int)(wall_x * tex->width);
-    tex_x = tex_x < 0 ? 0 : (tex_x >= tex->width ? tex->width - 1 : tex_x);
+    params[0] = line->x;
+    params[2] = calculate_tex_x(line->ray, tex);
+    calculate_step_pos(data, line, tex, step_pos);
 
-    double step = 1.0 * tex->height / (draw_end - draw_start);
-    double tex_pos = (draw_start - data->window_height / 2 + (draw_end - draw_start) / 2) * step;
-
-    int params[4];
-    params[0] = x;
-    params[2] = tex_x;
-
-    for (int y = draw_start; y < draw_end; y++)
+    for (int y = line->draw_start; y < line->draw_end; y++)
     {
         params[1] = y;
-        draw_texture_pixel(data, tex, params, tex_pos);
-        tex_pos += step;
+        draw_texture_pixel(data, tex, params, step_pos[1]);
+        step_pos[1] += step_pos[0];
     }
 }
 
@@ -135,7 +141,7 @@ static void init_ray(t_ray *ray, t_data *data, int x)
     
     // Initialize map position
     ray->map_x = (int)ray->pos_x;
-    ray->map_y = (int)ray->pos_y;
+    ray->map_y = (int)ray->pos_y; 
     
     // Calculate delta distances
     ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
@@ -222,32 +228,27 @@ void perform_dda(t_data *data, t_ray *ray)
 
 void render_frame(t_data *data)
 {
-    int x;
-    int line_height;
-    int draw_start;
-    int draw_end;
+    int x = 0;
+    t_line_params line;
     
     draw_floor_ceiling(data);
-    x = 0;
     while (x < data->window_width)
     {
         t_ray ray;
+        int line_height;
         init_ray(&ray, data, x);
         calculate_step_and_side_dist(&ray);
         perform_dda(data, &ray);
 
-        // Calculate height of line to draw on screen
         line_height = (int)(data->window_height / ray.perp_wall_dist);
-
-        // Calculate lowest and highest pixel to fill in current stripe
-        draw_start = -line_height / 2 + data->window_height / 2;
-        if (draw_start < 0)
-            draw_start = 0;
-        draw_end = line_height / 2 + data->window_height / 2;
-        if (draw_end >= data->window_height)
-            draw_end = data->window_height - 1;
-
-        draw_textured_line(data, &ray, x, draw_start, draw_end);
+        line.draw_start = -line_height / 2 + data->window_height / 2;
+        line.draw_start = (line.draw_start < 0) ? 0 : line.draw_start;
+        line.draw_end = line_height / 2 + data->window_height / 2;
+        line.draw_end = (line.draw_end >= data->window_height) ? data->window_height - 1 : line.draw_end;
+        
+        line.x = x;
+        line.ray = &ray;
+        draw_textured_line(data, &line);
         x++;
     }
 }

@@ -81,6 +81,13 @@ typedef struct s_ray
     int side;
 } t_ray;
 
+typedef struct s_line_params {
+    int x;
+    int draw_start;
+    int draw_end;
+    t_ray *ray;
+} t_line_params;
+
 typedef struct	s_data
 {
 	void		*mlx;
@@ -180,7 +187,7 @@ char	*freel(char **ln, int fd);
 
 // raycasting
 void	perform_dda(t_data *data, t_ray *ray);
-void	draw_textured_line(t_data *data, t_ray *ray, int x, int draw_start, int draw_end);
+void	draw_textured_line(t_data *data, t_line_params *line);
 void	render_frame(t_data *data);
 void	init_player_position(t_data *data);
 #endif
