@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:15:52 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/01/31 18:02:15 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/01/31 18:55:23 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,13 +297,13 @@ void	render_frame(t_data *data)
         init_ray(&ray, data, x);
         calculate_step_and_side_dist(&ray);
         perform_dda(data, &ray);
-
         line_height = (int)(data->window_height / ray.perp_wall_dist);
         line.draw_start = -line_height / 2 + data->window_height / 2;
-        line.draw_start = (line.draw_start < 0) ? 0 : line.draw_start;
+        if (line.draw_start < 0)
+            line.draw_start = 0;
         line.draw_end = line_height / 2 + data->window_height / 2;
-        line.draw_end = (line.draw_end >= data->window_height) ? data->window_height - 1 : line.draw_end;
-        
+        if (line.draw_end >= data->window_height)
+            line.draw_end = data->window_height - 1;
         line.x = x;
         line.ray = &ray;
         draw_textured_line(data, &line);
@@ -311,12 +311,69 @@ void	render_frame(t_data *data)
     }
 }
 
+static void	set_player_direction_ns(t_data *data, char direction)
+{
+	if (direction == 'N') 
+	{
+		data->player.dir_x = 0; 
+		data->player.dir_y = -1;
+		data->player.plane_x = 0.66; 
+		data->player.plane_y = 0;
+	}
+	else if (direction == 'S') 
+	{
+		data->player.dir_x = 0; 
+		data->player.dir_y = 1;
+		data->player.plane_x = -0.66; 
+		data->player.plane_y = 0;
+	}
+}
+
+static void	set_player_direction_ew(t_data *data, char direction)
+{
+	if (direction == 'E')
+	{
+		data->player.dir_x = 1; 
+		data->player.dir_y = 0;
+		data->player.plane_x = 0; 
+		data->player.plane_y = 0.66;
+	}
+	else if (direction == 'W')
+	{
+		data->player.dir_x = -1; 
+		data->player.dir_y = 0;
+		data->player.plane_x = 0; 
+		data->player.plane_y = -0.66;
+	}
+}
+
+static void	set_player_direction(t_data *data, char direction)
+{ 
+	if(direction == 'N' || direction == 'S') 
+		set_player_direction_ns(data, direction);
+	else if (direction == 'E' || direction == 'W')
+		set_player_direction_ew(data, direction);
+}
+    
+static int	is_player_position(char c)
+{
+	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
+}
+
+static void	set_player_position(t_data *data, int x, int y, char direction)
+{
+    // Set position (add 0.5 to place player in center of tile)
+	data->player.x = x + 0.5;
+	data->player.y = y + 0.5;
+	set_player_direction(data, direction);
+}
+
 void	init_player_position(t_data *data)
 {
 	int		y;
 	int		x;
 	char	c;
-    // Find player position in map
+
 	y = 0;
 	while (y < data->map.height)
 	{
@@ -324,33 +381,9 @@ void	init_player_position(t_data *data)
 		while (x < data->map.width)
 		{
 			c = data->map.map_array[y][x];
-			if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+			if (is_player_position(c))
 			{
-                // Set position (add 0.5 to place player in center of tile)
-				data->player.x = x + 0.5;
-				data->player.y = y + 0.5;
-                
-                // Set initial direction and plane based on spawn direction
-			if (c == 'N') 
-			{
-				data->player.dir_x = 0; data->player.dir_y = -1;
-				data->player.plane_x = 0.66; data->player.plane_y = 0;
-			}
-			else if (c == 'S') 
-			{
-				data->player.dir_x = 0; data->player.dir_y = 1;
-				data->player.plane_x = -0.66; data->player.plane_y = 0;
-			}
-			else if (c == 'E') 
-			{
-				data->player.dir_x = 1; data->player.dir_y = 0;
-				data->player.plane_x = 0; data->player.plane_y = 0.66;
-			}
-			else if (c == 'W')
-			{
-				data->player.dir_x = -1; data->player.dir_y = 0;
-				data->player.plane_x = 0; data->player.plane_y = -0.66;
-			}
+				set_player_position(data, x, y, c);
 				return;
 			}
 			x++;
