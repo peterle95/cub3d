@@ -53,9 +53,9 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	int	x;
-	int	y;
-	int	speed;
+	double	x;
+	double	y;
+	double	speed;
 	double dir_x;    // Direction vector
 	double dir_y;
 	double plane_x;  // Camera plane
@@ -91,6 +91,9 @@ typedef struct	s_data
 	int			window_height;
 	t_textures	textures;
 	t_player	player;
+	int			scalar;
+	int			offset;
+	t_ray		*ray;
 	int			t;
 	int			r;
 	int			g;
@@ -114,6 +117,9 @@ typedef enum s_id
 
 // debug
 void 	print_string_array(char **array, int n);
+
+// functions in main temporarily
+int	player_move(t_data *data, int dir);
 
 // error_msg
 int		error(char *message);
@@ -183,4 +189,8 @@ void	perform_dda(t_data *data, t_ray *ray);
 void	draw_textured_line(t_data *data, t_ray *ray, int x, int draw_start, int draw_end);
 void	render_frame(t_data *data);
 void	init_player_position(t_data *data);
+
+// raycasting_visualisation
+int		draw_raycast(t_data *data);
+
 #endif

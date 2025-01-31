@@ -63,18 +63,18 @@ void draw_textured_line(t_data *data, t_ray *ray, int x, int draw_start, int dra
     {
         if (ray->ray_dir_x < 0) 
         {
-            tex_num = 3;  // West
+            tex_num = 1;  // West
         } 
         else 
         {
-            tex_num = 2;  // East
+            tex_num = 1;  // East
         }
     } 
     else 
     {
         if (ray->ray_dir_y < 0) 
         {
-            tex_num = 0;  // North
+            tex_num = 1;  // North
         } 
         else 
         {
@@ -183,9 +183,9 @@ void calculate_step_and_side_dist(t_ray *ray)
 
 void perform_dda(t_data *data, t_ray *ray)
 {
-    printf("Starting DDA: pos=(%f,%f), dir=(%f,%f)\n",
-           ray->pos_x, ray->pos_y,
-           ray->ray_dir_x, ray->ray_dir_y);
+    // printf("Starting DDA: pos=(%f,%f), dir=(%f,%f)\n",
+    //        ray->pos_x, ray->pos_y,
+    //        ray->ray_dir_x, ray->ray_dir_y);
 
     // Perform DDA (Digital Differential Analysis)
     while (ray->hit == 0)
@@ -209,16 +209,20 @@ void perform_dda(t_data *data, t_ray *ray)
             ray->map_y >= data->map.height || ray->map_x >= data->map.width)
         {
             ray->hit = 1;  // Hit boundary
-            printf("Hit boundary at (%d,%d)\n", ray->map_x, ray->map_y);
+            // printf("Hit boundary at (%d,%d)\n", ray->map_x, ray->map_y);
             break;
         }
 
         // Check if ray has hit a wall
         if (data->map.map_array[ray->map_y][ray->map_x] == '1')
         {
+			if (DEBUG)
+				draw_raycast(data);
+			// save coordinates and draw them in draw loop ------------------------------------------------------------------------
             ray->hit = 1;
-            printf("Hit wall at (%d,%d)\n", ray->map_x, ray->map_y);
+            // printf("Hit wall at (%d,%d)\n", ray->map_x, ray->map_y);
         }
+
     }
 
     // Calculate distance projected on camera direction
@@ -229,7 +233,7 @@ void perform_dda(t_data *data, t_ray *ray)
         ray->perp_wall_dist = (ray->map_y - ray->pos_y + 
             (1 - ray->step_y) / 2) / ray->ray_dir_y;
 
-    printf("Final distance: %f\n", ray->perp_wall_dist);
+    // printf("Final distance: %f\n", ray->perp_wall_dist);
 }
 
 void render_frame(t_data *data)
@@ -243,7 +247,8 @@ void render_frame(t_data *data)
     x = 0;
     while (x < data->window_width)
     {
-        t_ray ray;
+        t_ray	ray;
+		data->ray = &ray;
         init_ray(&ray, data, x);
         calculate_step_and_side_dist(&ray);
         perform_dda(data, &ray);

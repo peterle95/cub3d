@@ -44,12 +44,20 @@ int	draw(t_data *data)
 	
 	// Render the 3D view
 	render_frame(data);
-	
+
+	// draw mini map
+	draw_grid(data);
+
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img_data0->img, 0, 0);
 	
-	// Draw player sprite if needed
-	render_with_transpareny(data, &data->textures.img[0], data->player.x, data->player.y);
-	
+	int centre_x = data->textures.img[0].width / 2;
+	int centre_y = data->textures.img[0].height / 2;
+	// draw player position
+	render_with_transpareny(data, &data->textures.img[0],
+			(data->player.x * data->scalar)+ data->offset - centre_x,
+			(data->player.y * data->scalar) + data->offset - centre_y);
+		
+
 	if (data->r > 0)
 		data->r--;
 	return (0);
@@ -91,41 +99,43 @@ int	init_hooks(t_data *data)
 	return (0);
 }
 
-int	load_textures(t_data *data, char *path, char *id)
+int	load_texture(t_data *data, char *path, char *id, int index)
 {
 	// load xpm as image
-	data->textures.img[0].ptr = mlx_xpm_file_to_image(data->mlx, path,
-			&data->textures.img[0].width, &data->textures.img[0].height);
+	data->textures.img[index].ptr = mlx_xpm_file_to_image(data->mlx, path,
+			&data->textures.img[index].width, &data->textures.img[index].height);
 	data->textures.img[0].id = id;
 	// load image data to texture object
-	data->textures.img[0].addr = mlx_get_data_addr(data->textures.img[0].ptr,
-			&(data->textures.img[0].bpp), 
-			&(data->textures.img[0].size_line),
-			&(data->textures.img[0].endian));
-	printf("texture addr: %p\n", data->textures.img[0].addr);
+	data->textures.img[index].addr = mlx_get_data_addr(data->textures.img[index].ptr,
+			&(data->textures.img[index].bpp), 
+			&(data->textures.img[index].size_line),
+			&(data->textures.img[index].endian));
+	printf("texture addr: %p\n", data->textures.img[index].addr);
 	return (0);	
 }
 
+// seems as though the player speed must divide into some value
+// for the walls to render correctly
 int	init_player(t_data *data)
 {
 	data->player.x = 0;
 	data->player.y = 0;
-	data->player.speed = 2;
+	data->player.speed = 0.5; 
 	return (0);
 }
 
-int	player_move(t_data *data, int dir)
-{
-	if (UP == dir)
-		data->player.y -= data->player.speed;
-	if (DOWN == dir)
-		data->player.y += data->player.speed;
-	if (LEFT == dir)
-		data->player.x -= data->player.speed;
-	if (RIGHT == dir)
-		data->player.x += data->player.speed;
-	return (0);
-}
+// int	player_move(t_data *data, int dir)
+// {
+// 	if (UP == dir)
+// 		data->player.y -= data->player.speed;
+// 	if (DOWN == dir)
+// 		data->player.y += data->player.speed;
+// 	if (LEFT == dir)
+// 		data->player.x -= data->player.speed;
+// 	if (RIGHT == dir)
+// 		data->player.x += data->player.speed;
+// 	return (0);
+// }
 
 int	main(int argc, char **argv)
 {
@@ -147,7 +157,8 @@ int	main(int argc, char **argv)
 	data.mlx_win = mlx_new_window(data.mlx, data.window_width, data.window_height, "dooomed");
 	init_img(&data);
 	// TODO: load correct textures
-	load_textures(&data, "./src/assets/textures/player_marker.xpm", "player_marker");
+	load_texture(&data, "./src/assets/textures/player_marker.xpm", "player_marker", 0);
+	load_texture(&data, "./src/assets/textures/ceiling.xpm", "wall", 1);
 	init_hooks(&data);
 	mlx_mouse_hide(data.mlx, data.mlx_win);
 	init_player(&data);

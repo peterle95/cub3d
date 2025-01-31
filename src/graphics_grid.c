@@ -23,15 +23,14 @@ int	draw_grid(t_data *data)
 {
 	int	y;
 	int	x;
-	int	scalar;
 	int	greater;
-	int offset = 100; // for debug visual clarity
+	data->offset = 0; // for debug visual clarity
 
 	if (data->map.height > data->map.width)
 		greater = data->map.height;
 	else
 		greater = data->map.width;
-	scalar = data->window_height / greater;
+	data->scalar = (data->window_height / greater) / 2;
 	y = 0;
 	while (y < data->map.height)
 	{
@@ -39,32 +38,32 @@ int	draw_grid(t_data *data)
 		while (x < data->map.width)
 		{
 			if (data->map.map_array[y][x] == '1')
-				fill_square(data, (x * scalar) + offset, (y * scalar) + offset, scalar);
+				fill_square(data, (x * data->scalar) + data->offset, (y * data->scalar) + data->offset, data->scalar);
 			x++;
 		}
 		y++;
 	}
-	t_line	*line;
-	// horizontal
-	y = 0;
-	while (y < data->map.height + 1)
-	{
-		// data->map.width -1 seems to work 
-		line = init_line(0 + offset, (y * scalar) + offset,
-				((data->map.width - 1) * scalar) + offset, (y * scalar) + offset);
-		compute_line_points(data, line);
-		free(line);
-		y++;
-	}
-	// vertical
-	x = 0;
-	while (x < data->map.width)
-	{
-		line = init_line((x * scalar) + offset,
-				0 + offset, (x * scalar) + offset, (data->map.height * scalar) + offset);
-		compute_line_points(data, line);
-		free(line);
-		x++;
-	}
+	// t_line	*line;
+	// // horizontal
+	// y = 0;
+	// while (y < data->map.height + 1)
+	// {
+	// 	// data->map.width -1 seems to work 
+	// 	line = init_line(0 + data->offset, (y * data->scalar) + data->offset,
+	// 			((data->map.width - 1) * data->scalar) + data->offset, (y * data->scalar) + data->offset);
+	// 	compute_line_points(data, line);
+	// 	free(line);
+	// 	y++;
+	// }
+	// // vertical
+	// x = 0;
+	// while (x < data->map.width)
+	// {
+	// 	line = init_line((x * data->scalar) + data->offset,
+	// 			0 + data->offset, (x * data->scalar) + data->offset, (data->map.height * data->scalar) + data->offset);
+	// 	compute_line_points(data, line);
+	// 	free(line);
+	// 	x++;
+	// }
 	return (0);
 }
