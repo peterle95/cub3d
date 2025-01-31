@@ -10,22 +10,22 @@ int	key_up(int keycode, t_data *data)
 int	key_down(int keycode, t_data *data)
 {
 	(void)data;
-	if (0xff52 == keycode)
+	if (0xff51 == keycode)
 	{
 		printf("up\n");
 		player_move(data, UP);
 	}
-	if (0xff54 == keycode)
+	if (0xff53 == keycode)
 	{
 		printf("down\n");
 		player_move(data, DOWN);
 	}
-	if (0xff51 == keycode)
+	if (0xff52 == keycode)
 	{
 		printf("left\n");
 		player_move(data, LEFT);
 	}
-	if (0xff53 == keycode)
+	if (0xff54 == keycode)
 	{
 		printf("right\n");
 		player_move(data, RIGHT);
