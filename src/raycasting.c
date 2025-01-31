@@ -6,45 +6,58 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:15:52 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/01/29 14:18:06 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/01/31 18:02:15 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static void	draw_floor_ceiling(t_data *data)
+static void draw_horizontal_line(t_data *data, int y, unsigned int color)
 {
-	unsigned int	ceiling;
-	unsigned int	floor;
-	int		y;
-	int		x;
+    int x;
+
+    x = 0;
+    while (x < data->window_width)
+    {
+        put_pixel_to_img(data, x, y, color);
+        x++;
+    }
+}
+
+static void draw_ceiling(t_data *data, unsigned int ceiling_color)
+{
+    int y;
+
+    y = 0;
+    while (y < data->window_height / 2)
+    {
+        draw_horizontal_line(data, y, ceiling_color);
+        y++;
+    }
+}
+
+static void draw_floor(t_data *data, unsigned int floor_color)
+{
+    int y;
+
+    y = data->window_height / 2;
+    while (y < data->window_height)
+    {
+        draw_horizontal_line(data, y, floor_color);
+        y++;
+    }
+}
+
+static void draw_floor_ceiling(t_data *data)
+{
+    unsigned int ceiling;
+    unsigned int floor;
 
     // change this to actual texture
-	ceiling = 0x87CEEB; 
-	floor = 0x8B4513; 
-	y = 0;
-	while (y < data->window_height)
-	{
-		if (y < data->window_height / 2)
-		{
-			x = 0;
-			while (x < data->window_width)
-			{
-				put_pixel_to_img(data, x, y, ceiling);
-				x++;
-			}
-		}
-		else
-		{
-			x = 0;
-			while (x < data->window_width)
-			{
-				put_pixel_to_img(data, x, y, floor);
-				x++;
-			}
-		}
-		y++;
-	}
+    ceiling = 0x87CEEB;
+    floor = 0x8B4513;
+    draw_ceiling(data, ceiling);
+    draw_floor(data, floor);
 }
 
 static int	get_texture_number(t_ray *ray)
@@ -205,54 +218,68 @@ void calculate_step_and_side_dist(t_ray *ray)
     }
 }
 
-void perform_dda(t_data *data, t_ray *ray)
+static void update_ray_position(t_ray *ray)
 {
-    printf("Starting DDA: pos=(%f,%f), dir=(%f,%f)\n",
-           ray->pos_x, ray->pos_y,
-           ray->ray_dir_x, ray->ray_dir_y);
-
-    // Perform DDA (Digital Differential Analysis)
-    while (ray->hit == 0)
+    if (ray->side_dist_x < ray->side_dist_y)
     {
-        // Jump to next map square
-        if (ray->side_dist_x < ray->side_dist_y)
-        {
-            ray->side_dist_x += ray->delta_dist_x;
-            ray->map_x += ray->step_x;
-            ray->side = 0;
-        }
-        else
-        {
-            ray->side_dist_y += ray->delta_dist_y;
-            ray->map_y += ray->step_y;
-            ray->side = 1;
-        }
-
-        // Add bounds checking before accessing map_array
-        if (ray->map_x < 0 || ray->map_y < 0 || 
-            ray->map_y >= data->map.height || ray->map_x >= data->map.width)
-        {
-            ray->hit = 1;  // Hit boundary
-            printf("Hit boundary at (%d,%d)\n", ray->map_x, ray->map_y);
-            break;
-        }
-
-        // Check if ray has hit a wall
-        if (data->map.map_array[ray->map_y][ray->map_x] == '1')
-        {
-            ray->hit = 1;
-            printf("Hit wall at (%d,%d)\n", ray->map_x, ray->map_y);
-        }
+        ray->side_dist_x += ray->delta_dist_x;
+        ray->map_x += ray->step_x;
+        ray->side = 0;
     }
+    else
+    {
+        ray->side_dist_y += ray->delta_dist_y;
+        ray->map_y += ray->step_y;
+        ray->side = 1;
+    }
+}
 
-    // Calculate distance projected on camera direction
+static int check_bounds(t_data *data, t_ray *ray)
+{
+    if (ray->map_x < 0 || ray->map_y < 0 || 
+        ray->map_y >= data->map.height || ray->map_x >= data->map.width)
+    {
+        ray->hit = 1;  // Hit boundary
+        printf("Hit boundary at (%d,%d)\n", ray->map_x, ray->map_y);
+        return 1;
+    }
+    return 0;
+}
+
+static void check_wall_collision(t_data *data, t_ray *ray)
+{
+    if (data->map.map_array[ray->map_y][ray->map_x] == '1')
+    {
+        ray->hit = 1;
+        printf("Hit wall at (%d,%d)\n", ray->map_x, ray->map_y);
+    }
+}
+
+static void calculate_perpendicular_distance(t_ray *ray)
+{
     if (ray->side == 0)
         ray->perp_wall_dist = (ray->map_x - ray->pos_x + 
             (1 - ray->step_x) / 2) / ray->ray_dir_x;
     else
         ray->perp_wall_dist = (ray->map_y - ray->pos_y + 
             (1 - ray->step_y) / 2) / ray->ray_dir_y;
+}
 
+void perform_dda(t_data *data, t_ray *ray)
+{
+    printf("Starting DDA: pos=(%f,%f), dir=(%f,%f)\n",
+           ray->pos_x, ray->pos_y,
+           ray->ray_dir_x, ray->ray_dir_y);
+
+    while (ray->hit == 0)
+    {
+        update_ray_position(ray);
+        if (check_bounds(data, ray))
+            break;
+        check_wall_collision(data, ray);
+    }
+
+    calculate_perpendicular_distance(ray);
     printf("Final distance: %f\n", ray->perp_wall_dist);
 }
 
