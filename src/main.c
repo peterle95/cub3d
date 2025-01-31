@@ -116,15 +116,29 @@ int	init_player(t_data *data)
 
 int	player_move(t_data *data, int dir)
 {
-	if (UP == dir)
-		data->player.y -= data->player.speed;
-	if (DOWN == dir)
-		data->player.y += data->player.speed;
-	if (LEFT == dir)
-		data->player.x -= data->player.speed;
-	if (RIGHT == dir)
-		data->player.x += data->player.speed;
-	return (0);
+    double new_x = data->player.x;
+    double new_y = data->player.y;
+
+    if (dir == UP)
+        new_y -= data->player.speed;
+    else if (dir == DOWN)
+        new_y += data->player.speed;
+    else if (dir == LEFT)
+        new_x -= data->player.speed;
+    else if (dir == RIGHT)
+        new_x += data->player.speed;
+
+    // Check if new position is within map bounds
+    if (new_x < 0 || new_x >= data->map.width || new_y < 0 || new_y >= data->map.height)
+        return (0);
+
+    // Check if new position is not a wall
+    if (data->map.map_array[(int)new_y][(int)new_x] != '1') 
+	{
+        data->player.x = new_x;
+        data->player.y = new_y;
+    }
+    return (0);
 }
 
 int	main(int argc, char **argv)

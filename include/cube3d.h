@@ -53,13 +53,13 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	int	x;
-	int	y;
-	int	speed;
-	double dir_x;    // Direction vector
-	double dir_y;
-	double plane_x;  // Camera plane
-	double plane_y;
+	double	x;
+	double	y;
+	double	speed;
+	double	dir_x;    // Direction vector
+	double	dir_y;
+	double	plane_x;  // Camera plane
+	double	plane_y;
 }	t_player;
 
 typedef struct s_ray
