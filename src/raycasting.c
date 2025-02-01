@@ -12,52 +12,52 @@
 
 #include "cube3d.h"
 
-static void draw_horizontal_line(t_data *data, int y, unsigned int color)
+static void	draw_horizontal_line(t_data *data, int y, unsigned int color)
 {
-    int x;
+	int		x;
 
-    x = 0;
-    while (x < data->window_width)
-    {
-        put_pixel_to_img(data, x, y, color);
-        x++;
-    }
+	x = 0;
+	while (x < data->window_width)
+	{
+		put_pixel_to_img(data, x, y, color);
+		x++;
+	}
 }
 
-static void draw_ceiling(t_data *data, unsigned int ceiling_color)
+static void	draw_ceiling(t_data *data, unsigned int ceiling_color)
 {
-    int y;
+	int		y;
 
-    y = 0;
-    while (y < data->window_height / 2)
-    {
-        draw_horizontal_line(data, y, ceiling_color);
-        y++;
-    }
+	y = 0;
+	while (y < data->window_height / 2)
+	{
+		draw_horizontal_line(data, y, ceiling_color);
+		y++;
+	}
 }
 
-static void draw_floor(t_data *data, unsigned int floor_color)
+static void	draw_floor(t_data *data, unsigned int floor_color)
 {
-    int y;
+	int		y;
 
-    y = data->window_height / 2;
-    while (y < data->window_height)
-    {
-        draw_horizontal_line(data, y, floor_color);
-        y++;
-    }
+	y = data->window_height / 2;
+	while (y < data->window_height)
+	{
+		draw_horizontal_line(data, y, floor_color);
+		y++;
+	}
 }
 
-static void draw_floor_ceiling(t_data *data)
+static void	draw_floor_ceiling(t_data *data)
 {
-    unsigned int ceiling;
-    unsigned int floor;
+	unsigned int		ceiling;
+	unsigned int		floor;
 
     // change this to actual texture
-    ceiling = 0x87CEEB;
-    floor = 0x8B4513;
-    draw_ceiling(data, ceiling);
-    draw_floor(data, floor);
+	ceiling = 0x87CEEB;
+	floor = 0x8B4513;
+	draw_ceiling(data, ceiling);
+	draw_floor(data, floor);
 }
 
 static int	get_texture_number(t_ray *ray)
