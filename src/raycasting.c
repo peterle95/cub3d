@@ -65,14 +65,14 @@ static int	get_texture_number(t_ray *ray)
 	if (ray->side == 0)
 	{
 		if (ray->ray_dir_x < 0)
-			return 3;  // West
+			return 1;  // West
 		else
-			return 2;  // East
+			return 1;  // East
 	}
 	else
 	{
 		if (ray->ray_dir_y < 0)
-			return 0;  // North
+			return 1;  // North
 		else
 			return 1;  // South
 	}
@@ -250,6 +250,7 @@ static void check_wall_collision(t_data *data, t_ray *ray)
 {
     if (data->map.map_array[ray->map_y][ray->map_x] == '1')
     {
+		draw_raycast(data);
         ray->hit = 1;
         printf("Hit wall at (%d,%d)\n", ray->map_x, ray->map_y);
     }
@@ -290,6 +291,7 @@ void	render_frame(t_data *data)
 	t_ray	ray;
 	int		line_height;
 
+	data->ray = &ray;
 	x = 0;
 	draw_floor_ceiling(data);
 	while (x < data->window_width)

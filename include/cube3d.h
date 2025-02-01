@@ -56,6 +56,7 @@ typedef struct s_player
 	double	x;
 	double	y;
 	double	speed;
+	double	rotation_speed;
 	double	dir_x;    // Direction vector
 	double	dir_y;
 	double	plane_x;  // Camera plane

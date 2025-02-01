@@ -14,7 +14,7 @@ int close_window(t_data *data)
 }
 
 
-int	render_with_transpareny(t_data *data, t_texture *t, int img_x, int img_y)
+int	render_with_transparency(t_data *data, t_texture *t, int img_x, int img_y)
 {
 	int	y;
 	int	x;
@@ -48,12 +48,14 @@ int	draw(t_data *data)
 	// draw mini map
 	draw_grid(data);
 
+	// render_with_transparency(data, &data->textures.img[2], 0, 0);
+
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img_data0->img, 0, 0);
 	
 	int centre_x = data->textures.img[0].width / 2;
 	int centre_y = data->textures.img[0].height / 2;
 	// draw player position
-	render_with_transpareny(data, &data->textures.img[0],
+	render_with_transparency(data, &data->textures.img[0],
 			(data->player.x * data->scalar)+ data->offset - centre_x,
 			(data->player.y * data->scalar) + data->offset - centre_y);
 		
@@ -104,7 +106,7 @@ int	load_texture(t_data *data, char *path, char *id, int index)
 	// load xpm as image
 	data->textures.img[index].ptr = mlx_xpm_file_to_image(data->mlx, path,
 			&data->textures.img[index].width, &data->textures.img[index].height);
-	data->textures.img[0].id = id;
+	data->textures.img[index].id = id;
 	// load image data to texture object
 	data->textures.img[index].addr = mlx_get_data_addr(data->textures.img[index].ptr,
 			&(data->textures.img[index].bpp), 
@@ -120,36 +122,37 @@ int	init_player(t_data *data)
 {
 	data->player.x = 0;
 	data->player.y = 0;
-	data->player.speed = 0.5; 
+	data->player.speed = 0.5;
+	data->player.rotation_speed = 0.1;
 	return (0);
 }
 
-int	player_move(t_data *data, int dir)
-{
-    double new_x = data->player.x;
-    double new_y = data->player.y;
-
-    if (dir == UP)
-        new_y -= data->player.speed;
-    else if (dir == DOWN)
-        new_y += data->player.speed;
-    else if (dir == LEFT)
-        new_x -= data->player.speed;
-    else if (dir == RIGHT)
-        new_x += data->player.speed;
-
-    // Check if new position is within map bounds
-    if (new_x < 0 || new_x >= data->map.width || new_y < 0 || new_y >= data->map.height)
-        return (0);
-
-    // Check if new position is not a wall
-    if (data->map.map_array[(int)new_y][(int)new_x] != '1') 
-	{
-        data->player.x = new_x;
-        data->player.y = new_y;
-    }
-    return (0);
-}
+// int	player_move(t_data *data, int dir)
+// {
+//     double new_x = data->player.x;
+//     double new_y = data->player.y;
+//
+//     if (dir == UP)
+//         new_y -= data->player.speed;
+//     else if (dir == DOWN)
+//         new_y += data->player.speed;
+//     else if (dir == LEFT)
+//         new_x -= data->player.speed;
+//     else if (dir == RIGHT)
+//         new_x += data->player.speed;
+//
+//     // Check if new position is within map bounds
+//     if (new_x < 0 || new_x >= data->map.width || new_y < 0 || new_y >= data->map.height)
+//         return (0);
+//
+//     // Check if new position is not a wall
+//     if (data->map.map_array[(int)new_y][(int)new_x] != '1') 
+// 	{
+//         data->player.x = new_x;
+//         data->player.y = new_y;
+//     }
+//     return (0);
+// }
 
 int	main(int argc, char **argv)
 {
@@ -173,6 +176,8 @@ int	main(int argc, char **argv)
 	// TODO: load correct textures
 	load_texture(&data, "./src/assets/textures/player_marker.xpm", "player_marker", 0);
 	load_texture(&data, "./src/assets/textures/ceiling.xpm", "wall", 1);
+	load_texture(&data, "./src/assets/textures/skybox_2048.xpm", "sky", 2);
+
 	init_hooks(&data);
 	mlx_mouse_hide(data.mlx, data.mlx_win);
 	init_player(&data);
