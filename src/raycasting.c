@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:15:52 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/01 11:45:07 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/03 13:35:20 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,36 @@ static void	draw_horizontal_line(t_data *data, int y, unsigned int color)
 	}
 }
 
-static void	draw_ceiling(t_data *data, unsigned int ceiling_color)
-{
-	int		y;
-
-	y = 0;
-	while (y < data->window_height / 2)
-	{
-		draw_horizontal_line(data, y, ceiling_color);
-		y++;
-	}
-}
+// static void draw_ceiling(t_data *data) // unsigned int ceiling_color)
+// {
+// 	int	y;
+// 	int	x;
+// 	int pixel;
+// 	int color;
+//
+// 	y = 0;
+// 	while (y < data->window_height / 2)
+// 	{
+// 		x = 0;
+// 		while (x < data->window_width)
+// 		{
+// 			pixel = (y * data->textures.img[2].size_line) + (x * (data->textures.img[2].bpp / 8));
+// 			color = *(int *)(data->textures.img[2].addr + pixel);
+// 			if (color != 0xFFFFFF)
+// 				mlx_pixel_put(data->mlx, data->mlx_win, 0 + x, 0 + y, color);
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+//     // int y;
+//     //
+//     // y = 0;
+//     // while (y < data->window_height / 2)
+//     // {
+//     //     draw_horizontal_line(data, y, ceiling_color);
+//     //     y++;
+//     // }
+// }
 
 static void	draw_floor(t_data *data, unsigned int floor_color)
 {
@@ -50,14 +69,14 @@ static void	draw_floor(t_data *data, unsigned int floor_color)
 
 static void	draw_floor_ceiling(t_data *data)
 {
-	unsigned int		ceiling;
-	unsigned int		floor;
+    // unsigned int ceiling;
+    unsigned int floor;
 
     // change this to actual texture
-	ceiling = 0x87CEEB;
-	floor = 0x8B4513;
-	draw_ceiling(data, ceiling);
-	draw_floor(data, floor);
+    // ceiling = 0x87CEEB;
+    floor = 0x8B4513;
+    // draw_ceiling(data); //, ceiling);
+    draw_floor(data, floor);
 }
 
 static int	get_texture_number(t_ray *ray)
@@ -65,14 +84,14 @@ static int	get_texture_number(t_ray *ray)
 	if (ray->side == 0)
 	{
 		if (ray->ray_dir_x < 0)
-			return (3);  // West
+			return 1;  // West
 		else
-			return (2);  // East
+			return 1;  // East
 	}
 	else
 	{
 		if (ray->ray_dir_y < 0)
-			return (0);  // North
+			return 1;  // North
 		else
 			return (1);  // South
 	}
@@ -241,11 +260,12 @@ static int	check_bounds(t_data *data, t_ray *ray)
 
 static void	check_wall_collision(t_data *data, t_ray *ray)
 {
-	if (data->map.map_array[ray->map_y][ray->map_x] == '1')
-	{
-		ray->hit = 1;
-		printf("Hit wall at (%d,%d)\n", ray->map_x, ray->map_y);
-	}
+    if (data->map.map_array[ray->map_y][ray->map_x] == '1')
+    {
+		draw_raycast(data);
+        ray->hit = 1;
+        printf("Hit wall at (%d,%d)\n", ray->map_x, ray->map_y);
+    }
 }
 
 static void	calculate_perpendicular_distance(t_ray *ray)
@@ -281,6 +301,7 @@ void	render_frame(t_data *data)
 	t_ray	ray;
 	int		line_height;
 
+	data->ray = &ray;
 	x = 0;
 	draw_floor_ceiling(data);
 	while (x < data->window_width)
