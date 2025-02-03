@@ -6,3 +6,5 @@ minilibx-linux
 .cache/ 
 vgcore.*
 *.a
+.o
+.d
