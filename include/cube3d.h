@@ -51,7 +51,7 @@ typedef struct s_map
 	int		n;
 }	t_map;
 
-typedef struct s_player
+typedef struct	s_player
 {
 	double	x;
 	double	y;
@@ -61,33 +61,35 @@ typedef struct s_player
 	double	dir_y;
 	double	plane_x;  // Camera plane
 	double	plane_y;
+	double	angle;
 }	t_player;
 
-typedef struct s_ray
+typedef struct	s_ray
 {
-    double pos_x;
-    double pos_y;
-    double ray_dir_x;
-    double ray_dir_y;
-    int map_x;
-    int map_y;
-    double side_dist_x;
-    double side_dist_y;
-    double delta_dist_x;
-    double delta_dist_y;
-    double perp_wall_dist;
-    int step_x;
-    int step_y;
-    int hit;
-    int side;
-} t_ray;
+	double	pos_x;
+	double	pos_y;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+}	t_ray;
 
-typedef struct s_line_params {
-    int x;
-    int draw_start;
-    int draw_end;
-    t_ray *ray;
-} t_line_params;
+typedef struct	s_line_params
+{
+	int		x;
+	int		draw_start;
+	int		draw_end;
+    t_ray	*ray;
+}	t_line_params;
 
 typedef struct	s_data
 {
