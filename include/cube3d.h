@@ -197,6 +197,16 @@ char	*gnl_strjoin(char *buff, char **ln, int fd);
 char	*set_line(char	**ln, int fd);
 char	*freel(char **ln, int fd);
 
+// dda
+int      check_bounds(t_data *data, t_ray *ray);
+void     init_ray(t_ray *ray, t_data *data, int x);
+void     draw_floor_ceiling(t_data *data);
+double   calculate_wall_x(t_ray *ray);
+void     calculate_step_and_side_dist(t_ray *ray);
+void     perform_dda(t_data *data, t_ray *ray);
+void     calculate_perpendicular_distance(t_ray *ray);
+void     check_wall_collision(t_data *data, t_ray *ray);
+
 // raycasting
 void	perform_dda(t_data *data, t_ray *ray);
 void	draw_textured_line(t_data *data, t_line_params *line);
