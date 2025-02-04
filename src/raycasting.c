@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:15:52 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/04 11:30:22 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/04 12:02:53 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,6 @@ int calculate_tex_x(t_ray *ray, t_texture *tex)
     return (tex_x);
 }
 
-void calculate_step_pos(t_data *data, t_line_params *line, t_texture *tex, double step_pos[2])
-{
-    step_pos[0] = 1.0 * tex->height / (line->draw_end - line->draw_start);
-    step_pos[1] = (line->draw_start - data->window_height / 2 
-                  + (line->draw_end - line->draw_start) / 2) * step_pos[0];
-}
-
 void	init_ray(t_ray *ray, t_data *data, int x)
 {
 	double	camera_x;
@@ -107,29 +100,4 @@ void	init_ray(t_ray *ray, t_data *data, int x)
 	ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
 	ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
 	ray->hit = 0;
-}
-
-void	calculate_step_and_side_dist(t_ray *ray)
-{
-    // Calculate step direction and initial side distance
-	if (ray->ray_dir_x < 0)
-	{
-		ray->step_x = -1;
-		ray->side_dist_x = (ray->pos_x - ray->map_x) * ray->delta_dist_x;
-	}
-	else
-	{
-		ray->step_x = 1;
-		ray->side_dist_x = (ray->map_x + 1.0 - ray->pos_x) * ray->delta_dist_x;
-	}
-	if (ray->ray_dir_y < 0)
-	{
-		ray->step_y = -1;
-		ray->side_dist_y = (ray->pos_y - ray->map_y) * ray->delta_dist_y;
-	}
-	else
-	{
-		ray->step_y = 1;
-		ray->side_dist_y = (ray->map_y + 1.0 - ray->pos_y) * ray->delta_dist_y;
-	}
 }

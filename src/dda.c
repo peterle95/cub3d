@@ -6,33 +6,11 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 11:16:45 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/04 11:25:26 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/04 12:05:19 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
-
-int	check_bounds(t_data *data, t_ray *ray)
-{
-	if (ray->map_x < 0 || ray->map_y < 0 || 
-		ray->map_y >= data->map.height || ray->map_x >= data->map.width)
-	{
-		ray->hit = 1;  // Hit boundary
-		printf("Hit boundary at (%d,%d)\n", ray->map_x, ray->map_y);
-		return (1);
-	}   
-	return (0);
-}
-
-void	check_wall_collision(t_data *data, t_ray *ray)
-{
-    if (data->map.map_array[ray->map_y][ray->map_x] == '1')
-    {
-		draw_raycast(data);
-        ray->hit = 1;
-        printf("Hit wall at (%d,%d)\n", ray->map_x, ray->map_y);
-    }
-}
 
 void	update_ray_position(t_ray *ray)
 {
