@@ -182,6 +182,9 @@ int		key_down(int keycode, t_data *data);
 // player_movement
 int		player_move(t_data *data, int dir);
 
+// player_position
+void	init_player_position(t_data *data);
+
 // get_next_line
 char	*get_next_line(int fd);
 char	*fetch(int fd, char **ln);
