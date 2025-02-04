@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:29:36 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/01/19 14:30:07 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/04 11:42:27 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int error(char *message)
 {
-    perror(message);
+    printf("%s\n", message);
     return (1);
 }

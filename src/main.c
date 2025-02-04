@@ -208,7 +208,7 @@ int	main(int argc, char **argv)
 	t_data	data;
 
 	if (argc != 2)
-		return (0);
+		return (error("Invalid number of arguments"));
 	// valid_path(argv[1])
 
 	init_data(&data);
