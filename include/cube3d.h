@@ -216,4 +216,13 @@ void	init_player_position(t_data *data);
 // raycasting_visualisation
 int		draw_raycast(t_data *data);
 
+// draw
+void	draw_floor_ceiling(t_data *data);
+void	draw_floor(t_data *data, unsigned int floor_color);
+void	draw_horizontal_line(t_data *data, int y, unsigned int color);
+int		get_texture_number(t_ray *ray);
+int		calculate_tex_x(t_ray *ray, t_texture *tex);
+void	calculate_step_pos(t_data *data, t_line_params *line, t_texture *tex, double step_pos[2]);
+
+
 #endif
