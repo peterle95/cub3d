@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:31:22 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/07 12:42:43 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/07 12:54:49 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 int mouse_move(int x, int y, t_data *data)
 {
-    (void)y; // Marking y as unused to avoid compiler warnings.
-    
+    (void)y; // must remain here to match the MLX callback signature.
     int center_x;
     int center_y;
     int dx;
