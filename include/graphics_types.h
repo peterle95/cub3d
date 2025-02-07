@@ -11,25 +11,25 @@
 /* ************************************************************************** */
 
 #ifndef GRAPHICS_TYPES_H
-#define GRAPHICS_TYPES_H
+# define GRAPHICS_TYPES_H
 
 # define N_TEXTURES 4
 
-typedef struct	s_line
+typedef struct s_line
 {
 	int	x1;
 	int	y1;
 	int	x2;
 	int	y2;
-    int	dx;
-    int	dy;
-    int	sx;
-    int	sy;
-    int	err;
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	err;
 	int	e2;
 }	t_line;
 
-typedef struct	s_texture
+typedef struct s_texture
 {
 	void	*ptr;
 	char	*id;
@@ -41,14 +41,12 @@ typedef struct	s_texture
 	int		endian;
 }	t_texture;
 
-typedef struct	s_textures
+typedef struct s_textures
 {
 	t_texture	img[N_TEXTURES];
 }	t_textures;
 
-
 #endif
-
 
 // printf("texture ptr:       %p\n", t->ptr);
 // printf("texture id:        %s\n", t->id);

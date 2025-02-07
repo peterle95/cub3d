@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:15:52 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/01/31 18:55:23 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/07 15:48:37 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,37 +23,6 @@ static void draw_horizontal_line(t_data *data, int y, unsigned int color)
         x++;
     }
 }
-
-// static void draw_ceiling(t_data *data) // unsigned int ceiling_color)
-// {
-// 	int	y;
-// 	int	x;
-// 	int pixel;
-// 	int color;
-//
-// 	y = 0;
-// 	while (y < data->window_height / 2)
-// 	{
-// 		x = 0;
-// 		while (x < data->window_width)
-// 		{
-// 			pixel = (y * data->textures.img[2].size_line) + (x * (data->textures.img[2].bpp / 8));
-// 			color = *(int *)(data->textures.img[2].addr + pixel);
-// 			if (color != 0xFFFFFF)
-// 				mlx_pixel_put(data->mlx, data->mlx_win, 0 + x, 0 + y, color);
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-//     // int y;
-//     //
-//     // y = 0;
-//     // while (y < data->window_height / 2)
-//     // {
-//     //     draw_horizontal_line(data, y, ceiling_color);
-//     //     y++;
-//     // }
-// }
 
 static void draw_floor(t_data *data, unsigned int floor_color)
 {
