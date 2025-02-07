@@ -178,9 +178,14 @@ int		draw_grid(t_data *data);
 
 // keyboard_input
 int		key_down(int keycode, t_data *data);
+void		move_player_strafe(t_data *data, double direction);
+
+// mouse_input
+int		mouse_move(int x, int y, t_data *data);
 
 // player_movement
 int		player_move(t_data *data, int dir);
+void	rotate_player(t_data *data, double angle);
 
 // get_next_line
 char	*get_next_line(int fd);

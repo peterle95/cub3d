@@ -21,6 +21,7 @@ SRCS += $(SRC_DIR)graphics_image.c
 SRCS += $(SRC_DIR)graphics_lines.c
 SRCS += $(SRC_DIR)graphics_grid.c
 SRCS += $(SRC_DIR)keyboard_input.c
+SRCS += $(SRC_DIR)mouse_input.c
 SRCS += $(SRC_DIR)player_movement.c
 SRCS += $(SRC_DIR)raycasting.c
 SRCS += $(SRC_DIR)raycasting_visualisation.c

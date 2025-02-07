@@ -140,11 +140,12 @@ int	init_data(t_data *data)
 
 int	init_hooks(t_data *data)
 {
-	mlx_hook(data->mlx_win, 3, 1L << 1, &key_up, data);
-	mlx_hook(data->mlx_win, 2, 1L << 0, &key_down, data);
+	mlx_hook(data->mlx_win, 3, 1L << 1, key_up, data);
+	mlx_hook(data->mlx_win, 2, 1L << 0, key_down, data);
 	mlx_hook(data->mlx_win, ClientMessage, 0, close_window, data);
-	mlx_mouse_hook(data->mlx_win, &mouse_mv, data);
-	mlx_loop_hook(data->mlx, &draw, data);
+	mlx_mouse_hook(data->mlx_win, mouse_mv, data);
+	mlx_hook(data->mlx_win, 6, 1L << 6, mouse_move, data);
+	mlx_loop_hook(data->mlx, draw, data);
 	return (0);
 }
 

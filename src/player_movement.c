@@ -1,6 +1,7 @@
 #include "cube3d.h"
+#include <math.h>
 
-static void	rotate_player(t_data *data, double angle)
+void rotate_player(t_data *data, double angle)
 {
 	double	old_dir_x; 
 	double	old_plane_x; 
@@ -27,8 +28,21 @@ void	move_player_direction(t_data *data, double direction)
 
 	new_x = data->player.x + data->player.dir_x * data->player.speed * direction;
 	new_y = data->player.y + data->player.dir_y * data->player.speed * direction;
-	data->player.y = new_y;
 	data->player.x = new_x;
+	data->player.y = new_y;
+}
+
+void move_player_strafe(t_data *data, double direction)
+{
+	double new_x;
+	double new_y;
+	
+	// Perpendicular (right) vector is given by (-dir_y, dir_x)
+	// If 'direction' is positive the player will strafe right; negative -> left.
+	new_x = data->player.x + (-data->player.dir_y) * data->player.speed * direction;
+	new_y = data->player.y + (data->player.dir_x) * data->player.speed * direction;
+	data->player.x = new_x;
+	data->player.y = new_y;
 }
 
 int	player_move(t_data *data, int dir)
@@ -48,16 +62,7 @@ int	player_move(t_data *data, int dir)
 		move_player_direction(data, 1);
 	if (DOWN == dir)
 		move_player_direction(data, -1);
-	if (LEFT == dir)
-	{
-		rotate_player(data, -(data->player.rotation_speed));
-		// data->player.angle -= 100;
-	}
-	if (RIGHT == dir)
-	{
-		rotate_player(data, (data->player.rotation_speed));
-		// data->player.angle += 100;
-	}
+	// Removed keyboard rotation from LEFT and RIGHT – now handled via mouse.
 	return (0);
 }
 

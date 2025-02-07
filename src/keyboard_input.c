@@ -1,4 +1,5 @@
 #include "cube3d.h"
+#include <stdio.h>
 
 int	key_up(int keycode, t_data *data)
 {
@@ -9,27 +10,26 @@ int	key_up(int keycode, t_data *data)
 
 int	key_down(int keycode, t_data *data)
 {
-	// change movement to WASD, while left and right arrow are used for rotation
-	(void)data;
-	if (keycode == 'w' || keycode == 'W') // Move up
+	// Use WASD for movement.
+	if (keycode == 'w' || keycode == 'W') // Move forward
 	{
-		printf("up\n");
+		printf("forward\n");
 		player_move(data, UP);
 	}
-	if (keycode == 's' || keycode == 'S') // Move down
+	if (keycode == 's' || keycode == 'S') // Move backward
 	{
-		printf("down\n");
+		printf("backward\n");
 		player_move(data, DOWN);
 	}
-	if (keycode == 'a' || keycode == 'A') // Move left
+	if (keycode == 'a' || keycode == 'A') // Strafe left
 	{
-		printf("left\n");
-		player_move(data, LEFT);
+		printf("strafe left\n");
+		move_player_strafe(data, -1);
 	}
-	if (keycode == 'd' || keycode == 'D') // Move right
+	if (keycode == 'd' || keycode == 'D') // Strafe right
 	{
-		printf("right\n");
-		player_move(data, RIGHT);
+		printf("strafe right\n");
+		move_player_strafe(data, 1);
 	}
 	return (0);
 }
