@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:57 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/07 12:56:58 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/07 15:41:34 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,22 +59,10 @@ void move_player_strafe(t_data *data, double direction)
 
 int	player_move(t_data *data, int dir)
 {
- //     // Check if new position is within map bounds
- //    if (data->player.x < 0 || data->player.x >= data->map.width || data->player.y < 0 || data->player.y >= data->map.height)
- //        return (0);
-	//
- //    // Check if new position is not a wall
- //    if (data->map.map_array[(int)data->player.y][(int)data->player.x] != '1') 
-	// {
- //        data->player.x = data->player.x;
- //        data->player.y = data->player.y;
- //    }
-
 	if (UP == dir)
 		move_player_direction(data, 1);
 	if (DOWN == dir)
 		move_player_direction(data, -1);
-	// Removed keyboard rotation from LEFT and RIGHT – now handled via mouse.
 	return (0);
 }
 
