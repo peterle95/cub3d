@@ -159,7 +159,7 @@ int	load_texture(t_data *data, char *path, char *id, int index)
 			&(data->textures.img[index].bpp), 
 			&(data->textures.img[index].size_line),
 			&(data->textures.img[index].endian));
-	printf("texture addr: %p\n", data->textures.img[index].addr);
+	// printf("texture addr: %p\n", data->textures.img[index].addr);
 	return (0);	
 }
 
