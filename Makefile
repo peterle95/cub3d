@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/02/07 12:57:19 by pmolzer           #+#    #+#              #
+#    Updated: 2025/02/07 15:25:14 by pmolzer          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 CLANG=cc
 CFLAGS=-Wall -Werror -Wextra -MMD -g
 INCL=-Iinclude -Ilibft
@@ -21,9 +33,12 @@ SRCS += $(SRC_DIR)graphics_image.c
 SRCS += $(SRC_DIR)graphics_lines.c
 SRCS += $(SRC_DIR)graphics_grid.c
 SRCS += $(SRC_DIR)keyboard_input.c
+SRCS += $(SRC_DIR)mouse_input.c
 SRCS += $(SRC_DIR)player_movement.c
 SRCS += $(SRC_DIR)raycasting.c
 SRCS += $(SRC_DIR)raycasting_visualisation.c
+SRCS += $(SRC_DIR)draw.c
+SRCS += $(SRC_DIR)initialization.c
 
 LIBFT_DIR=libft
 LIBFT=$(LIBFT_DIR)/libft.a

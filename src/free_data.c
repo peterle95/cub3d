@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_data.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/07 12:56:11 by pmolzer           #+#    #+#             */
+/*   Updated: 2025/02/07 12:56:12 by pmolzer          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube3d.h"
 
 static void	free_map_config(t_data *data)
@@ -41,5 +53,5 @@ int	free_map_data(t_data *data)
 
 void	free_data(t_data *data)
 {
-	free_map_data(data);	
+	free_map_data(data);
 }

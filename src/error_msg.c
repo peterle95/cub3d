@@ -12,8 +12,8 @@
 
 #include "cube3d.h"
 
-int error(char *message)
+int	error(char *message)
 {
-    perror(message);
-    return (1);
+	perror(message);
+	return (1);
 }

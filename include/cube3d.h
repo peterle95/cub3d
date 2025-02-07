@@ -1,5 +1,17 @@
-#ifndef WINDOW_H
-#define WINDOW_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cube3d.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/07 13:04:29 by pmolzer           #+#    #+#             */
+/*   Updated: 2025/02/07 15:13:27 by pmolzer          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef CUBE3D_H
+# define CUBE3D_H
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -26,7 +38,7 @@
 #  define BUFFER_SIZE 1
 # endif
 
-typedef struct	s_img_data
+typedef struct s_img_data
 {
 	void	*img;
 	char	*addr;
@@ -41,12 +53,12 @@ typedef struct s_map
 	char	***config;
 	char	*flat_map;
 	char	**map_array;
-    int     height;
-    int     width;
-    int     player_x;
-    int     player_y;
-    char    player_dir;
-    int     elements_found;
+	int		height;
+	int		width;
+	int		player_x;
+	int		player_y;
+	char	player_dir;
+	int		elements_found;
 	int		id;
 	int		n;
 }	t_map;
@@ -57,14 +69,14 @@ typedef struct	s_player
 	double	y;
 	double	speed;
 	double	rotation_speed;
-	double	dir_x;    // Direction vector
+	double	dir_x;
 	double	dir_y;
-	double	plane_x;  // Camera plane
+	double	plane_x;
 	double	plane_y;
 	double	angle;
 }	t_player;
 
-typedef struct	s_ray
+typedef struct s_ray
 {
 	double	pos_x;
 	double	pos_y;
@@ -88,7 +100,7 @@ typedef struct	s_line_params
 	int		x;
 	int		draw_start;
 	int		draw_end;
-    t_ray	*ray;
+	t_ray	*ray;
 }	t_line_params;
 
 typedef struct	s_data
@@ -126,16 +138,18 @@ typedef enum s_id
 }	t_id;
 
 // debug
-void 	print_string_array(char **array, int n);
+void	print_string_array(char **array, int n);
 
 // functions in main temporarily
-int	player_move(t_data *data, int dir);
+int		player_move(t_data *data, int dir);
 
 // error_msg
 int		error(char *message);
 
 // free_data
 void	free_data(t_data *data);
+int		close_window(t_data *data);
+
 
 // utils
 void	init_colour_fade(t_data *data);
@@ -165,7 +179,7 @@ int		array_len(char **arr);
 void	init_img(t_data *data);
 void	put_pixel_to_img(t_data *data, int x, int y, int color);
 void	add_pixels(t_data *data, int x, int y);
-void	add_random_pixels(t_data *data, int width, int height, int num_pixels);// test function
+void	add_random_pixels(t_data *data, int width, int height, int num_pixels);//test function
 void	clear_image_to_colour(t_data *data, int colour);
 
 // graphics_lines
@@ -178,9 +192,26 @@ int		draw_grid(t_data *data);
 
 // keyboard_input
 int		key_down(int keycode, t_data *data);
+void	move_player_strafe(t_data *data, double direction);
+
+// mouse_input
+int		mouse_move(int x, int y, t_data *data);
+int		mouse_mv(int mousecode, int x, int y, t_data *data);
 
 // player_movement
 int		player_move(t_data *data, int dir);
+void	rotate_player(t_data *data, double angle);
+
+// draw
+int		draw(t_data *data);
+int		render_with_transparency(t_data *data, t_texture *t, int img_x, int img_y);
+void	draw_ceiling(t_data *data);
+int		draw_player_position(t_data *data);
+
+// initialization
+int		init_data(t_data *data);
+int		init_hooks(t_data *data);
+int		init_player(t_data *data);
 
 // get_next_line
 char	*get_next_line(int fd);

@@ -1,6 +1,19 @@
-#include "cube3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player_movement.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/07 12:56:57 by pmolzer           #+#    #+#             */
+/*   Updated: 2025/02/07 15:41:34 by pmolzer          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static void	rotate_player(t_data *data, double angle)
+#include "cube3d.h"
+#include <math.h>
+
+void rotate_player(t_data *data, double angle)
 {
 	double	old_dir_x; 
 	double	old_plane_x; 
@@ -27,37 +40,29 @@ void	move_player_direction(t_data *data, double direction)
 
 	new_x = data->player.x + data->player.dir_x * data->player.speed * direction;
 	new_y = data->player.y + data->player.dir_y * data->player.speed * direction;
-	data->player.y = new_y;
 	data->player.x = new_x;
+	data->player.y = new_y;
+}
+
+void move_player_strafe(t_data *data, double direction)
+{
+	double new_x;
+	double new_y;
+	
+	// Perpendicular (right) vector is given by (-dir_y, dir_x)
+	// If 'direction' is positive the player will strafe right; negative -> left.
+	new_x = data->player.x + (-data->player.dir_y) * data->player.speed * direction;
+	new_y = data->player.y + (data->player.dir_x) * data->player.speed * direction;
+	data->player.x = new_x;
+	data->player.y = new_y;
 }
 
 int	player_move(t_data *data, int dir)
 {
- //     // Check if new position is within map bounds
- //    if (data->player.x < 0 || data->player.x >= data->map.width || data->player.y < 0 || data->player.y >= data->map.height)
- //        return (0);
-	//
- //    // Check if new position is not a wall
- //    if (data->map.map_array[(int)data->player.y][(int)data->player.x] != '1') 
-	// {
- //        data->player.x = data->player.x;
- //        data->player.y = data->player.y;
- //    }
-
 	if (UP == dir)
 		move_player_direction(data, 1);
 	if (DOWN == dir)
 		move_player_direction(data, -1);
-	if (LEFT == dir)
-	{
-		rotate_player(data, -(data->player.rotation_speed));
-		// data->player.angle -= 100;
-	}
-	if (RIGHT == dir)
-	{
-		rotate_player(data, (data->player.rotation_speed));
-		// data->player.angle += 100;
-	}
 	return (0);
 }
 
