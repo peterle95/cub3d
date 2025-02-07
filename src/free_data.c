@@ -53,5 +53,5 @@ int	free_map_data(t_data *data)
 
 void	free_data(t_data *data)
 {
-	free_map_data(data);	
+	free_map_data(data);
 }
