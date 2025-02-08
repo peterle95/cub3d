@@ -53,16 +53,16 @@ static int	get_texture_number(t_ray *ray)
 	if (ray->side == 0)
 	{
 		if (ray->ray_dir_x < 0)
-			return 1;  // West
+			return 0;  // West
 		else
 			return 1;  // East
 	}
 	else
 	{
 		if (ray->ray_dir_y < 0)
-			return 1;  // North
+			return 2;  // North
 		else
-			return 1;  // South
+			return 3;  // South
 	}
 }
 

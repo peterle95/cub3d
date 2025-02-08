@@ -27,6 +27,10 @@ int	init_data(t_data *data)
 	return (0);
 }
 
+#define POINTER_MOTION 1L << 6
+#define KEY_PRESS 1L << 0
+#define KEY_RELEASE 1L << 1
+
 int	init_hooks(t_data *data)
 {
 	mlx_hook(data->mlx_win, 3, 1L << 1, key_up, data);

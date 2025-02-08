@@ -43,12 +43,32 @@ int	load_texture(t_data *data, char *path, char *id, int index)
 			&data->textures.img[index].height);
 	data->textures.img[index].id = id;
 	// load image data to texture object
-	data->textures.img[index].addr = mlx_get_data_addr
-		(data->textures.img[index].ptr,
+	data->textures.img[index].addr = mlx_get_data_addr(data->textures.img[index].ptr,
 			&(data->textures.img[index].bpp),
 			&(data->textures.img[index].size_line),
 			&(data->textures.img[index].endian));
-	printf("texture addr: %p\n", data->textures.img[index].addr);
+	// printf("texture addr: %p\n", data->textures.img[index].addr);
+	return (0);
+}
+
+// sky texture must be large enough (have default to colour if not big enough)
+int	load_textures_from_config(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->map.config[i])
+	{
+		if (ft_strncmp(data->map.config[i][0], "WE", 3) == 0)
+			load_texture(data, data->map.config[i][1], "wall_texture_west", 0);
+		else if (ft_strncmp(data->map.config[i][0], "EA", 3) == 0)
+			load_texture(data, data->map.config[i][1], "wall_texture_east", 1);
+		else if (ft_strncmp(data->map.config[i][0], "NO", 3) == 0)
+			load_texture(data, data->map.config[i][1], "wall_texture_north", 2);
+		else if (ft_strncmp(data->map.config[i][0], "SO", 3) == 0)
+			load_texture(data, data->map.config[i][1], "wall_texture_south", 3);
+		i++;
+	}
 	return (0);
 }
 
@@ -67,10 +87,7 @@ int	main(int argc, char **argv)
 	data.mlx = mlx_init();
 	data.mlx_win = mlx_new_window(data.mlx, data.window_width, data.window_height, "dooomed");
 	init_img(&data);
-	// TODO: load correct textures
-	load_texture(&data, "./src/assets/textures/player_marker.xpm", "player_marker", 0);
-	load_texture(&data, "./src/assets/textures/ceiling.xpm", "wall", 1);
-	load_texture(&data, "./src/assets/textures/skybox_4096.xpm", "sky", 2);
+	load_textures_from_config(&data);
 	init_hooks(&data);
 	mlx_mouse_hide(data.mlx, data.mlx_win);
 	init_player(&data);
