@@ -228,7 +228,7 @@ static int check_bounds(t_data *data, t_ray *ray)
         ray->map_y >= data->map.height || ray->map_x >= data->map.width)
     {
         ray->hit = 1;  // Hit boundary
-        printf("Hit boundary at (%d,%d)\n", ray->map_x, ray->map_y);
+        // printf("Hit boundary at (%d,%d)\n", ray->map_x, ray->map_y);
         return 1;
     }
     return 0;
@@ -240,7 +240,7 @@ static void check_wall_collision(t_data *data, t_ray *ray)
     {
 		draw_raycast(data);
         ray->hit = 1;
-        printf("Hit wall at (%d,%d)\n", ray->map_x, ray->map_y);
+        // printf("Hit wall at (%d,%d)\n", ray->map_x, ray->map_y);
     }
 }
 
@@ -256,9 +256,9 @@ static void calculate_perpendicular_distance(t_ray *ray)
 
 void perform_dda(t_data *data, t_ray *ray)
 {
-    printf("Starting DDA: pos=(%f,%f), dir=(%f,%f)\n",
-           ray->pos_x, ray->pos_y,
-           ray->ray_dir_x, ray->ray_dir_y);
+    // printf("Starting DDA: pos=(%f,%f), dir=(%f,%f)\n",
+           // ray->pos_x, ray->pos_y,
+           // ray->ray_dir_x, ray->ray_dir_y);
 
     while (ray->hit == 0)
     {
@@ -269,11 +269,12 @@ void perform_dda(t_data *data, t_ray *ray)
     }
 
     calculate_perpendicular_distance(ray);
-    printf("Final distance: %f\n", ray->perp_wall_dist);
+    // printf("Final distance: %f\n", ray->perp_wall_dist);
 }
 
 void	render_frame(t_data *data)
 {
+	printf("rendering frame\n");
 	int		x;
 	t_line_params	line;
 	t_ray	ray;

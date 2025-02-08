@@ -14,8 +14,7 @@
 
 int mouse_move(int x, int y, t_data *data)
 {
-    (void)y; // must remain here to match the MLX callback signature.
-	// (void)x;
+	(void)y;
     int center_x;
     int center_y;
     int dx;
@@ -24,7 +23,6 @@ int mouse_move(int x, int y, t_data *data)
     center_x = data->window_width / 2;
     center_y = data->window_height / 2;
 
-	printf("x: %d\n", x);
 	dx = x - center_x;
     sensitivity = 0.0001; // Lower sensitivity for slower rotation
 
