@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:48 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/08 12:56:01 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/09 10:37:53 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,33 @@ int	mouse_mv(int mousecode, int x, int y, t_data *data)
 
 int	load_texture(t_data *data, char *path, char *id, int index)
 {
-	// load xpm as image
+	if (!path) {
+		printf("Error: Invalid texture path for %s\n", id);
+		return (0);
+	}
+
 	data->textures.img[index].ptr = mlx_xpm_file_to_image(data->mlx, path,
 			&data->textures.img[index].width,
 			&data->textures.img[index].height);
+			
+	if (!data->textures.img[index].ptr) {
+		printf("Error: Failed to load texture %s at path %s\n", id, path);
+		return (0);
+	}
+
 	data->textures.img[index].id = id;
-	// load image data to texture object
 	data->textures.img[index].addr = mlx_get_data_addr(data->textures.img[index].ptr,
 			&(data->textures.img[index].bpp),
 			&(data->textures.img[index].size_line),
 			&(data->textures.img[index].endian));
-	// printf("texture addr: %p\n", data->textures.img[index].addr);
-	return (0);
+			
+	if (!data->textures.img[index].addr) {
+		printf("Error: Failed to get texture data address for %s\n", id);
+		mlx_destroy_image(data->mlx, data->textures.img[index].ptr);
+		return (0);
+	}
+	
+	return (1);
 }
 
 // sky texture must be large enough (have default to colour if not big enough)
@@ -121,6 +136,21 @@ typedef struct	s_xvar
 /////////////////////////////////////////////////
 // end                                         //
 /////////////////////////////////////////////////
+
+void init_textures(t_data *data)
+{
+    for (int i = 0; i < MAX_TEXTURES; i++) {
+        data->textures.img[i].ptr = NULL;
+        data->textures.img[i].addr = NULL;
+        data->textures.img[i].width = 0;
+        data->textures.img[i].height = 0;
+        data->textures.img[i].bpp = 0;
+        data->textures.img[i].size_line = 0;
+        data->textures.img[i].endian = 0;
+        data->textures.img[i].id = NULL;
+    }
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -136,7 +166,10 @@ int	main(int argc, char **argv)
 	data.mlx = mlx_init();
 	data.mlx_win = mlx_new_window(data.mlx, data.window_width, data.window_height, "dooomed");
 	init_img(&data);
-	load_textures_from_config(&data);
+	init_textures(&data);
+	if (!load_textures_from_config(&data)) {
+		return (1);
+	}
 	init_hooks(&data);
 
 	// Grab the pointer to restrict it to the window

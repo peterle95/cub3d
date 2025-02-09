@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 15:10:00 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/07 15:10:20 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/09 10:37:53 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ int	render_with_transparency(t_data *data, t_texture *t, int img_x, int img_y)
 
 void draw_ceiling(t_data *data)
 {
+	if (!data || !data->textures.img[2].ptr || !data->textures.img[2].addr) {
+		printf("Error: Invalid texture data for ceiling\n");
+		return;
+	}
+	
 	int		y;
 	int		x;
 	int		pixel;
@@ -85,7 +90,6 @@ int	draw_player_position(t_data *data)
 			(data->player.y * data->scalar) + data->offset - centre_y);
 	return (0);
 }
-
 
 // TODO: buffered images
 int	draw(t_data *data)

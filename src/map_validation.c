@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:06:27 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/01/28 13:31:37 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/09 10:37:53 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,7 +238,7 @@ int validate_map(t_data *data)
 	if (validate_textures(data) != 0)
 		return (1);
     // Validate map characters and player count
-    if (!validate_map_chars(data->map.map_array, "01"))
+    if (!validate_map_chars(data->map.map_array, "01NSEW"))
         return (1);
 
     // Validate colors

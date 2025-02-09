@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 13:04:29 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/07 15:13:27 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/09 10:28:37 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define POINTER_MOTION 1L << 6
 # define KEY_PRESS 1L << 0
 # define KEY_RELEASE 1L << 1
+# define MAX_TEXTURES 6
 
 # ifndef DEBUG
 #  define DEBUG 0
