@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:06:27 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/09 11:20:40 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/09 11:32:09 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,28 +24,12 @@ static void free_split(char **tokens)
     free(tokens);
 }
 
-static int validate_rgb(char *color)
+static int validate_rgb(const char *color, unsigned int rgb[3])
 {
-    int comma_count = 0;
-    int i = 0;
-    int rgb[3];
+    char **values;
+    int i;
 
-    // Check that the input is not NULL or an empty string
-    if (!color || color[0] == '\0')
-        return (1);
-
-    // Make sure the string has exactly two commas.
-    while (color[i])
-    {
-        if (color[i] == ',')
-            comma_count++;
-        i++;
-    }
-    if (comma_count != 2)
-        return (1);
-
-    // Split the string using comma as delimiter.
-    char **values = ft_split(color, ',');
+    values = ft_split(color, ',');
     if (!values)
         return (1);
 
@@ -70,7 +54,8 @@ static int validate_rgb(char *color)
             j++;
         }
         rgb[i] = ft_atoi(values[i]);
-        if (rgb[i] < 0 || rgb[i] > 255)
+        // Remove the < 0 check since it's unsigned
+        if (rgb[i] > 255)
         {
             free_split(values);
             return (1);
@@ -272,10 +257,17 @@ int validate_map(t_data *data)
             ceiling_color = data->map.config[i][1];
     }
     
+    unsigned int floor_rgb[3];
+    unsigned int ceiling_rgb[3];
+    
     if (!floor_color || !ceiling_color || 
-        validate_rgb(floor_color) != 0 || 
-        validate_rgb(ceiling_color) != 0)
+        validate_rgb(floor_color, floor_rgb) != 0 || 
+        validate_rgb(ceiling_color, ceiling_rgb) != 0)
         return (1);
+    
+    // Store colors in map struct
+    data->map.floor_color = (floor_rgb[0] << 16) | (floor_rgb[1] << 8) | floor_rgb[2];
+    data->map.ceiling_color = (ceiling_rgb[0] << 16) | (ceiling_rgb[1] << 8) | ceiling_rgb[2];
 
     // Validate map is surrounded by walls
     if (is_surrounded_by_walls(data->map.map_array, data->map.height, data->map.width))

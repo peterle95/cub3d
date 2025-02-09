@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:48 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/09 11:07:58 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/09 11:26:20 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,25 @@ int	load_textures_from_config(t_data *data)
 	while (data->map.config[i])
 	{
 		if (ft_strncmp(data->map.config[i][0], "WE", 3) == 0)
-			load_texture(data, data->map.config[i][1], "wall_texture_west", 0);
+		{
+			if (!load_texture(data, data->map.config[i][1], "wall_texture_west", 0))
+				return (1);
+		}
 		else if (ft_strncmp(data->map.config[i][0], "EA", 3) == 0)
-			load_texture(data, data->map.config[i][1], "wall_texture_east", 1);
+		{
+			if (!load_texture(data, data->map.config[i][1], "wall_texture_east", 1))
+				return (1);
+		}
 		else if (ft_strncmp(data->map.config[i][0], "NO", 3) == 0)
-			load_texture(data, data->map.config[i][1], "wall_texture_north", 2);
+		{
+			if (!load_texture(data, data->map.config[i][1], "wall_texture_north", 2))
+				return (1);
+		}
 		else if (ft_strncmp(data->map.config[i][0], "SO", 3) == 0)
-			load_texture(data, data->map.config[i][1], "wall_texture_south", 3);
+		{
+			if (!load_texture(data, data->map.config[i][1], "wall_texture_south", 3))
+				return (1);
+		}
 		i++;
 	}
 	return (0);
@@ -167,8 +179,8 @@ int	main(int argc, char **argv)
 	data.mlx_win = mlx_new_window(data.mlx, data.window_width, data.window_height, "dooomed");
 	init_img(&data);
 	init_textures(&data);
-	if (!load_textures_from_config(&data)) {
-		return (1);
+	if (load_textures_from_config(&data)) {
+		return (error("Failed to load textures"));
 	}
 	init_hooks(&data);
 
