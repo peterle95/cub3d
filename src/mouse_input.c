@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: pmolzer <pmolzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:31:22 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/09 11:45:15 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/09 16:12:23 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int mouse_move(int x, int y, t_data *data)
     center_y = data->window_height / 2;
 
 	dx = x - center_x;
-    sensitivity = 0.00001; // Lower sensitivity for slower rotation
+    sensitivity = 0.0001; // Lower sensitivity for slower rotation
 
     if (dx != 0)
         rotate_player(data, dx * sensitivity);
