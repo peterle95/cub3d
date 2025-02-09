@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:06:27 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/09 10:37:53 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/09 11:07:19 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	validate_rgb(char *color)
 
 	values = ft_split(color, ',');
 	if (!values)
-		return (0);
+		return (1);
 	i = 0;
 	while (values[i] && i < 3)
 	{
@@ -36,7 +36,7 @@ static int	validate_rgb(char *color)
 				while (values[i])
 					free(values[i++]);
 				free(values);
-				return (0);
+				return (1);
 			}
 			j++;
 		}
@@ -47,7 +47,7 @@ static int	validate_rgb(char *color)
 			while (values[i])
 				free(values[i++]);
 			free(values);
-			return (0);
+			return (1);
 		}
 		i++;
 	}
@@ -57,14 +57,14 @@ static int	validate_rgb(char *color)
 		while (values[i])
 			free(values[i++]);
 		free(values);
-		return (0);
+		return (1);
 	}
   // Free values array before returning success
 	i = 0;
 	while (values[i])
 		free(values[i++]);
 	free(values);
-	return (1);
+	return (0);
 }
 
 /* static int is_surrounded_by_walls(char **map, int height, int width)
@@ -105,40 +105,40 @@ static int is_surrounded_by_walls(char **map, int height, int width)
                 // Check up
                 if (i == 0) {
                     printf("Error: Map not closed at position [%d][%d] (top)\n", i, j);
-                    return 0;
+                    return 1;
                 }
                 line_len = ft_strlen(map[i-1]);
                 if (!map[i-1][j] || ((size_t)j >= line_len) || map[i-1][j] == ' ') {
                     printf("Error: Map not closed at position [%d][%d] (top)\n", i, j);
-                    return 0;
+                    return 1;
                 }
                 
                 // Check down
                 if (i == height-1) {
                     printf("Error: Map not closed at position [%d][%d] (bottom)\n", i, j);
-                    return 0;
+                    return 1;
                 }
                 line_len = ft_strlen(map[i+1]);
                 if (!map[i+1][j] || ((size_t)j >= line_len) || map[i+1][j] == ' ') {
                     printf("Error: Map not closed at position [%d][%d] (bottom)\n", i, j);
-                    return 0;
+                    return 1;
                 }
                 
                 // Check left
                 if (j == 0 || map[i][j-1] == ' ') {
                     printf("Error: Map not closed at position [%d][%d] (left)\n", i, j);
-                    return 0;
+                    return 1;
                 }
                 
                 // Check right
                 if (!map[i][j+1] || map[i][j+1] == ' ') {
                     printf("Error: Map not closed at position [%d][%d] (right)\n", i, j);
-                    return 0;
+                    return 1;
                 }
             }
         }
     }
-    return 1;
+    return 0;
 }
 
 
@@ -158,7 +158,7 @@ static int validate_map_chars(char **map, char *valid_chars)
             if (!ft_strchr(valid_chars, map[i][j]))
             {
                 error("Error: Invalid character in map");
-                return (0);
+                return (1);
             }
             if (ft_strchr(VALID_PLAYER_CHARS, map[i][j]))
                 player_count++;

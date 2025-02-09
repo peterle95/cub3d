@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:48 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/09 10:37:53 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/09 11:07:58 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ int	main(int argc, char **argv)
 	init_data(&data);
 	if (load_map_data(&data, argv[1]) != 0)
 		return (error("Invalid map configuration"));
-	if (!validate_map(&data))
+	if (validate_map(&data))
 		return (error("Invalid map configuration"));
 	init_colour_fade(&data);
 	data.mlx = mlx_init();
