@@ -28,6 +28,9 @@
 # define VALID_MAP_CHARS "01NESW "
 # define VALID_PLAYER_CHARS "NSEW"
 # define N_CONFIGS 7
+# define POINTER_MOTION 1L << 6
+# define KEY_PRESS 1L << 0
+# define KEY_RELEASE 1L << 1
 
 # ifndef DEBUG
 #  define DEBUG 0

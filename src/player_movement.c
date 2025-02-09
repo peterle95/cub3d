@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:57 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/07 15:41:34 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/08 13:03:19 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,13 @@ void	move_player_direction(t_data *data, double direction)
 
 	new_x = data->player.x + data->player.dir_x * data->player.speed * direction;
 	new_y = data->player.y + data->player.dir_y * data->player.speed * direction;
-	data->player.x = new_x;
-	data->player.y = new_y;
+	
+	// Check if new_x and new_y hit a wall (assuming '1' represents a wall)
+	if (data->map.map_array[(int)new_y][(int)new_x] != '1')
+	{
+		data->player.x = new_x;
+		data->player.y = new_y;
+	}
 }
 
 void move_player_strafe(t_data *data, double direction)

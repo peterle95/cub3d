@@ -90,6 +90,7 @@ int	draw_player_position(t_data *data)
 // TODO: buffered images
 int	draw(t_data *data)
 {
+	printf("drawloop\n");
 	clear_image_to_colour(data, set_trgb(data->t, data->r, data->g, data->b));
 
 	draw_ceiling(data);
@@ -97,10 +98,9 @@ int	draw(t_data *data)
 	// Render the 3D view
 	render_frame(data);
 
-	// currently drawn directly onto window. should be drawn to image
 	// draw mini map
 	draw_grid(data);
-	draw_player_position(data);
+	// draw_player_position(data);
 
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img_data0->img, 0, 0);	
 

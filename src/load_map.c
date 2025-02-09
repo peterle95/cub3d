@@ -26,10 +26,10 @@ static int	init_ids(t_data *data)
 	// error
 	data->map.width = 0;
 	data->map.height = 0;
-	data->map.config = malloc(N_CONFIGS * sizeof(char **));
+	data->map.config = malloc((N_CONFIGS + 1) * sizeof(char **));
 	// error
 	i = 0;
-	while (i < N_CONFIGS)
+	while (i < N_CONFIGS + 1)
 	{
 		data->map.config[i] = NULL;
 		i++;
@@ -76,6 +76,15 @@ static int	parse_line(t_data *data, char *line)
 		return (parse_map(data, line));
 	data->map.config[data->map.id] = ft_split(line, ' ');
 	//error
+
+	// obvs trimming newline should not be part of debug
+	// (quick and dirty overwrite) proper freeing and reallocation should take place
+	char *cpy = ft_strdup(data->map.config[data->map.id][1]);
+	free(data->map.config[data->map.id][1]);
+	data->map.config[data->map.id][1] = ft_strtrim(cpy, "\n");
+	printf("\n.................%d...........%s\n\n", data->map.id, data->map.config[data->map.id][1]);
+	free(cpy);
+	
 	if (array_len(data->map.config[data->map.id]) != 2)
 		return (free_map_data(data));
 	// if the ids do not need to be in a "strict order" this evlaution can be changed
@@ -90,8 +99,9 @@ static int	parse_line(t_data *data, char *line)
 			while (data->map.config[data->map.id][i])
 			{
 				printf(":::::%s", data->map.config[data->map.id][i]);
-					i++;
-			}	
+				i++;
+			}
+			printf("\n");
 		}
 		data->map.id++;
 		return (0);
