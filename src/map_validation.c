@@ -6,65 +6,85 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:06:27 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/09 11:07:19 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/09 11:14:31 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static int	validate_rgb(char *color)
+// Helper function to free a NULL-terminated array of strings.
+static void free_split(char **tokens)
 {
-    // refactor this function
-	char	**values;
-	int		rgb[3];
-	int		i;
-	int		j;
+    int k = 0;
+    while (tokens[k])
+    {
+        free(tokens[k]);
+        k++;
+    }
+    free(tokens);
+}
 
-	values = ft_split(color, ',');
-	if (!values)
-		return (1);
-	i = 0;
-	while (values[i] && i < 3)
-	{
-		j = 0;
-		// Check if each character in the string is a digit
-		while (values[i][j])
-		{
-			if (!ft_isdigit(values[i][j]))
-			{
-				// Free values array before returning
-				while (values[i])
-					free(values[i++]);
-				free(values);
-				return (1);
-			}
-			j++;
-		}
-		rgb[i] = ft_atoi(values[i]);
-		if (rgb[i] < 0 || rgb[i] > 255)
-		{
-		// Free values array before returning
-			while (values[i])
-				free(values[i++]);
-			free(values);
-			return (1);
-		}
-		i++;
-	}
-	if (i != 3 || values[i] != NULL)
-	{
-		// Free values array before returning
-		while (values[i])
-			free(values[i++]);
-		free(values);
-		return (1);
-	}
-  // Free values array before returning success
-	i = 0;
-	while (values[i])
-		free(values[i++]);
-	free(values);
-	return (0);
+static int validate_rgb(char *color)
+{
+    int comma_count = 0;
+    int i = 0;
+    int rgb[3];
+
+    // Check that the input is not NULL or an empty string
+    if (!color || color[0] == '\0')
+        return (1);
+
+    // Make sure the string has exactly two commas.
+    while (color[i])
+    {
+        if (color[i] == ',')
+            comma_count++;
+        i++;
+    }
+    if (comma_count != 2)
+        return (1);
+
+    // Split the string using comma as delimiter.
+    char **values = ft_split(color, ',');
+    if (!values)
+        return (1);
+
+    i = 0;
+    while (i < 3 && values[i])
+    {
+        // Check that the token is not an empty string.
+        if (values[i][0] == '\0')
+        {
+            free_split(values);
+            return (1);
+        }
+        int j = 0;
+        // Check that each character in this token is a digit.
+        while (values[i][j])
+        {
+            if (!ft_isdigit(values[i][j]))
+            {
+                free_split(values);
+                return (1);
+            }
+            j++;
+        }
+        rgb[i] = ft_atoi(values[i]);
+        if (rgb[i] < 0 || rgb[i] > 255)
+        {
+            free_split(values);
+            return (1);
+        }
+        i++;
+    }
+    // If we did not get exactly 3 values, that is an error.
+    if (i != 3 || values[i] != NULL)
+    {
+        free_split(values);
+        return (1);
+    }
+    free_split(values);
+    return (0);
 }
 
 /* static int is_surrounded_by_walls(char **map, int height, int width)
@@ -241,8 +261,20 @@ int validate_map(t_data *data)
     if (!validate_map_chars(data->map.map_array, "01NSEW"))
         return (1);
 
-    // Validate colors
-    if (!validate_rgb(data->map.config[1][N_CONFIGS - 3]) || !validate_rgb(data->map.config[1][N_CONFIGS - 2]))
+    // Validate colors (F and C)
+    char *floor_color = NULL;
+    char *ceiling_color = NULL;
+    
+    for (int i = 0; data->map.config[i]; i++) {
+        if (ft_strncmp(data->map.config[i][0], "F", 2) == 0)
+            floor_color = data->map.config[i][1];
+        else if (ft_strncmp(data->map.config[i][0], "C", 2) == 0)
+            ceiling_color = data->map.config[i][1];
+    }
+    
+    if (!floor_color || !ceiling_color || 
+        validate_rgb(floor_color) != 0 || 
+        validate_rgb(ceiling_color) != 0)
         return (1);
 
     // Validate map is surrounded by walls
