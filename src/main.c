@@ -132,13 +132,16 @@ int	main(int argc, char **argv)
 		return (error("Invalid map configuration"));
 	if (!validate_map(&data))
 		return (error("Invalid map configuration"));
-	init_colour_fade(&data);
+	// init_colour_fade(&data);
 	data.mlx = mlx_init();
 	data.mlx_win = mlx_new_window(data.mlx, data.window_width, data.window_height, "dooomed");
 	init_img(&data);
 	load_textures_from_config(&data);
 	init_hooks(&data);
 
+	// these functions will ofc not pass norminette and are not allowed by the subject
+	// maybe there is a way around (kinda sucks that we cannot do anything beyond what
+	// the minilibx library wraps for us, the mouse is doomed to jump out of the window
 	// Grab the pointer to restrict it to the window
 	XGrabPointer(
 		((t_xvar *)data.mlx)->display,
@@ -151,7 +154,6 @@ int	main(int argc, char **argv)
 		None,  // No cursor change
 		CurrentTime
 	);
-
 	XWarpPointer(((t_xvar *)data.mlx)->display, None, ((t_win_list *)data.mlx_win)->window,  0, 0, 0, 0, data.window_width / 2, data.window_height / 2);
 	XFlush(((t_xvar *)data.mlx)->display);
 

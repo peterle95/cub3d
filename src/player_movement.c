@@ -68,6 +68,10 @@ int	player_move(t_data *data, int dir)
 		move_player_direction(data, 1);
 	if (DOWN == dir)
 		move_player_direction(data, -1);
+	if (LEFT == dir)
+		move_player_strafe(data, -1);
+	if (RIGHT == dir)
+		move_player_strafe(data, 1);
 	return (0);
 }
 
