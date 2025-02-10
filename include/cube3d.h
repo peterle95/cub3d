@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 13:04:29 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/09 11:38:15 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/10 11:18:42 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ typedef struct s_map
 	int		elements_found;
 	int		id;
 	int		n;
-	unsigned int floor_color;
-	unsigned int ceiling_color;
+	unsigned int	floor_color;
+	unsigned int	ceiling_color;
 }	t_map;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	double	x;
 	double	y;
@@ -101,7 +101,7 @@ typedef struct s_ray
 	int		side;
 }	t_ray;
 
-typedef struct	s_line_params
+typedef struct s_line_params
 {
 	int		x;
 	int		draw_start;
@@ -109,7 +109,7 @@ typedef struct	s_line_params
 	t_ray	*ray;
 }	t_line_params;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	void		*mlx;
 	void		*mlx_win;
@@ -155,7 +155,6 @@ int		error(char *message);
 // free_data
 void	free_data(t_data *data);
 int		close_window(t_data *data);
-
 
 // utils
 void	init_colour_fade(t_data *data);
@@ -210,7 +209,8 @@ void	rotate_player(t_data *data, double angle);
 
 // draw
 int		draw(t_data *data);
-int		render_with_transparency(t_data *data, t_texture *t, int img_x, int img_y);
+int		render_with_transparency(t_data *data,
+			t_texture *t, int img_x, int img_y);
 int		draw_player_position(t_data *data);
 
 // initialization
