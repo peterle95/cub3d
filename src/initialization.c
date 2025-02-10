@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 15:11:37 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/07 15:12:06 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/10 11:35:25 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ int	init_data(t_data *data)
 	data->map.map_array = NULL;
 	data->window_width = 1920;
 	data->window_height = 1080;
-	// Initialize player position and direction, to be updated with map data
-	data->player.x = 22;  // Starting position
-	data->player.y = 12;
-	data->player.dir_x = -1;  // Initial direction vector
-	data->player.dir_y = 0;
-	data->player.plane_x = 0;  // Camera plane
-	data->player.plane_y = 0.66; // FOV is about 66 degrees
+	// Temporary values will be overwritten by map data
+	data->player.x = 0;
+	data->player.y = 0;
+	data->player.dir_x = 0;
+	data->player.dir_y = 0; 
+	data->player.plane_x = 0;
+	data->player.plane_y = 0;
 	return (0);
 }
 

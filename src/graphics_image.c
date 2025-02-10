@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:22 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/10 11:18:56 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/10 11:26:53 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,25 +47,34 @@ void	put_pixel_to_img(t_data *data, int x, int y, int color)
 
 void	add_pixels(t_data *data, int x, int y)
 {
-	unsigned int color = 0xFFFFFFFF;
+	unsigned int	color;
+
+	color = 0xFFFFFFFF;
 	put_pixel_to_img(data, x, y, color);
 }
 
 void	add_random_pixels(t_data *data, int width, int height, int num_pixels)
 {
-    srand(time(NULL));
-    for (int i = 0; i < num_pixels; i++) 
+	int		x;
+	int		y;
+	int		i;
+	unsigned int		color;
+
+	i = 0;
+	srand(time(NULL));
+	while (i < num_pixels)
 	{
-        int x = rand() % width;
-        int y = rand() % height;
-        unsigned int color = (rand() % 0xFFFFFF) | 0xFF000000;
-        put_pixel_to_img(data, x, y, color);
-    }
+		x = rand() % width;
+		y = rand() % height;
+		color = (rand() % 0xFFFFFF) | 0xFF000000;
+		put_pixel_to_img(data, x, y, color);
+		i++;
+	}
 }
 
-// is this efficient? think about image buffering and limiting redraw
 void	clear_image_to_colour(t_data *data, int colour)
 {
+	// is this efficient? think about image buffering and limiting redraw
 	int	x;
 	int	y;
 
