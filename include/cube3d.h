@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 13:04:29 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/07 15:13:27 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/09 11:38:15 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define POINTER_MOTION 1L << 6
 # define KEY_PRESS 1L << 0
 # define KEY_RELEASE 1L << 1
+# define MAX_TEXTURES 6
 
 # ifndef DEBUG
 #  define DEBUG 0
@@ -64,6 +65,8 @@ typedef struct s_map
 	int		elements_found;
 	int		id;
 	int		n;
+	unsigned int floor_color;
+	unsigned int ceiling_color;
 }	t_map;
 
 typedef struct	s_player
@@ -208,7 +211,6 @@ void	rotate_player(t_data *data, double angle);
 // draw
 int		draw(t_data *data);
 int		render_with_transparency(t_data *data, t_texture *t, int img_x, int img_y);
-void	draw_ceiling(t_data *data);
 int		draw_player_position(t_data *data);
 
 // initialization
