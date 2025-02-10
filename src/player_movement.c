@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:57 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/08 13:03:19 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/10 11:40:54 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,13 @@ void move_player_strafe(t_data *data, double direction)
 	// If 'direction' is positive the player will strafe right; negative -> left.
 	new_x = data->player.x + (-data->player.dir_y) * data->player.speed * direction;
 	new_y = data->player.y + (data->player.dir_x) * data->player.speed * direction;
-	data->player.x = new_x;
-	data->player.y = new_y;
+	
+	// Add collision check similar to move_player_direction()
+	if (data->map.map_array[(int)new_y][(int)new_x] != '1')
+	{
+		data->player.x = new_x;
+		data->player.y = new_y;
+	}
 }
 
 int	player_move(t_data *data, int dir)
