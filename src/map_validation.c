@@ -6,65 +6,70 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:06:27 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/01/28 13:31:37 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/09 11:32:09 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static int	validate_rgb(char *color)
+// Helper function to free a NULL-terminated array of strings.
+static void free_split(char **tokens)
 {
-    // refactor this function
-	char	**values;
-	int		rgb[3];
-	int		i;
-	int		j;
+    int k = 0;
+    while (tokens[k])
+    {
+        free(tokens[k]);
+        k++;
+    }
+    free(tokens);
+}
 
-	values = ft_split(color, ',');
-	if (!values)
-		return (0);
-	i = 0;
-	while (values[i] && i < 3)
-	{
-		j = 0;
-		// Check if each character in the string is a digit
-		while (values[i][j])
-		{
-			if (!ft_isdigit(values[i][j]))
-			{
-				// Free values array before returning
-				while (values[i])
-					free(values[i++]);
-				free(values);
-				return (0);
-			}
-			j++;
-		}
-		rgb[i] = ft_atoi(values[i]);
-		if (rgb[i] < 0 || rgb[i] > 255)
-		{
-		// Free values array before returning
-			while (values[i])
-				free(values[i++]);
-			free(values);
-			return (0);
-		}
-		i++;
-	}
-	if (i != 3 || values[i] != NULL)
-	{
-		// Free values array before returning
-		while (values[i])
-			free(values[i++]);
-		free(values);
-		return (0);
-	}
-  // Free values array before returning success
-	i = 0;
-	while (values[i])
-		free(values[i++]);
-	free(values);
-	return (1);
+static int validate_rgb(const char *color, unsigned int rgb[3])
+{
+    char **values;
+    int i;
+
+    values = ft_split(color, ',');
+    if (!values)
+        return (1);
+
+    i = 0;
+    while (i < 3 && values[i])
+    {
+        // Check that the token is not an empty string.
+        if (values[i][0] == '\0')
+        {
+            free_split(values);
+            return (1);
+        }
+        int j = 0;
+        // Check that each character in this token is a digit.
+        while (values[i][j])
+        {
+            if (!ft_isdigit(values[i][j]))
+            {
+                free_split(values);
+                return (1);
+            }
+            j++;
+        }
+        rgb[i] = ft_atoi(values[i]);
+        // Remove the < 0 check since it's unsigned
+        if (rgb[i] > 255)
+        {
+            free_split(values);
+            return (1);
+        }
+        i++;
+    }
+    // If we did not get exactly 3 values, that is an error.
+    if (i != 3 || values[i] != NULL)
+    {
+        free_split(values);
+        return (1);
+    }
+    free_split(values);
+    return (0);
 }
 
 /* static int is_surrounded_by_walls(char **map, int height, int width)
@@ -105,40 +110,40 @@ static int is_surrounded_by_walls(char **map, int height, int width)
                 // Check up
                 if (i == 0) {
                     printf("Error: Map not closed at position [%d][%d] (top)\n", i, j);
-                    return 0;
+                    return 1;
                 }
                 line_len = ft_strlen(map[i-1]);
                 if (!map[i-1][j] || ((size_t)j >= line_len) || map[i-1][j] == ' ') {
                     printf("Error: Map not closed at position [%d][%d] (top)\n", i, j);
-                    return 0;
+                    return 1;
                 }
                 
                 // Check down
                 if (i == height-1) {
                     printf("Error: Map not closed at position [%d][%d] (bottom)\n", i, j);
-                    return 0;
+                    return 1;
                 }
                 line_len = ft_strlen(map[i+1]);
                 if (!map[i+1][j] || ((size_t)j >= line_len) || map[i+1][j] == ' ') {
                     printf("Error: Map not closed at position [%d][%d] (bottom)\n", i, j);
-                    return 0;
+                    return 1;
                 }
                 
                 // Check left
                 if (j == 0 || map[i][j-1] == ' ') {
                     printf("Error: Map not closed at position [%d][%d] (left)\n", i, j);
-                    return 0;
+                    return 1;
                 }
                 
                 // Check right
                 if (!map[i][j+1] || map[i][j+1] == ' ') {
                     printf("Error: Map not closed at position [%d][%d] (right)\n", i, j);
-                    return 0;
+                    return 1;
                 }
             }
         }
     }
-    return 1;
+    return 0;
 }
 
 
@@ -158,7 +163,7 @@ static int validate_map_chars(char **map, char *valid_chars)
             if (!ft_strchr(valid_chars, map[i][j]))
             {
                 error("Error: Invalid character in map");
-                return (0);
+                return (1);
             }
             if (ft_strchr(VALID_PLAYER_CHARS, map[i][j]))
                 player_count++;
@@ -238,15 +243,34 @@ int validate_map(t_data *data)
 	if (validate_textures(data) != 0)
 		return (1);
     // Validate map characters and player count
-    if (!validate_map_chars(data->map.map_array, "01"))
+    if (!validate_map_chars(data->map.map_array, "01NSEW "))
         return (1);
 
-    // Validate colors
-    if (!validate_rgb(data->map.config[1][N_CONFIGS - 3]) || !validate_rgb(data->map.config[1][N_CONFIGS - 2]))
+    // Validate colors (F and C)
+    char *floor_color = NULL;
+    char *ceiling_color = NULL;
+    
+    for (int i = 0; data->map.config[i]; i++) {
+        if (ft_strncmp(data->map.config[i][0], "F", 2) == 0)
+            floor_color = data->map.config[i][1];
+        else if (ft_strncmp(data->map.config[i][0], "C", 2) == 0)
+            ceiling_color = data->map.config[i][1];
+    }
+    
+    unsigned int floor_rgb[3];
+    unsigned int ceiling_rgb[3];
+    
+    if (!floor_color || !ceiling_color || 
+        validate_rgb(floor_color, floor_rgb) != 0 || 
+        validate_rgb(ceiling_color, ceiling_rgb) != 0)
         return (1);
+    
+    // Store colors in map struct
+    data->map.floor_color = (floor_rgb[0] << 16) | (floor_rgb[1] << 8) | floor_rgb[2];
+    data->map.ceiling_color = (ceiling_rgb[0] << 16) | (ceiling_rgb[1] << 8) | ceiling_rgb[2];
 
     // Validate map is surrounded by walls
-    if (!is_surrounded_by_walls(data->map.map_array, data->map.height, data->map.width))
+    if (is_surrounded_by_walls(data->map.map_array, data->map.height, data->map.width))
         return (1);
 
     return (0);

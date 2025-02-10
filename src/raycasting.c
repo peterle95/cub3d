@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:15:52 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/07 15:48:37 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/09 11:38:00 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,28 +24,21 @@ static void draw_horizontal_line(t_data *data, int y, unsigned int color)
     }
 }
 
-static void draw_floor(t_data *data, unsigned int floor_color)
-{
-    int y;
-
-    y = data->window_height / 2;
-    while (y < data->window_height)
-    {
-        draw_horizontal_line(data, y, floor_color);
-        y++;
-    }
-}
-
 static void draw_floor_ceiling(t_data *data)
 {
-    // unsigned int ceiling;
-    unsigned int floor;
-
-    // change this to actual texture
-    // ceiling = 0x87CEEB;
-    floor = 0x8B4513;
-    // draw_ceiling(data); //, ceiling);
-    draw_floor(data, floor);
+    // Draw ceiling
+    int y = 0;
+    while (y < data->window_height / 2) {
+        draw_horizontal_line(data, y, data->map.ceiling_color);
+        y++;
+    }
+    
+    // Draw floor
+    y = data->window_height / 2;
+    while (y < data->window_height) {
+        draw_horizontal_line(data, y, data->map.floor_color);
+        y++;
+    }
 }
 
 static int	get_texture_number(t_ray *ray)
