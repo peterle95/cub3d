@@ -24,6 +24,8 @@ static void draw_horizontal_line(t_data *data, int y, unsigned int color)
     }
 }
 
+// TODO: check if ceiling texture present
+// if so draw ceilnig color
 static void draw_floor_ceiling(t_data *data)
 {
     // Draw ceiling

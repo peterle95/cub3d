@@ -241,8 +241,8 @@ static int	validate_textures(t_data *data)
 int validate_map(t_data *data)
 {
     // Check if data or map is NULL
-    if (!data || !data->map.config[0][1] || !data->map.config[1][1] || 
-        !data->map.config[2][1] || !data->map.config[3][1])
+    if (!data) // || !data->map.config[0][1] || !data->map.config[1][1] || 
+        //!data->map.config[2][1] || !data->map.config[3][1])
     {
         error("Error: Map data not properly initialized");
         return (1);

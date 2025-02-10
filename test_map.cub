@@ -1,10 +1,10 @@
-NO ./src/assets/textures/wall.xpm
+NO ./src/assets/textures/ceiling.xpm
 CE ./src/assets/textures/skybox_4096.xpm
-WE ./src/assets/textures/wall.xpm
-EA ./src/assets/textures/wall.xpm
-SO ./src/assets/textures/wall.xpm
+WE ./src/assets/textures/ceiling.xpm
+EA ./src/assets/textures/ceiling.xpm
+SO ./src/assets/textures/ceiling.xpm
 
-F 220,100,0
+F 100,100,50
 C 225,30,0
 
 
