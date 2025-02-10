@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 15:11:37 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/10 11:35:25 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/10 11:36:05 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,25 @@ int	init_data(t_data *data)
 	data->map.map_array = NULL;
 	data->window_width = 1920;
 	data->window_height = 1080;
-	// Temporary values will be overwritten by map data
 	data->player.x = 0;
 	data->player.y = 0;
 	data->player.dir_x = 0;
-	data->player.dir_y = 0; 
+	data->player.dir_y = 0;
 	data->player.plane_x = 0;
 	data->player.plane_y = 0;
 	return (0);
 }
-
 
 int	init_hooks(t_data *data)
 {
 	mlx_hook(data->mlx_win, 3, KEY_RELEASE, key_up, data);
 	mlx_hook(data->mlx_win, 2, KEY_PRESS, key_down, data);
 	mlx_hook(data->mlx_win, ClientMessage, 0, close_window, data);
-	// mlx_mouse_hook(data->mlx_win, mouse_mv, data);
 	mlx_hook(data->mlx_win, 6, POINTER_MOTION, mouse_move, data);
 	mlx_loop_hook(data->mlx, draw, data);
 	return (0);
 }
 
-// seems as though the player speed must divide into some value
-// for the walls to render correctly
 int	init_player(t_data *data)
 {
 	data->player.x = 0;
