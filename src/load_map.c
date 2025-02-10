@@ -44,7 +44,7 @@ static int	init_ids(t_data *data)
 	data->map.map_ids[5] = "C";
 	data->map.map_ids[N_CONFIGS - 1] = NULL;
 	data->map.id = 0;
-	return (0);	
+	return (0);
 }
 
 // first pull map data into a single string
@@ -52,12 +52,12 @@ static int	parse_map(t_data *data, char *line)
 {
 	char	*temp;
 	int		len;
-	
+
 	temp = ft_strdup(data->map.flat_map);
 	free(data->map.flat_map);
 	data->map.flat_map = ft_strjoin(temp, line);
 	free(temp);
-	len = ft_strlen(line); 
+	len = ft_strlen(line);
 	if (len > data->map.width)
 		data->map.width = len;
 	data->map.height++;
@@ -70,7 +70,9 @@ static int	parse_map(t_data *data, char *line)
 // 	data->map.map_array
 static int	parse_line(t_data *data, char *line)
 {
-	if (line[0] == '\0'|| line[0] == '\n')
+	char *cpy;
+
+	if (line[0] == '\0' || line[0] == '\n')
 		return (0);
 	if (data->map.id > N_CONFIGS - 2)
 		return (parse_map(data, line));
@@ -79,12 +81,11 @@ static int	parse_line(t_data *data, char *line)
 
 	// obvs trimming newline should not be part of debug
 	// (quick and dirty overwrite) proper freeing and reallocation should take place
-	char *cpy = ft_strdup(data->map.config[data->map.id][1]);
+	cpy = ft_strdup(data->map.config[data->map.id][1]);
 	free(data->map.config[data->map.id][1]);
 	data->map.config[data->map.id][1] = ft_strtrim(cpy, "\n");
 	printf("\n.................%d...........%s\n\n", data->map.id, data->map.config[data->map.id][1]);
 	free(cpy);
-	
 	if (array_len(data->map.config[data->map.id]) != 2)
 		return (free_map_data(data));
 	// if the ids do not need to be in a "strict order" this evlaution can be changed
