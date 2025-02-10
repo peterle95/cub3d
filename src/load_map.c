@@ -90,22 +90,35 @@ static int	parse_line(t_data *data, char *line)
 	// if the ids do not need to be in a "strict order" this evlaution can be changed
 	// to look through the whole id list for a match rather than the current id
 	// and map.id will simply comfirm all required elements have bee parsed
-	if (ft_strncmp(data->map.config[data->map.id][0], data->map.map_ids[data->map.id],
-				ft_strlen(data->map.map_ids[data->map.id]) + 1) == 0)
+	int	i;
+	i = 0;
+	while (data->map.map_ids[i])
 	{
-		if (DEBUG)
+		if (ft_strncmp(data->map.config[data->map.id][0], data->map.map_ids[i],
+					ft_strlen(data->map.map_ids[i]) + 1) == 0)
 		{
-			int i = 0;
-			while (data->map.config[data->map.id][i])
-			{
-				printf(":::::%s", data->map.config[data->map.id][i]);
-				i++;
-			}
-			printf("\n");
+			data->map.id++;
+			return(0);
 		}
-		data->map.id++;
-		return (0);
+		i++;
 	}
+
+	// if (ft_strncmp(data->map.config[data->map.id][0], data->map.map_ids[data->map.id],
+	// 			ft_strlen(data->map.map_ids[data->map.id]) + 1) == 0)
+	// {
+	// 	if (DEBUG)
+	// 	{
+	// 		int i = 0;
+	// 		while (data->map.config[data->map.id][i])
+	// 		{
+	// 			printf(":::::%s", data->map.config[data->map.id][i]);
+	// 			i++;
+	// 		}
+	// 		printf("\n");
+	// 	}
+	// 	data->map.id++;
+	// 	return (0);
+	// }
 	return (free_map_data(data));
 }
 
