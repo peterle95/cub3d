@@ -66,6 +66,51 @@ int	load_texture(t_data *data, char *path, char *id, int index)
 	return (1);
 }
 
+// some extra checks required to make sure there are textures loaded into config
+// and if not that map.config[i] is NULL 
+int	load_wall_textures(t_data *data, int i)
+{
+	if (ft_strncmp(data->map.config[i][0], "WE", 3) == 0)
+	{
+		if (!load_texture(data, data->map.config[i][1], "wall_texture_west", WEST))
+			return (1);
+	}
+	else if (ft_strncmp(data->map.config[i][0], "EA", 3) == 0)
+	{
+		if (!load_texture(data, data->map.config[i][1], "wall_texture_east", EAST))
+			return (1);
+	}
+	else if (ft_strncmp(data->map.config[i][0], "NO", 3) == 0)
+	{
+		if (!load_texture(data, data->map.config[i][1], "wall_texture_north", NORTH))
+			return (1);
+	}
+	else if (ft_strncmp(data->map.config[i][0], "SO", 3) == 0)
+	{
+		if (!load_texture(data, data->map.config[i][1], "wall_texture_south", SOUTH))
+			return (1);
+	}
+	return (0);
+}
+
+int correct_texture_resolution(t_data *data, t_texture tex)
+{
+	(void)data;
+	(void)tex;
+	return (0);
+}
+
+int	load_ceiling_texture(t_data *data, int i)
+{
+	if (ft_strncmp(data->map.config[i][0], "CE", 3) == 0)
+	{
+		if (load_texture(data, data->map.config[i][1], "ceiling", CEILING) == 1
+				&& correct_texture_resolution(data, data->textures.img[CEILING]) == 0)
+			data->ceiling_loaded = 1;
+	}
+	return (0);
+}
+
 // sky texture must be large enough (have default to colour if not big enough)
 int	load_textures_from_config(t_data *data)
 {
@@ -74,30 +119,16 @@ int	load_textures_from_config(t_data *data)
 	i = 0;
 	while (data->map.config[i])
 	{
-		if (ft_strncmp(data->map.config[i][0], "WE", 3) == 0)
-		{
-			if (!load_texture(data, data->map.config[i][1], "wall_texture_west", 0))
-				return (1);
-		}
-		else if (ft_strncmp(data->map.config[i][0], "EA", 3) == 0)
-		{
-			if (!load_texture(data, data->map.config[i][1], "wall_texture_east", 1))
-				return (1);
-		}
-		else if (ft_strncmp(data->map.config[i][0], "NO", 3) == 0)
-		{
-			if (!load_texture(data, data->map.config[i][1], "wall_texture_north", 2))
-				return (1);
-		}
-		else if (ft_strncmp(data->map.config[i][0], "SO", 3) == 0)
-		{
-			if (!load_texture(data, data->map.config[i][1], "wall_texture_south", 3))
-				return (1);
-		}
+		if (!data->map.config[i] || array_len(data->map.config[i]) != 2)
+			return (1);
+		if (load_wall_textures(data, i) != 0)
+			return (1);
+		load_ceiling_texture(data, i);
 		i++;
 	}
 	return (0);
 }
+
 ///////////////////////////////////////////////////
 // structs and vars from minilibx redefined here //
 // as not exposed by library                     //
@@ -171,9 +202,9 @@ int	main(int argc, char **argv)
 		return (0);
 	init_data(&data);
 	if (load_map_data(&data, argv[1]) != 0)
-		return (error("Invalid map configuration"));
+		return (error("Load map data: Invalid map configuration"));
 	if (validate_map(&data))
-		return (error("Invalid map configuration"));
+		return (error("(Check map: Invalid map configuration"));
 	// init_colour_fade(&data);
 	data.mlx = mlx_init();
 	data.mlx_win = mlx_new_window(data.mlx, data.window_width, data.window_height, "dooomed");

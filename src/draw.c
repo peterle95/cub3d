@@ -55,6 +55,8 @@ int	draw(t_data *data)
 {
 	clear_image_to_colour(data, set_trgb(data->t, data->r, data->g, data->b));
 
+	if (data->ceiling_loaded)
+		draw_ceiling(data);
 
 	// Render the 3D view
 	render_frame(data);
@@ -67,4 +69,36 @@ int	draw(t_data *data)
 	if (data->r > 0)
 		data->r--;
 	return (0);
+}
+
+// map angle (0 to 2π) to sky texture width
+// wrap around in negative direction
+// draw texture to image
+void draw_ceiling(t_data *data)
+{
+	t_ceiling	c;
+
+	c.angle = atan2(data->player.dir_y, data->player.dir_x);
+    c.texture_offset = (int)((c.angle / (2 * M_PI))
+			* data->textures.img[CEILING].width)
+		% data->textures.img[CEILING].width;
+	if (c.texture_offset < 0)
+		c.texture_offset += data->textures.img[CEILING].width;
+
+	c.y = 0;
+	while (c.y < data->window_height / 2)
+	{
+		c.x = 0;
+		while (c.x < data->window_width)
+		{
+            c.sky_x = (c.x + c.texture_offset) % data->textures.img[CEILING].width;
+			c.pixel = (c.y * data->textures.img[CEILING].size_line) + (c.sky_x
+					* (data->textures.img[CEILING].bpp / 8));
+			c.color = *(int *)(data->textures.img[CEILING].addr + c.pixel);
+            if (c.color != 0xFFFFFF)
+				put_pixel_to_img(data, c.x, c.y, c.color);
+			c.x++;
+		}
+		c.y++;
+	}
 }

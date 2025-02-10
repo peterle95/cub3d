@@ -172,8 +172,11 @@ static int validate_map_chars(char **map, char *valid_chars)
         i++;
     }
     if (player_count != 1)
+	{
         error("Error: There must be exactly one player in the map");
-    return (player_count == 1);
+    	return (1);
+	}
+	return (0);
 }
 
 // This function validates the texture path provided for a texture file.
@@ -215,15 +218,21 @@ static int validate_texture_path(char *path)
     return (0);
 }
 
+// N_TEXTURES - 2 because last 2 elements of
+// map.config are colors
 static int	validate_textures(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while (i < N_TEXTURES)
+	while (i < N_TEXTURES - 2)
 	{
-		if (!validate_texture_path(data->map.config[i][1]))
-			return (-1);
+		if (data->map.config[i] && ft_strncmp(data->map.config[i][0], "F", 2) != 0
+				&& ft_strncmp(data->map.config[i][0], "C", 2) != 0)
+		{
+			if (!validate_texture_path(data->map.config[i][1]))
+				return (-1);
+		}
 		i++;
 	}
 	return (0);
@@ -240,21 +249,28 @@ int validate_map(t_data *data)
     }
 
     // validate .cub map
-	if (validate_textures(data) != 0)
+	if (validate_textures(data) != 0) // ignoring texture vaidataion to debug colour loading
+		// printf("ignore texture validation\n");
 		return (1);
-    // Validate map characters and player count
-    if (!validate_map_chars(data->map.map_array, "01NSEW "))
-        return (1);
+    
+	// Validate map characters and player count
+    if (validate_map_chars(data->map.map_array, "01NSEW ") != 0)
+		return (1);
 
     // Validate colors (F and C)
     char *floor_color = NULL;
     char *ceiling_color = NULL;
     
-    for (int i = 0; data->map.config[i]; i++) {
+	int i;
+
+	i = 0;
+	while (data->map.config[i]) 
+	{
         if (ft_strncmp(data->map.config[i][0], "F", 2) == 0)
             floor_color = data->map.config[i][1];
         else if (ft_strncmp(data->map.config[i][0], "C", 2) == 0)
             ceiling_color = data->map.config[i][1];
+		i++;
     }
     
     unsigned int floor_rgb[3];
@@ -263,11 +279,16 @@ int validate_map(t_data *data)
     if (!floor_color || !ceiling_color || 
         validate_rgb(floor_color, floor_rgb) != 0 || 
         validate_rgb(ceiling_color, ceiling_rgb) != 0)
+	{
+		printf("color did not load\n");
         return (1);
+	}
     
     // Store colors in map struct
     data->map.floor_color = (floor_rgb[0] << 16) | (floor_rgb[1] << 8) | floor_rgb[2];
     data->map.ceiling_color = (ceiling_rgb[0] << 16) | (ceiling_rgb[1] << 8) | ceiling_rgb[2];
+	printf("c1: %d\nc2: %d\n", data->map.floor_color, data->map.ceiling_color);
+
 
     // Validate map is surrounded by walls
     if (is_surrounded_by_walls(data->map.map_array, data->map.height, data->map.width))

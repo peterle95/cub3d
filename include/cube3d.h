@@ -25,7 +25,7 @@
 # include "libft.h"
 # include "graphics_types.h"
 
-# define VALID_MAP_CHARS "01NESW "
+# define VALID_MAP_CHARS "01NESW \n"
 # define VALID_PLAYER_CHARS "NSEW"
 # define N_CONFIGS 7
 # define POINTER_MOTION 1L << 6
@@ -127,8 +127,18 @@ typedef struct	s_data
 	int			g;
 	int			b;
 	t_map		map;
+	int			ceiling_loaded;
 	int			debug_mode;
 }	t_data;
+
+typedef enum s_texture_index
+{
+	NORTH,
+	EAST,
+	SOUTH,
+	WEST,
+	CEILING,
+}	t_texture_index;
 
 typedef enum s_dir
 {
@@ -140,7 +150,13 @@ typedef enum s_dir
 
 typedef enum s_id
 {
-	BLACK
+	BLACK,
+	RED,
+	GREEN,
+	BLUE,
+	YELLOW,
+	SKY_BLUE,
+	EARTH_BROWN,
 }	t_id;
 
 // debug
@@ -212,6 +228,7 @@ void	rotate_player(t_data *data, double angle);
 int		draw(t_data *data);
 int		render_with_transparency(t_data *data, t_texture *t, int img_x, int img_y);
 int		draw_player_position(t_data *data);
+void 	draw_ceiling(t_data *data);
 
 // initialization
 int		init_data(t_data *data);
