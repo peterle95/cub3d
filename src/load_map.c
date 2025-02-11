@@ -13,11 +13,6 @@
 #include "cube3d.h"
 
 // TODO: error handling for malloc fail
-
-// N_CONFIGS
-// N_TEXTURES
-// F and C are always referenced as confic[N_CONFIGS - 2]
-// and config[N_CONFIGS - 3]
 static int	init_ids(t_data *data)
 {
 	int	i;
@@ -113,12 +108,10 @@ static int	parse_line(t_data *data, char *line)
 		return (parse_map(data, line));
 	data->map.config[data->map.id] = ft_split(line, ' ');
 	//error
-	// obvs trimming newline should not be part of debug
-	// (quick and dirty overwrite) proper freeing and reallocation should take place
 	char *cpy = ft_strdup(data->map.config[data->map.id][1]);
 	free(data->map.config[data->map.id][1]);
 	data->map.config[data->map.id][1] = ft_strtrim(cpy, "\n");
-	printf("\n%s.................%d...........%s\n\n",
+	printf("\n%s::::::::::%d::::::::::%s\n\n",
 			data->map.config[data->map.id][0],
 			data->map.id, data->map.config[data->map.id][1]);
 	free(cpy);
@@ -169,8 +162,8 @@ static int	copy_chars(t_data *data, char *flat_map)
 	return (0);
 }
 
-// load data->map.flat_map into data->map.map_array
 // TODO: on error free flat_map
+// load data->map.flat_map into data->map.map_array
 static int	flat_map_to_map_array(t_data *data)
 {
 	int	i;
