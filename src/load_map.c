@@ -6,18 +6,13 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:41 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/07 12:56:43 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/11 15:03:19 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
 // TODO: error handling for malloc fail
-
-// N_CONFIGS
-// N_TEXTURES
-// F and C are always referenced as confic[N_CONFIGS - 2]
-// and config[N_CONFIGS - 3]
 static int	init_ids(t_data *data)
 {
 	int	i;
@@ -34,16 +29,31 @@ static int	init_ids(t_data *data)
 		data->map.config[i] = NULL;
 		i++;
 	}
-	data->map.map_ids = malloc(N_CONFIGS * sizeof(char *));
+	data->map.map_ids = malloc((N_CONFIGS + 1) * sizeof(char *));
 	// error
 	data->map.map_ids[0] = "NO";
 	data->map.map_ids[1] = "SO";
 	data->map.map_ids[2] = "WE";
 	data->map.map_ids[3] = "EA";
-	data->map.map_ids[4] = "F";
-	data->map.map_ids[5] = "C";
-	data->map.map_ids[N_CONFIGS - 1] = NULL;
+	data->map.map_ids[4] = "CE";
+	data->map.map_ids[5] = "F";
+	data->map.map_ids[6] = "C";
+	data->map.map_ids[N_CONFIGS] = NULL;
 	data->map.id = 0;
+	return (0);	
+}
+
+static int	contains_invalid_char(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (!member_of_set(line[i], VALID_MAP_CHARS))
+				return (1);
+		i++;
+	}
 	return (0);
 }
 
@@ -53,6 +63,8 @@ static int	parse_map(t_data *data, char *line)
 	char	*temp;
 	int		len;
 
+	if (contains_invalid_char(line))
+		return (1);
 	temp = ft_strdup(data->map.flat_map);
 	free(data->map.flat_map);
 	data->map.flat_map = ft_strjoin(temp, line);
@@ -64,53 +76,67 @@ static int	parse_map(t_data *data, char *line)
 	return (0);
 }
 
-// split each line and append to 
-// 	data->map.config
-// parse_map() appends line to row in
-// 	data->map.map_array
+int	print_array(char **arr)
+{
+	for (int i = 0; i < array_len(arr); i++)
+		printf("%s\n", arr[i]);
+	return (0);
+}
+
+int	no_valid_id(t_data *data, char *line)
+{
+	int	i;
+
+	i = 0;
+	while (data->map.map_ids[i])
+	{
+		if (ft_strnstr(line, data->map.map_ids[i],
+				ft_strlen(data->map.map_ids[i])))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+// split each line and append to map.config
+// parse_map() appends line to row in map.map_array
 static int	parse_line(t_data *data, char *line)
 {
-	char *cpy;
-
 	if (line[0] == '\0' || line[0] == '\n')
 		return (0);
-	if (data->map.id > N_CONFIGS - 2)
+	if (no_valid_id(data, line))
 		return (parse_map(data, line));
 	data->map.config[data->map.id] = ft_split(line, ' ');
 	//error
-
-	// obvs trimming newline should not be part of debug
-	// (quick and dirty overwrite) proper freeing and reallocation should take place
-	cpy = ft_strdup(data->map.config[data->map.id][1]);
+	if (array_len(data->map.config[data->map.id]) != 2)
+	{
+		printf("no texture path...map.id: %d\n", data->map.id);
+		return (free_map_data(data));
+	}
+	char *cpy = ft_strdup(data->map.config[data->map.id][1]);
 	free(data->map.config[data->map.id][1]);
 	data->map.config[data->map.id][1] = ft_strtrim(cpy, "\n");
-	printf("\n.................%d...........%s\n\n", data->map.id, data->map.config[data->map.id][1]);
+	printf("\n%s::::::::::%d::::::::::%s\n\n",
+			data->map.config[data->map.id][0],
+			data->map.id, data->map.config[data->map.id][1]);
 	free(cpy);
-	if (array_len(data->map.config[data->map.id]) != 2)
-		return (free_map_data(data));
-	// if the ids do not need to be in a "strict order" this evlaution can be changed
-	// to look through the whole id list for a match rather than the current id
-	// and map.id will simply comfirm all required elements have bee parsed
-	if (ft_strncmp(data->map.config[data->map.id][0], data->map.map_ids[data->map.id],
-				ft_strlen(data->map.map_ids[data->map.id]) + 1) == 0)
+	int	i;
+	i = 0;
+	while (data->map.map_ids[i])
 	{
-		if (DEBUG)
+		if (ft_strncmp(data->map.config[data->map.id][0], data->map.map_ids[i],
+					ft_strlen(data->map.map_ids[i]) + 1) == 0)
 		{
-			int i = 0;
-			while (data->map.config[data->map.id][i])
-			{
-				printf(":::::%s", data->map.config[data->map.id][i]);
-				i++;
-			}
-			printf("\n");
+			data->map.id++;
+			return(0);
 		}
-		data->map.id++;
-		return (0);
+		i++;
 	}
+	printf("didn't load all configs or N_CONFIGS is wrong\n");
 	return (free_map_data(data));
 }
 
-static void	copy_chars(t_data *data, char *flat_map)
+static int	copy_chars(t_data *data, char *flat_map)
 {
 	int	i;
 	int	j;
@@ -125,17 +151,18 @@ static void	copy_chars(t_data *data, char *flat_map)
 			flat_map++;
 			j = 0;
 		}
-		if (member_of_set(*flat_map, VALID_MAP_CHARS))
+		if (*flat_map)
 		{
 			data->map.map_array[i][j] = *flat_map;
 			flat_map++;
 			j++;
-		}		
+		}
 	}
+	return (0);
 }
 
-// load data->map.flat_map into data->map.map_array
 // TODO: on error free flat_map
+// load data->map.flat_map into data->map.map_array
 static int	flat_map_to_map_array(t_data *data)
 {
 	int	i;
@@ -161,7 +188,8 @@ static int	flat_map_to_map_array(t_data *data)
 		i++;
 	}
 	data->map.height = data->map.height;
-	copy_chars(data, data->map.flat_map);
+	if (copy_chars(data, data->map.flat_map))
+			return (1);
 	return (0);
 }
 
@@ -182,8 +210,16 @@ int	load_map_data(t_data *data, char *f_name)
 {
 	int		fd;
 	char	*line;
+	char	buff;
 
 	init_ids(data);
+	fd = open(f_name, O_RDONLY);
+	if (read(fd, &buff, 1) < 1)
+	{
+		close(fd);
+		return (1);
+	}
+	close(fd);
 	fd = open(f_name, O_RDONLY);
 	// error
 	line = get_next_line(fd);
@@ -196,7 +232,8 @@ int	load_map_data(t_data *data, char *f_name)
 		if (line && parse_line(data, line) != 0)
 			return load_map_clean_up(data, line, fd);
 	}
-	flat_map_to_map_array(data);
+	if (flat_map_to_map_array(data))
+		printf("Bad configuration file.\n");
 	load_map_clean_up(data, line, fd);
 	if (DEBUG)
 	{
@@ -205,14 +242,3 @@ int	load_map_data(t_data *data, char *f_name)
 	}
 	return (0);
 }
-
-
-// check for ids in specific order /
-// exit if ids not present or if no path
-// 		in case of C and F if no colour value
-// parse map to array
-// use depth first/flood fill algo search to check for holes
-// if bonus check for spawn location
-//
-
-

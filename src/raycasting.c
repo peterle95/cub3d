@@ -24,12 +24,14 @@ static void draw_horizontal_line(t_data *data, int y, unsigned int color)
     }
 }
 
+// TODO: check if ceiling texture present
+// if so draw ceilnig color
 static void draw_floor_ceiling(t_data *data)
 {
     // Draw ceiling
     int y = 0;
     while (y < data->window_height / 2) {
-        draw_horizontal_line(data, y, data->map.ceiling_color);
+        // draw_horizontal_line(data, y, data->map.ceiling_color);
         y++;
     }
     
@@ -46,16 +48,16 @@ static int	get_texture_number(t_ray *ray)
 	if (ray->side == 0)
 	{
 		if (ray->ray_dir_x < 0)
-			return 0;  // West
+			return WEST;  // West
 		else
-			return 1;  // East
+			return EAST;  // East
 	}
 	else
 	{
 		if (ray->ray_dir_y < 0)
-			return 2;  // North
+			return NORTH;  // North
 		else
-			return 3;  // South
+			return SOUTH;  // South
 	}
 }
 
@@ -267,7 +269,6 @@ void perform_dda(t_data *data, t_ray *ray)
 
 void	render_frame(t_data *data)
 {
-	printf("rendering frame\n");
 	int		x;
 	t_line_params	line;
 	t_ray	ray;
