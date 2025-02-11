@@ -108,6 +108,11 @@ static int	parse_line(t_data *data, char *line)
 		return (parse_map(data, line));
 	data->map.config[data->map.id] = ft_split(line, ' ');
 	//error
+	if (array_len(data->map.config[data->map.id]) != 2)
+	{
+		printf("no texture path...map.id: %d\n", data->map.id);
+		return (free_map_data(data));
+	}
 	char *cpy = ft_strdup(data->map.config[data->map.id][1]);
 	free(data->map.config[data->map.id][1]);
 	data->map.config[data->map.id][1] = ft_strtrim(cpy, "\n");
@@ -115,12 +120,6 @@ static int	parse_line(t_data *data, char *line)
 			data->map.config[data->map.id][0],
 			data->map.id, data->map.config[data->map.id][1]);
 	free(cpy);
-	
-	if (array_len(data->map.config[data->map.id]) != 2)
-	{
-		printf("no texture path...map.id: %d\n", data->map.id);
-		return (free_map_data(data));
-	}
 	int	i;
 	i = 0;
 	while (data->map.map_ids[i])
