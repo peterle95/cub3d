@@ -17,6 +17,7 @@ int	init_data(t_data *data)
 	data->map.map_array = NULL;
 	data->window_width = 1920;
 	data->window_height = 1080;
+	data->ceiling_loaded = 0;
 	// Initialize player position and direction, to be updated with map data
 	data->player.x = 22;  // Starting position
 	data->player.y = 12;

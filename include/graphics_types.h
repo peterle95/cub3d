@@ -13,9 +13,9 @@
 #ifndef GRAPHICS_TYPES_H
 # define GRAPHICS_TYPES_H
 
-# define N_TEXTURES 4
+# define N_TEXTURES 5
 
-typedef struct s_line
+typedef struct	s_line
 {
 	int	x1;
 	int	y1;
@@ -29,7 +29,7 @@ typedef struct s_line
 	int	e2;
 }	t_line;
 
-typedef struct s_texture
+typedef struct	s_texture
 {
 	void	*ptr;
 	char	*id;
@@ -41,10 +41,21 @@ typedef struct s_texture
 	int		endian;
 }	t_texture;
 
-typedef struct s_textures
+typedef struct	s_textures
 {
 	t_texture	img[N_TEXTURES];
 }	t_textures;
+
+typedef struct	s_ceiling
+{
+	int		y;
+	int		x;
+	int		pixel;
+	int		color;
+	int		sky_x;
+	int		texture_offset;
+	double	angle;
+}	t_ceiling;
 
 #endif
 

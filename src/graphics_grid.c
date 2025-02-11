@@ -25,7 +25,7 @@ static void	fill_square(t_data *data, int x, int y, int len_side)
 		{
 			if (row >= 0 && row < data->window_height && col
 				>= 0 && col < data->window_width)
-				put_pixel_to_img(data, col, row, 0x00FF0000);
+				put_pixel_to_img(data, col, row, 0x00FFFFFF);
 			col++;
 		}
 		row++;
@@ -43,7 +43,7 @@ int	draw_grid(t_data *data)
 		greater = data->map.height;
 	else
 		greater = data->map.width;
-	data->scalar = (data->window_height / greater) / 2;
+	data->scalar = (data->window_height / greater) / 4;
 	y = 0;
 	while (y < data->map.height)
 	{
