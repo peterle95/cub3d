@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:22 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/07 13:42:52 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/12 13:48:48 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,16 @@ void	init_img(t_data *data)
 		exit(EXIT_FAILURE);
 	}
 	data->img_data0->addr = mlx_get_data_addr(data->img_data0->img,
-			&data->img_data0->bits_per_pixel,
-			&data->img_data0->line_length, &data->img_data0->endian);
+		&data->img_data0->bits_per_pixel,
+		&data->img_data0->line_length,
+		&data->img_data0->endian);
+	if (!data->img_data0->addr)
+	{
+		mlx_destroy_image(data->mlx, data->img_data0->img);
+		free(data->img_data0);
+		error("Error: Failed to get image data address.");
+		exit(EXIT_FAILURE);
+	}
 }
 
 void	put_pixel_to_img(t_data *data, int x, int y, int color)
