@@ -24,6 +24,7 @@
 # include "mlx.h"
 # include "libft.h"
 # include "graphics_types.h"
+# include "exposed_minilibx_guts.h"
 
 # define VALID_MAP_CHARS "01NESW \n"
 # define VALID_PLAYER_CHARS "NSEW"
