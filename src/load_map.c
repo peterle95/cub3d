@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:41 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/07 12:56:43 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/12 13:47:30 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,20 @@ static int	init_ids(t_data *data)
 	int	i;
 
 	data->map.flat_map = ft_strdup("");
-	// error
+	if (!data->map.flat_map)
+	{
+		error("Error: Failed to allocate flat_map.");
+		return (1);
+	}
+
 	data->map.width = 0;
 	data->map.height = 0;
 	data->map.config = malloc((N_CONFIGS + 1) * sizeof(char **));
-	// error
+	if (!data->map.config)
+	{
+		error("Error: Failed to allocate map.config.");
+		return (1);
+	}
 	i = 0;
 	while (i < N_CONFIGS + 1)
 	{
@@ -30,7 +39,13 @@ static int	init_ids(t_data *data)
 		i++;
 	}
 	data->map.map_ids = malloc((N_CONFIGS + 1) * sizeof(char *));
-	// error
+	if (!data->map.map_ids)
+	{
+		error("Error: Failed to allocate map.map_ids.");
+		free(data->map.config);
+		return (1);
+	}
+	// Set your map IDs
 	data->map.map_ids[0] = "NO";
 	data->map.map_ids[1] = "SO";
 	data->map.map_ids[2] = "WE";
@@ -40,7 +55,7 @@ static int	init_ids(t_data *data)
 	data->map.map_ids[6] = "C";
 	data->map.map_ids[N_CONFIGS] = NULL;
 	data->map.id = 0;
-	return (0);	
+	return (0);
 }
 
 static int	contains_invalid_char(char *line)
@@ -168,17 +183,27 @@ static int	flat_map_to_map_array(t_data *data)
 	int	i;
 	int	j;
 
-	if (DEBUG)
-		printf("flat_map:\n%s", data->map.flat_map);
 	data->map.map_array = malloc((data->map.height + 1) * sizeof(char *));
+	if (!data->map.map_array)
+	{
+		error("Error: Failed to allocate map.array.");
+		return (1);
+	}
 	data->map.map_array[data->map.height] = NULL;
-	// error
+
 	i = 0;
-	j = 0;
 	while (i < data->map.height)
 	{
 		data->map.map_array[i] = ft_calloc(data->map.width + 1, sizeof(char));
-		// error
+		if (!data->map.map_array[i])
+		{
+			int k = i;
+			while (k-- > 0)
+				free(data->map.map_array[k]);
+			free(data->map.map_array);
+			error("Error: Failed to allocate row for map.array.");
+			return (1);
+		}
 		j = 0;
 		while (j < data->map.width)
 		{
@@ -187,9 +212,8 @@ static int	flat_map_to_map_array(t_data *data)
 		}
 		i++;
 	}
-	data->map.height = data->map.height;
 	if (copy_chars(data, data->map.flat_map))
-			return (1);
+		return (1);
 	return (0);
 }
 
