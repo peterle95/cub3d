@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lworden <lworden@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 22:40:20 by lworden           #+#    #+#             */
-/*   Updated: 2024/05/24 17:39:15 by lworden          ###   ########.fr       */
+/*   Updated: 2025/02/12 14:40:24 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ char	*set_line(char	**ln, int fd)
 	if (!ln[fd])
 	{
 		ln[fd] = malloc(sizeof(char));
+		if (!ln[fd])
+			return NULL;
 		ln[fd][0] = '\0';
 	}
 	return (ln[fd]);

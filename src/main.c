@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:48 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/09 11:26:20 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/12 14:50:46 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ void init_textures(t_data *data)
 
 int	main(int argc, char **argv)
 {
-	t_data	data;
+	t_data data = {0};  // All fields are initialized to 0.
 
 	if (argc != 2)
 		return (0);

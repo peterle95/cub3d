@@ -6,23 +6,31 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:41 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/07 12:56:43 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/12 14:29:47 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-// TODO: error handling for malloc fail
 static int	init_ids(t_data *data)
 {
 	int	i;
 
 	data->map.flat_map = ft_strdup("");
-	// error
+	if (!data->map.flat_map)
+	{
+		error("Error: Failed to allocate flat_map.");
+		return (1);
+	}
+
 	data->map.width = 0;
 	data->map.height = 0;
 	data->map.config = malloc((N_CONFIGS + 1) * sizeof(char **));
-	// error
+	if (!data->map.config)
+	{
+		error("Error: Failed to allocate map.config.");
+		return (1);
+	}
 	i = 0;
 	while (i < N_CONFIGS + 1)
 	{
@@ -30,7 +38,13 @@ static int	init_ids(t_data *data)
 		i++;
 	}
 	data->map.map_ids = malloc((N_CONFIGS + 1) * sizeof(char *));
-	// error
+	if (!data->map.map_ids)
+	{
+		error("Error: Failed to allocate map.map_ids.");
+		free(data->map.config);
+		return (1);
+	}
+	// Set your map IDs
 	data->map.map_ids[0] = "NO";
 	data->map.map_ids[1] = "SO";
 	data->map.map_ids[2] = "WE";
@@ -40,7 +54,7 @@ static int	init_ids(t_data *data)
 	data->map.map_ids[6] = "C";
 	data->map.map_ids[N_CONFIGS] = NULL;
 	data->map.id = 0;
-	return (0);	
+	return (0);
 }
 
 static int	contains_invalid_char(char *line)
@@ -66,9 +80,17 @@ static int	parse_map(t_data *data, char *line)
 	if (contains_invalid_char(line))
 		return (1);
 	temp = ft_strdup(data->map.flat_map);
+	if (!temp) {
+		error("Error: Memory allocation failed in ft_strdup.");
+		return (1);
+	}
 	free(data->map.flat_map);
 	data->map.flat_map = ft_strjoin(temp, line);
 	free(temp);
+	if (!data->map.flat_map) {
+		error("Error: Memory allocation failed in ft_strjoin.");
+		return (1);
+	}
 	len = ft_strlen(line); 
 	if (len > data->map.width)
 		data->map.width = len;
@@ -107,32 +129,32 @@ static int	parse_line(t_data *data, char *line)
 	if (no_valid_id(data, line))
 		return (parse_map(data, line));
 	data->map.config[data->map.id] = ft_split(line, ' ');
-	//error
+	if (!data->map.config[data->map.id])
+		return (free_map_data(data));
 	if (array_len(data->map.config[data->map.id]) != 2)
 	{
 		printf("no texture path...map.id: %d\n", data->map.id);
 		return (free_map_data(data));
 	}
 	char *cpy = ft_strdup(data->map.config[data->map.id][1]);
+	if (!cpy)
+		return (free_map_data(data));
 	free(data->map.config[data->map.id][1]);
 	data->map.config[data->map.id][1] = ft_strtrim(cpy, "\n");
-	printf("\n%s::::::::::%d::::::::::%s\n\n",
-			data->map.config[data->map.id][0],
-			data->map.id, data->map.config[data->map.id][1]);
 	free(cpy);
-	int	i;
-	i = 0;
+	if (!data->map.config[data->map.id][1])
+		return (free_map_data(data));
+	int i = 0;
 	while (data->map.map_ids[i])
 	{
 		if (ft_strncmp(data->map.config[data->map.id][0], data->map.map_ids[i],
-					ft_strlen(data->map.map_ids[i]) + 1) == 0)
+						ft_strlen(data->map.map_ids[i]) + 1) == 0)
 		{
 			data->map.id++;
-			return(0);
+			return (0);
 		}
 		i++;
 	}
-	printf("didn't load all configs or N_CONFIGS is wrong\n");
 	return (free_map_data(data));
 }
 
@@ -168,17 +190,27 @@ static int	flat_map_to_map_array(t_data *data)
 	int	i;
 	int	j;
 
-	if (DEBUG)
-		printf("flat_map:\n%s", data->map.flat_map);
 	data->map.map_array = malloc((data->map.height + 1) * sizeof(char *));
+	if (!data->map.map_array)
+	{
+		error("Error: Failed to allocate map.array.");
+		return (1);
+	}
 	data->map.map_array[data->map.height] = NULL;
-	// error
+
 	i = 0;
-	j = 0;
 	while (i < data->map.height)
 	{
 		data->map.map_array[i] = ft_calloc(data->map.width + 1, sizeof(char));
-		// error
+		if (!data->map.map_array[i])
+		{
+			int k = i;
+			while (k-- > 0)
+				free(data->map.map_array[k]);
+			free(data->map.map_array);
+			error("Error: Failed to allocate row for map.array.");
+			return (1);
+		}
 		j = 0;
 		while (j < data->map.width)
 		{
@@ -187,9 +219,8 @@ static int	flat_map_to_map_array(t_data *data)
 		}
 		i++;
 	}
-	data->map.height = data->map.height;
 	if (copy_chars(data, data->map.flat_map))
-			return (1);
+		return (1);
 	return (0);
 }
 
@@ -214,23 +245,34 @@ int	load_map_data(t_data *data, char *f_name)
 
 	init_ids(data);
 	fd = open(f_name, O_RDONLY);
+	if (fd < 0)
+	{
+		error("Error: Unable to open file for reading (first open).");
+		return (1);
+	}
 	if (read(fd, &buff, 1) < 1)
 	{
 		close(fd);
+		error("Error: File is empty or unreadable.");
 		return (1);
 	}
 	close(fd);
 	fd = open(f_name, O_RDONLY);
+	if (fd < 0)
+	{
+		error("Error: Unable to open file for reading (second open).");
+		return (1);
+	}
 	// error
 	line = get_next_line(fd);
 	if (line && parse_line(data, line) != 0)
-		return load_map_clean_up(data, line, fd);
+		return (load_map_clean_up(data, line, fd));
 	while (line)
 	{
 		free(line);
 		line = get_next_line(fd);
 		if (line && parse_line(data, line) != 0)
-			return load_map_clean_up(data, line, fd);
+			return (load_map_clean_up(data, line, fd));
 	}
 	if (flat_map_to_map_array(data))
 		printf("Bad configuration file.\n");

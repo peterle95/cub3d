@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:06:27 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/09 11:32:09 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/12 13:52:38 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,17 +184,16 @@ static int validate_texture_path(char *path)
 {
     char *full_path;
     int fd;
-    
-    // Try direct path first
+
     fd = open(path, O_RDONLY);
     if (fd != -1)
     {
         close(fd);
         return (1);
     }
-
-    // Try with src/ prefix
     full_path = ft_strjoin("src/", path);
+    if (!full_path)
+        return (0);
     fd = open(full_path, O_RDONLY);
     if (fd != -1)
     {
@@ -203,9 +202,9 @@ static int validate_texture_path(char *path)
         return (1);
     }
     free(full_path);
-
-    // Try with ./ prefix
     full_path = ft_strjoin("./", path);
+    if (!full_path)
+        return (0);
     fd = open(full_path, O_RDONLY);
     if (fd != -1)
     {
@@ -214,7 +213,6 @@ static int validate_texture_path(char *path)
         return (1);
     }
     free(full_path);
-
     return (0);
 }
 
