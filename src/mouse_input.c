@@ -12,39 +12,36 @@
 
 #include "cube3d.h"
 
-static int ignore_next_warp = 0;
-
+// sets ignore_warp flag i.e.
+// if the last event was caused by warping, ignore this event
+// otherwise infinite loop of warp, call, warp, call, ...
+// (faster processors might freeze up as they can take on a 
+// larger number of calls. Or if there is simply no system
+// filtering, the issue is exposed)
 int mouse_move(int x, int y, t_data *data)
 {
+	static int ignore_warp = 0;
 	(void)y;
     int center_x;
     int center_y;
     int dx;
     double sensitivity;
 
-	// if the last event was caused by warping, ignore this event
-	// otherwise infinite loop of warp, call, warp, call, ...
-    if (ignore_next_warp)
+    if (ignore_warp)
 	{
-        ignore_next_warp = 0;
+        ignore_warp = 0;
         return (0);
     }
-
     center_x = data->window_width / 2;
     center_y = data->window_height / 2;
-
 	dx = x - center_x;
-    sensitivity = 0.001; // Lower sensitivity for slower rotation
-
-    if (dx != 0)
+    sensitivity = 0.001;
+    if (dx <= -10 || dx >= 10)
 	{
         rotate_player(data, dx * sensitivity);
-		// set flag to ignore the next event caused by warping
-		ignore_next_warp = 1;
-		// Warp the mouse pointer back to the center for continuous relative movement.
+		ignore_warp = 1;
     	mlx_mouse_move(data->mlx, data->mlx_win, center_x, center_y);
 	}
-
     return (0);
 }
 
