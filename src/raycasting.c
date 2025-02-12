@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:15:52 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/09 11:38:00 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/12 14:18:50 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void draw_floor_ceiling(t_data *data)
     // Draw ceiling
     int y = 0;
     while (y < data->window_height / 2) {
-        // draw_horizontal_line(data, y, data->map.ceiling_color);
+        draw_horizontal_line(data, y, data->map.ceiling_color);
         y++;
     }
     

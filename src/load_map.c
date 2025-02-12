@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:41 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/12 13:54:48 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/12 14:29:47 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,17 @@ static int	parse_map(t_data *data, char *line)
 	if (contains_invalid_char(line))
 		return (1);
 	temp = ft_strdup(data->map.flat_map);
+	if (!temp) {
+		error("Error: Memory allocation failed in ft_strdup.");
+		return (1);
+	}
 	free(data->map.flat_map);
 	data->map.flat_map = ft_strjoin(temp, line);
 	free(temp);
+	if (!data->map.flat_map) {
+		error("Error: Memory allocation failed in ft_strjoin.");
+		return (1);
+	}
 	len = ft_strlen(line); 
 	if (len > data->map.width)
 		data->map.width = len;

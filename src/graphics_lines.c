@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:27 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/07 15:07:03 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/12 14:32:04 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ t_line	*init_line(int x1, int y1, int x2, int y2)
 	t_line	*line;
 
 	line = malloc(sizeof(t_line));
+	if (!line)
+	{
+		error("Error: Failed to allocate memory for line.");
+		return (NULL);
+	}
 	line->x1 = x1;
 	line->y1 = y1;
 	line->x2 = x2;

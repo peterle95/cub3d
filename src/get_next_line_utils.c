@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 22:40:20 by lworden           #+#    #+#             */
-/*   Updated: 2025/02/12 13:49:28 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/12 14:30:00 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ char	*set_line(char	**ln, int fd)
 	if (!ln[fd])
 	{
 		ln[fd] = malloc(sizeof(char));
+		if (!ln[fd])
+			return NULL;
 		ln[fd][0] = '\0';
 	}
 	return (ln[fd]);
