@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 15:11:37 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/13 17:30:17 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/13 17:37:33 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ int	init_data(t_data *data)
 	data->window_width = 1920;
 	data->window_height = 1080;
 	data->ceiling_loaded = 0;
-	data->player.x = 22;
-	data->player.y = 12;
-	data->player.dir_x = -1;
+	data->player.x = 0;
+	data->player.y = 0;
+	data->player.dir_x = 0;
 	data->player.dir_y = 0;
 	data->player.plane_x = 0;
-	data->player.plane_y = 0.66;
+	data->player.plane_y = 0;
 	return (0);
 }
 
@@ -38,8 +38,6 @@ int	init_hooks(t_data *data)
 	return (0);
 }
 
-// seems as though the player speed must divide into some value
-// for the walls to render correctly
 int	init_player(t_data *data)
 {
 	data->player.x = 0;
