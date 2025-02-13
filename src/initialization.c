@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 15:11:37 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/07 15:12:06 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/13 17:28:16 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,12 @@ int	init_data(t_data *data)
 	data->window_width = 1920;
 	data->window_height = 1080;
 	data->ceiling_loaded = 0;
-	// Initialize player position and direction, to be updated with map data
-	data->player.x = 22;  // Starting position
+	data->player.x = 22;
 	data->player.y = 12;
-	data->player.dir_x = -1;  // Initial direction vector
+	data->player.dir_x = -1;
 	data->player.dir_y = 0;
-	data->player.plane_x = 0;  // Camera plane
-	data->player.plane_y = 0.66; // FOV is about 66 degrees
+	data->player.plane_x = 0;
+	data->player.plane_y = 0.66;
 	return (0);
 }
 
@@ -34,7 +33,6 @@ int	init_hooks(t_data *data)
 	mlx_hook(data->mlx_win, 3, KEY_RELEASE, key_up, data);
 	mlx_hook(data->mlx_win, 2, KEY_PRESS, key_down, data);
 	mlx_hook(data->mlx_win, ClientMessage, 0, close_window, data);
-	// mlx_mouse_hook(data->mlx_win, mouse_mv, data);
 	mlx_hook(data->mlx_win, 6, POINTER_MOTION, mouse_move, data);
 	mlx_loop_hook(data->mlx, draw, data);
 	return (0);

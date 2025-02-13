@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:22 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/12 13:48:48 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/13 17:24:30 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,21 +71,18 @@ void	add_random_pixels(t_data *data, int width, int height, int num_pixels)
     }
 }
 
-// is this efficient? think about image buffering and limiting redraw
 void	clear_image_to_colour(t_data *data, int colour)
 {
-	int	x;
-	int	y;
+    int total_pixels;
+    int *img_buffer;
+	int i;
 
-	y = 0;
-	while (y < data->window_height)
-	{
-		x = 0;
-		while (x < data->window_width)
-		{
-			put_pixel_to_img(data, x, y, colour);
-			x++;
-		}
-		y++;
-	}
+	total_pixels = data->window_width * data->window_height;
+    img_buffer = (int *)data->img_data0->addr;
+	i = 0;
+    while (i < total_pixels)
+    {
+        img_buffer[i] = colour;
+		i++;
+    }
 }
