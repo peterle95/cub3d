@@ -17,7 +17,8 @@ void	init_img(t_data *data)
 	data->img_data0 = malloc(sizeof(t_img_data));
 	if (!data->img_data0)
 	{
-		error("Error: Failed to allocate memory for image data.");
+		free_map_data(data);
+		error("Error: Failed to allocate memory for image data");
 		exit(EXIT_FAILURE);
 	}
 	data->img_data0->img = mlx_new_image(data->mlx,
@@ -25,7 +26,8 @@ void	init_img(t_data *data)
 	if (!data->img_data0->img)
 	{
 		free(data->img_data0);
-		error("Error: Failed to create new image.");
+		free_map_data(data);
+		error("Error: Failed to create new image");
 		exit(EXIT_FAILURE);
 	}
 	data->img_data0->addr = mlx_get_data_addr(data->img_data0->img,
@@ -34,8 +36,7 @@ void	init_img(t_data *data)
 		&data->img_data0->endian);
 	if (!data->img_data0->addr)
 	{
-		mlx_destroy_image(data->mlx, data->img_data0->img);
-		free(data->img_data0);
+		terminator(data, 1);
 		error("Error: Failed to get image data address.");
 		exit(EXIT_FAILURE);
 	}

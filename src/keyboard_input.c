@@ -16,7 +16,7 @@
 int	key_up(int keycode, t_data *data)
 {
 	if (65307 == keycode)
-		terminator(data);
+		terminator(data, 0);
 	return (0);
 }
 

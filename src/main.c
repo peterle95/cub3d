@@ -135,6 +135,8 @@ void init_textures(t_data *data)
     }
 }
 
+// remember to check also valgrind without suppression file to check mlx
+// objects are freeed
 int	main(int argc, char **argv)
 {
 	t_data data = {0};  // All fields are initialized to 0.
@@ -153,7 +155,8 @@ int	main(int argc, char **argv)
 	if (load_textures_from_config(&data)) 
 		return (error("Failed to load textures"));
 	init_hooks(&data);
-	mlx_mouse_hide(data.mlx, data.mlx_win);
+	XFixesHideCursor(((t_xvar *)data.mlx)->display, ((t_win_list *)data.mlx_win)->window);
+	// doomed_mouse_hide(&data, data.mlx, data.mlx_win);
 	init_player(&data);
 	init_player_position(&data);
 	mlx_loop(data.mlx);

@@ -30,14 +30,17 @@ static void draw_floor_ceiling(t_data *data)
 {
     // Draw ceiling
     int y = 0;
-    while (y < data->window_height / 2) {
-        draw_horizontal_line(data, y, data->map.ceiling_color);
+    while (y < data->window_height / 2) 
+	{
+		if (!data->ceiling_loaded)
+        	draw_horizontal_line(data, y, data->map.ceiling_color);
         y++;
     }
     
     // Draw floor
     y = data->window_height / 2;
-    while (y < data->window_height) {
+    while (y < data->window_height)
+	{
         draw_horizontal_line(data, y, data->map.floor_color);
         y++;
     }

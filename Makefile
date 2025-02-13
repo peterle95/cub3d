@@ -10,10 +10,11 @@
 #                                                                              #
 # **************************************************************************** #
 
+# -lXfixes not allowed by subject but only fix to mouse hide memory issues
 CLANG=cc
 CFLAGS=-Wall -Werror -Wextra -MMD -g
 INCL=-Iinclude -Ilibft
-LIBFLAGS=-Llibft -Lminilibx-linux -lft -lmlx -lXext -lX11 -lz -lm
+LIBFLAGS=-Llibft -Lminilibx-linux -lft -lmlx -lXext -lX11 -lz -lm -lXfixes
 PFLAGS=-D DEBUG=1
 NAME=cube3d
 SRC_DIR=src/
@@ -39,6 +40,7 @@ SRCS += $(SRC_DIR)raycasting.c
 SRCS += $(SRC_DIR)raycasting_visualisation.c
 SRCS += $(SRC_DIR)draw.c
 SRCS += $(SRC_DIR)initialization.c
+SRCS += $(SRC_DIR)proper_mouse_hide.c
 
 LIBFT_DIR=libft
 LIBFT=$(LIBFT_DIR)/libft.a

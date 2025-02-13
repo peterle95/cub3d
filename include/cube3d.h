@@ -18,6 +18,7 @@
 # include <math.h>
 # include <X11/Xlib.h>
 # include <X11/cursorfont.h>
+# include <X11/extensions/Xfixes.h>
 # include <time.h>
 # include <fcntl.h>
 # include <stdbool.h>
@@ -129,6 +130,8 @@ typedef struct	s_data
 	int			b;
 	t_map		map;
 	int			ceiling_loaded;
+	Pixmap		blank;
+	Cursor		cursor;
 	int			debug_mode;
 }	t_data;
 
@@ -176,7 +179,7 @@ int		close_window(t_data *data);
 
 // utils
 void	init_colour_fade(t_data *data);
-int		terminator(t_data *data);
+int		terminator(t_data *data, int error);
 int		key_up(int keycode, t_data *data);
 void	init_img(t_data *data);
 void	put_pixel_to_img(t_data *data, int x, int y, int color);
@@ -256,5 +259,9 @@ void	init_player_position(t_data *data);
 
 // raycasting_visualisation
 int		draw_raycast(t_data *data);
+
+// proper_mouse_hide
+int		doomed_mouse_hide(t_data *doomed_data, t_xvar *xvar, t_win_list *win);
+void	free_doomed_data(t_data *data, t_xvar *xvar);
 
 #endif
