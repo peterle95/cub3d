@@ -6,12 +6,11 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:57:11 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/07 12:57:12 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/13 17:39:31 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
-
 
 // oder of mlx_destroy funcs important
 // afrer calling mlx_destroy_image() can

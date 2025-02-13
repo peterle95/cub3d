@@ -6,7 +6,7 @@
 #    By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/07 12:57:19 by pmolzer           #+#    #+#              #
-#    Updated: 2025/02/13 15:28:45 by pmolzer          ###   ########.fr        #
+#    Updated: 2025/02/13 17:41:13 by pmolzer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRCS += $(SRC_DIR)player_movement.c
 SRCS += $(SRC_DIR)raycasting.c
 SRCS += $(SRC_DIR)raycasting_visualisation.c
 SRCS += $(SRC_DIR)draw.c
+SRCS += $(SRC_DIR)draw_utils.c
 SRCS += $(SRC_DIR)initialization.c
 
 LIBFT_DIR=libft

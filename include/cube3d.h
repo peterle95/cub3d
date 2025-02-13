@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 13:04:29 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/13 15:29:28 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/13 17:46:11 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,6 +251,10 @@ int		draw(t_data *data);
 int		render_with_transparency(t_data *data, t_texture *t, int img_x, int img_y);
 int		draw_player_position(t_data *data);
 void 	draw_ceiling(t_data *data);
+
+// draw_utils
+void init_ceiling_values(t_data *data, t_ceiling *ceiling);
+int calculate_sky_x(t_ceiling *ceiling, t_data *data);
 
 // initialization
 int		init_data(t_data *data);

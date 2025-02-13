@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:06:27 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/12 13:52:38 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/13 17:58:18 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int validate_rgb(const char *color, unsigned int rgb[3])
 {
     char **values;
     int i;
+    int j;
 
     values = ft_split(color, ',');
     if (!values)
@@ -36,14 +37,12 @@ static int validate_rgb(const char *color, unsigned int rgb[3])
     i = 0;
     while (i < 3 && values[i])
     {
-        // Check that the token is not an empty string.
         if (values[i][0] == '\0')
         {
             free_split(values);
             return (1);
         }
-        int j = 0;
-        // Check that each character in this token is a digit.
+        j = 0;
         while (values[i][j])
         {
             if (!ft_isdigit(values[i][j]))
@@ -54,7 +53,6 @@ static int validate_rgb(const char *color, unsigned int rgb[3])
             j++;
         }
         rgb[i] = ft_atoi(values[i]);
-        // Remove the < 0 check since it's unsigned
         if (rgb[i] > 255)
         {
             free_split(values);
@@ -62,7 +60,6 @@ static int validate_rgb(const char *color, unsigned int rgb[3])
         }
         i++;
     }
-    // If we did not get exactly 3 values, that is an error.
     if (i != 3 || values[i] != NULL)
     {
         free_split(values);
@@ -72,76 +69,56 @@ static int validate_rgb(const char *color, unsigned int rgb[3])
     return (0);
 }
 
-/* static int is_surrounded_by_walls(char **map, int height, int width)
-{
-  int i;
-  int j;
-
-    i = 0;
-    j = 0;
-
-  while(i < height)
-  {
-    while (j < width)
-    {
-      if (map[i][j] != '1' && map[i][j] != ' ')
-      {
-        // Check all adjacent cells
-        if (i == 0 || i == height - 1 || j == 0 || j == width - 1)
-          return (0);
-        if (map[i-1][j] == ' ' || map[i+1][j] == ' ' || 
-          map[i][j-1] == ' ' || map[i][j+1] == ' ')
-          return (0);
-      }
-      j++;
-    }
-    i++;
-  }
-  return (1);
-} */
-
 static int is_surrounded_by_walls(char **map, int height, int width)
 {
     size_t line_len;
-    
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width && map[i][j]; j++) {
-            if (map[i][j] == '0') {
-                // Check up
-                if (i == 0) {
+    int i;
+    int j;
+
+    i = 0;
+    while (i < height) 
+    {
+        j = 0;
+        while (j < width && map[i][j]) 
+        {
+            if (map[i][j] == '0') 
+            {
+                if (i == 0) 
+                {
                     printf("Error: Map not closed at position [%d][%d] (top)\n", i, j);
                     return 1;
                 }
                 line_len = ft_strlen(map[i-1]);
-                if (!map[i-1][j] || ((size_t)j >= line_len) || map[i-1][j] == ' ') {
+                if (!map[i-1][j] || ((size_t)j >= line_len) || map[i-1][j] == ' ') 
+                {
                     printf("Error: Map not closed at position [%d][%d] (top)\n", i, j);
                     return 1;
                 }
-                
-                // Check down
-                if (i == height-1) {
+                if (i == height-1) 
+                {
                     printf("Error: Map not closed at position [%d][%d] (bottom)\n", i, j);
                     return 1;
                 }
                 line_len = ft_strlen(map[i+1]);
-                if (!map[i+1][j] || ((size_t)j >= line_len) || map[i+1][j] == ' ') {
+                if (!map[i+1][j] || ((size_t)j >= line_len) || map[i+1][j] == ' ') 
+                {
                     printf("Error: Map not closed at position [%d][%d] (bottom)\n", i, j);
                     return 1;
                 }
-                
-                // Check left
-                if (j == 0 || map[i][j-1] == ' ') {
+                if (j == 0 || map[i][j-1] == ' ') 
+                {
                     printf("Error: Map not closed at position [%d][%d] (left)\n", i, j);
                     return 1;
                 }
-                
-                // Check right
-                if (!map[i][j+1] || map[i][j+1] == ' ') {
+                if (!map[i][j+1] || map[i][j+1] == ' ') 
+                {
                     printf("Error: Map not closed at position [%d][%d] (right)\n", i, j);
                     return 1;
                 }
             }
+            j++;
         }
+        i++;
     }
     return 0;
 }
@@ -179,7 +156,6 @@ static int validate_map_chars(char **map, char *valid_chars)
 	return (0);
 }
 
-// This function validates the texture path provided for a texture file.
 static int validate_texture_path(char *path)
 {
     char *full_path;
@@ -238,29 +214,23 @@ static int	validate_textures(t_data *data)
 
 int validate_map(t_data *data)
 {
-    // Check if data or map is NULL
-    if (!data) // || !data->map.config[0][1] || !data->map.config[1][1] || 
-        //!data->map.config[2][1] || !data->map.config[3][1])
+    char *floor_color;
+    char *ceiling_color;
+	int i;
+    unsigned int floor_rgb[3];
+    unsigned int ceiling_rgb[3];
+    
+    if (!data)
     {
         error("Error: Map data not properly initialized");
         return (1);
     }
-
-    // validate .cub map
-	if (validate_textures(data) != 0) // ignoring texture vaidataion to debug colour loading
-		// printf("ignore texture validation\n");
+	if (validate_textures(data) != 0)
 		return (1);
-    
-	// Validate map characters and player count
     if (validate_map_chars(data->map.map_array, "01NSEW ") != 0)
 		return (1);
-
-    // Validate colors (F and C)
-    char *floor_color = NULL;
-    char *ceiling_color = NULL;
-    
-	int i;
-
+    floor_color = NULL;
+    ceiling_color = NULL;
 	i = 0;
 	while (data->map.config[i]) 
 	{
@@ -270,10 +240,6 @@ int validate_map(t_data *data)
             ceiling_color = data->map.config[i][1];
 		i++;
     }
-    
-    unsigned int floor_rgb[3];
-    unsigned int ceiling_rgb[3];
-    
     if (!floor_color || !ceiling_color || 
         validate_rgb(floor_color, floor_rgb) != 0 || 
         validate_rgb(ceiling_color, ceiling_rgb) != 0)
@@ -281,16 +247,9 @@ int validate_map(t_data *data)
 		printf("color did not load\n");
         return (1);
 	}
-    
-    // Store colors in map struct
     data->map.floor_color = (floor_rgb[0] << 16) | (floor_rgb[1] << 8) | floor_rgb[2];
     data->map.ceiling_color = (ceiling_rgb[0] << 16) | (ceiling_rgb[1] << 8) | ceiling_rgb[2];
-	printf("c1: %d\nc2: %d\n", data->map.floor_color, data->map.ceiling_color);
-
-
-    // Validate map is surrounded by walls
     if (is_surrounded_by_walls(data->map.map_array, data->map.height, data->map.width))
         return (1);
-
     return (0);
 }

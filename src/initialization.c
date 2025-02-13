@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 15:11:37 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/13 17:37:33 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/13 17:38:31 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	init_data(t_data *data)
 	data->player.plane_y = 0;
 	return (0);
 }
-
 
 int	init_hooks(t_data *data)
 {
