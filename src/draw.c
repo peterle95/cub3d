@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 15:10:00 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/09 11:38:11 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/13 17:33:08 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	draw_ceiling(t_data *data)
 {
 	t_ceiling	c;
 
+	if (data->textures.img[CEILING].width <= 0)
+		return;
 	c.angle = atan2(data->player.dir_y, data->player.dir_x);
 	c.texture_offset = (int)((c.angle / (2 * M_PI))
 			* data->textures.img[CEILING].width)
