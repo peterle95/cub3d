@@ -6,7 +6,7 @@
 #    By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/07 12:57:19 by pmolzer           #+#    #+#              #
-#    Updated: 2025/02/13 15:14:39 by pmolzer          ###   ########.fr        #
+#    Updated: 2025/02/13 15:28:45 by pmolzer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,8 @@ SRCS += $(SRC_DIR)load_map_utils2.c
 SRCS += $(SRC_DIR)load_map_utils3.c
 SRCS += $(SRC_DIR)load_map_utils4.c
 SRCS += $(SRC_DIR)load_map_utils5.c
+SRCS += $(SRC_DIR)load_map_utils6.c
+SRCS += $(SRC_DIR)load_map_utils7.c
 SRCS += $(SRC_DIR)free_data.c
 SRCS += $(SRC_DIR)graphics_image.c
 SRCS += $(SRC_DIR)graphics_lines.c

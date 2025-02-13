@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 13:04:29 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/13 15:26:03 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/13 15:29:28 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,12 @@ int	copy_chars(t_data *data, char *flat_map);
 int process_config_line(t_data *data, char *line);
 int	parse_map(t_data *data, char *line);
 int	no_valid_id(t_data *data, char *line);
-
+int	contains_invalid_char(char *line);
+int	parse_map(t_data *data, char *line);
+int	print_array(char **arr);
+int	no_valid_id(t_data *data, char *line);
+int init_flat_map(t_data *data);
+int init_config(t_data *data);
 
 // graphics_image
 void	init_img(t_data *data);
