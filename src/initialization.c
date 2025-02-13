@@ -12,6 +12,25 @@
 
 #include "cube3d.h"
 
+void	init_texture_struct(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < N_TEXTURES)
+	{
+		data->textures.img[i].ptr = NULL;
+		data->textures.img[i].id = NULL;
+		data->textures.img[i].width = 0;
+		data->textures.img[i].height = 0;
+		data->textures.img[i].addr = NULL;
+		data->textures.img[i].bpp = 0;
+		data->textures.img[i].size_line = 0;
+		data->textures.img[i].endian = 0;
+		i++;
+	}
+}
+
 int	init_data(t_data *data)
 {
 	data->map.map_array = NULL;
@@ -20,16 +39,15 @@ int	init_data(t_data *data)
 	data->ceiling_loaded = 0;
 	data->mlx = NULL;
 	data->mlx_win = NULL;
-	// Initialize player position and direction, to be updated with map data
-	data->player.x = 22;  // Starting position
+	data->player.x = 22; // shouldnt this be map specific
 	data->player.y = 12;
-	data->player.dir_x = -1;  // Initial direction vector
+	data->player.dir_x = -1;
 	data->player.dir_y = 0;
-	data->player.plane_x = 0;  // Camera plane
-	data->player.plane_y = 0.66; // FOV is about 66 degrees
+	data->player.plane_x = 0;
+	data->player.plane_y = 0.66;
+	init_texture_struct(data);
 	return (0);
 }
-
 
 int	init_hooks(t_data *data)
 {
