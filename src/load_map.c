@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:41 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/12 14:29:47 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/13 14:39:23 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,7 +263,6 @@ int	load_map_data(t_data *data, char *f_name)
 		error("Error: Unable to open file for reading (second open).");
 		return (1);
 	}
-	// error
 	line = get_next_line(fd);
 	if (line && parse_line(data, line) != 0)
 		return (load_map_clean_up(data, line, fd));
@@ -275,7 +274,9 @@ int	load_map_data(t_data *data, char *f_name)
 			return (load_map_clean_up(data, line, fd));
 	}
 	if (flat_map_to_map_array(data))
-		printf("Bad configuration file.\n");
+	{
+		error("Error: Bad configuration file.");
+	}
 	load_map_clean_up(data, line, fd);
 	if (DEBUG)
 	{
