@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:06:27 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/13 17:58:18 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/13 18:08:08 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,136 +24,191 @@ static void free_split(char **tokens)
     free(tokens);
 }
 
+static int validate_number_string(const char *str)
+{
+    int j;
+
+    if (str[0] == '\0')
+        return (1);
+    
+    j = 0;
+    while (str[j])
+    {
+        if (!ft_isdigit(str[j]))
+            return (1);
+        j++;
+    }
+    return (0);
+}
+
+static int validate_rgb_value(const char *value)
+{
+    unsigned int num;
+
+    if (validate_number_string(value))
+        return (1);
+    
+    num = ft_atoi(value);
+    if (num > 255)
+        return (1);
+    
+    return (0);
+}
+
+static int process_rgb_values(char **values, unsigned int rgb[3])
+{
+    int i;
+
+    i = 0;
+    while (i < 3 && values[i])
+    {
+        if (validate_rgb_value(values[i]))
+            return (1);
+        
+        rgb[i] = ft_atoi(values[i]);
+        i++;
+    }
+
+    if (i != 3 || values[i] != NULL)
+        return (1);
+    
+    return (0);
+}
+
 static int validate_rgb(const char *color, unsigned int rgb[3])
 {
     char **values;
-    int i;
-    int j;
+    int result;
 
     values = ft_split(color, ',');
     if (!values)
         return (1);
 
-    i = 0;
-    while (i < 3 && values[i])
-    {
-        if (values[i][0] == '\0')
-        {
-            free_split(values);
-            return (1);
-        }
-        j = 0;
-        while (values[i][j])
-        {
-            if (!ft_isdigit(values[i][j]))
-            {
-                free_split(values);
-                return (1);
-            }
-            j++;
-        }
-        rgb[i] = ft_atoi(values[i]);
-        if (rgb[i] > 255)
-        {
-            free_split(values);
-            return (1);
-        }
-        i++;
-    }
-    if (i != 3 || values[i] != NULL)
-    {
-        free_split(values);
-        return (1);
-    }
+    result = process_rgb_values(values, rgb);
     free_split(values);
-    return (0);
+    
+    return (result);
 }
 
-static int is_surrounded_by_walls(char **map, int height, int width)
+static int check_top(char **map, int i, int j)
 {
     size_t line_len;
-    int i;
-    int j;
 
-    i = 0;
-    while (i < height) 
+    if (i == 0)
     {
-        j = 0;
-        while (j < width && map[i][j]) 
-        {
-            if (map[i][j] == '0') 
-            {
-                if (i == 0) 
-                {
-                    printf("Error: Map not closed at position [%d][%d] (top)\n", i, j);
-                    return 1;
-                }
-                line_len = ft_strlen(map[i-1]);
-                if (!map[i-1][j] || ((size_t)j >= line_len) || map[i-1][j] == ' ') 
-                {
-                    printf("Error: Map not closed at position [%d][%d] (top)\n", i, j);
-                    return 1;
-                }
-                if (i == height-1) 
-                {
-                    printf("Error: Map not closed at position [%d][%d] (bottom)\n", i, j);
-                    return 1;
-                }
-                line_len = ft_strlen(map[i+1]);
-                if (!map[i+1][j] || ((size_t)j >= line_len) || map[i+1][j] == ' ') 
-                {
-                    printf("Error: Map not closed at position [%d][%d] (bottom)\n", i, j);
-                    return 1;
-                }
-                if (j == 0 || map[i][j-1] == ' ') 
-                {
-                    printf("Error: Map not closed at position [%d][%d] (left)\n", i, j);
-                    return 1;
-                }
-                if (!map[i][j+1] || map[i][j+1] == ' ') 
-                {
-                    printf("Error: Map not closed at position [%d][%d] (right)\n", i, j);
-                    return 1;
-                }
-            }
-            j++;
-        }
-        i++;
+        printf("Error: Map not closed at position [%d][%d] (top)\n", i, j);
+        return 1;
+    }
+    line_len = ft_strlen(map[i-1]);
+    if (!map[i-1][j] || ((size_t)j >= line_len) || map[i-1][j] == ' ')
+    {
+        printf("Error: Map not closed at position [%d][%d] (top)\n", i, j);
+        return 1;
     }
     return 0;
 }
 
+static int check_bottom(char **map, int i, int j, int height)
+{
+    size_t line_len;
+
+    if (i == height-1)
+    {
+        printf("Error: Map not closed at position [%d][%d] (bottom)\n", i, j);
+        return 1;
+    }
+    line_len = ft_strlen(map[i+1]);
+    if (!map[i+1][j] || ((size_t)j >= line_len) || map[i+1][j] == ' ')
+    {
+        printf("Error: Map not closed at position [%d][%d] (bottom)\n", i, j);
+        return 1;
+    }
+    return 0;
+}
+
+static int check_left(char **map, int i, int j)
+{
+    if (j == 0 || map[i][j-1] == ' ')
+    {
+        printf("Error: Map not closed at position [%d][%d] (left)\n", i, j);
+        return 1;
+    }
+    return 0;
+}
+
+static int check_right(char **map, int i, int j)
+{
+    if (!map[i][j+1] || map[i][j+1] == ' ')
+    {
+        printf("Error: Map not closed at position [%d][%d] (right)\n", i, j);
+        return 1;
+    }
+    return 0;
+}
+
+static int is_surrounded_by_walls(char **map, int height, int width)
+{
+    int i;
+    int j;
+
+    i = -1;
+    while (++i < height)
+    {
+        j = -1;
+        while (++j < width && map[i][j])
+        {
+            if (map[i][j] == '0')
+            {
+                if (check_top(map, i, j) || check_bottom(map, i, j, height)
+                    || check_left(map, i, j) || check_right(map, i, j))
+                    return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+static int process_row(char *row, char *valid_chars, int *player_count)
+{
+    int j;
+
+    j = -1;
+    while (row[++j])
+    {
+        if (!ft_strchr(valid_chars, row[j]))
+        {
+            error("Error: Invalid character in map");
+            return (1);
+        }
+        if (ft_strchr(VALID_PLAYER_CHARS, row[j]))
+            (*player_count)++;
+    }
+    return (0);
+}
+
+static int check_player_count(int count)
+{
+    if (count != 1)
+    {
+        error("Error: There must be exactly one player in the map");
+        return (1);
+    }
+    return (0);
+}
 
 static int validate_map_chars(char **map, char *valid_chars)
 {
     int i;
-    int j;
     int player_count;
 
     player_count = 0;
-    i = 0;
-    while (map[i])
+    i = -1;
+    while (map[++i])
     {
-        j = 0;
-        while (map[i][j])
-        {
-            if (!ft_strchr(valid_chars, map[i][j]))
-            {
-                error("Error: Invalid character in map");
-                return (1);
-            }
-            if (ft_strchr(VALID_PLAYER_CHARS, map[i][j]))
-                player_count++;
-            j++;
-        }
-        i++;
+        if (process_row(map[i], valid_chars, &player_count))
+            return (1);
     }
-    if (player_count != 1)
-	{
-        error("Error: There must be exactly one player in the map");
-    	return (1);
-	}
-	return (0);
+    return (check_player_count(player_count));
 }
 
 static int validate_texture_path(char *path)
