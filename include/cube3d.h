@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 13:04:29 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/13 15:10:19 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/13 15:26:03 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,16 @@ int process_map_lines(t_data *data, int fd);
 void debug_print_map(t_data *data);
 int	load_map_clean_up(t_data *data, char *line, int fd);
 int parse_line(t_data *data, char *line);
-
+void cleanup_on_error(t_data *data, int row);
+int	flat_map_to_map_array(t_data *data);
+int	load_map_clean_up(t_data *data, char *line, int fd);
+int check_file_readable(const char *f_name);
+int allocate_map_array(t_data *data);
+int allocate_and_init_row(t_data *data, int row);
+int	copy_chars(t_data *data, char *flat_map);
+int process_config_line(t_data *data, char *line);
+int	parse_map(t_data *data, char *line);
+int	no_valid_id(t_data *data, char *line);
 
 
 // graphics_image
