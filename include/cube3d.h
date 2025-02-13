@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 13:04:29 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/09 11:38:15 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/13 15:10:19 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,15 +188,22 @@ void	free_2d_char_arr(char **arr);
 // load_map
 int		load_map_data(t_data *data, char *f_name);
 int		validate_map(t_data *data);
-//	static int		init_ids(t_data *data);
-//	static int	parse_line(t_data *data, char *line)
+//	 int		init_ids(t_data *data);
+//	 int	parse_line(t_data *data, char *line)
 
 // load_map_utils
 int		free_map_data(t_data *data);
 bool	member_of_set(char c, char *set);
 int		free_temp_return(char **temp, int r);
 int		array_len(char **arr);
-// static int		parse_map(t_data *data, char *line);
+int open_map_file(const char *f_name);
+int process_single_line(t_data *data, char *line, int fd);
+int process_map_lines(t_data *data, int fd);
+void debug_print_map(t_data *data);
+int	load_map_clean_up(t_data *data, char *line, int fd);
+int parse_line(t_data *data, char *line);
+
+
 
 // graphics_image
 void	init_img(t_data *data);
@@ -211,7 +218,7 @@ void	compute_line_points(t_data *data, t_line *line);
 
 // graphics_grid
 int		draw_grid(t_data *data);
-// static void	fill_square(t_data *data, int x, int y, int len_side)
+//  void	fill_square(t_data *data, int x, int y, int len_side)
 
 // keyboard_input
 int		key_down(int keycode, t_data *data);
