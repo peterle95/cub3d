@@ -18,11 +18,11 @@
 // (faster processors might freeze up as they can take on a 
 // larger number of calls. Or if there is simply no system
 // filtering, the issue is exposed)
-int mouse_move(int x, int y, t_data *data)
+int	mouse_move(int x, int y, t_data *data)
 {
 	static int ignore_warp = 0;
 	(void)y;
-    int center_x;
+    int		center_x;
     int center_y;
     int dx;
     double sensitivity;

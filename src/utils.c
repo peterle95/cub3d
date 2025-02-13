@@ -40,11 +40,10 @@ int	set_trgb(int t, int r, int g, int b)
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-
 void	free_2d_char_arr(char **arr)
 {
 	int	i;
-	
+
 	i = 0;
 	while (arr && arr[i])
 	{
@@ -54,5 +53,3 @@ void	free_2d_char_arr(char **arr)
 	free(arr);
 	arr = NULL;
 }
-
-
