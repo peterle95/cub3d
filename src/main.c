@@ -6,11 +6,25 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:48 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/12 14:50:46 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/13 14:06:35 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
+
+int has_cub_extension(const char *filename)
+{
+    size_t len;
+
+    if (!filename)
+        return (0);
+    len = ft_strlen(filename);
+    if (len < 4) // Must be at least ".cub"
+        return (0);
+    if (ft_strncmp(&filename[len - 4], ".cub", 4) == 0)
+        return (1);
+    return (0);
+}
 
 // this is probably doubling up terminator function
 // Function to handle window close event
@@ -137,10 +151,15 @@ void init_textures(t_data *data)
 
 int	main(int argc, char **argv)
 {
-	t_data data = {0};  // All fields are initialized to 0.
+	t_data data = {0};
 
 	if (argc != 2)
-		return (0);
+		return (error("Usage: ./cube3d file.cub"));
+
+	// Check if the file extension is ".cub"
+	if (!has_cub_extension(argv[1]))
+		return (error("Error\nInvalid file extension. File must end with .cub"));
+
 	init_data(&data);
 	if (load_map_data(&data, argv[1]) != 0)
 		return (error("Load map data: Invalid map configuration"));
@@ -150,11 +169,13 @@ int	main(int argc, char **argv)
 	data.mlx_win = mlx_new_window(data.mlx, data.window_width, data.window_height, "dooomed");
 	init_img(&data);
 	init_textures(&data);
-	if (load_textures_from_config(&data)) 
+	if (load_textures_from_config(&data))
 		return (error("Failed to load textures"));
 	init_hooks(&data);
 	mlx_mouse_hide(data.mlx, data.mlx_win);
 	init_player(&data);
 	init_player_position(&data);
 	mlx_loop(data.mlx);
+
+	return (0);
 }
