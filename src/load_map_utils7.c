@@ -12,32 +12,32 @@
 
 #include "cube3d.h"
 
-int init_flat_map(t_data *data)
+int	init_flat_map(t_data *data)
 {
-    data->map.flat_map = ft_strdup("");
-    if (!data->map.flat_map)
-    {
-        error("Error: Failed to allocate flat_map.");
-        return (1);
-    }
-    return (0);
+	data->map.flat_map = ft_strdup("");
+	if (!data->map.flat_map)
+	{
+		error("Error: Failed to allocate flat_map.");
+		return (1);
+	}
+	return (0);
 }
 
-int init_config(t_data *data)
+int	init_config(t_data *data)
 {
-    int i;
+	int		i;
 
-    data->map.config = malloc((N_CONFIGS + 1) * sizeof(char **));
-    if (!data->map.config)
-    {
-        error("Error: Failed to allocate map.config.");
-        return (1);
-    }
-    i = 0;
-    while (i < N_CONFIGS + 1)
-    {
-        data->map.config[i] = NULL;
-        i++;
-    }
-    return (0);
+	data->map.config = malloc((N_CONFIGS + 1) * sizeof(char **));
+	if (!data->map.config)
+	{
+		error("Error: Failed to allocate map.config.");
+		return (1);
+	}
+	i = 0;
+	while (i < N_CONFIGS + 1)
+	{
+		data->map.config[i] = NULL;
+		i++;
+	}
+	return (0);
 }

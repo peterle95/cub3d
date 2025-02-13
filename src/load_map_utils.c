@@ -16,19 +16,19 @@ bool	member_of_set(char c, char *set)
 {
 	if (!set)
 		return (false);
-    while (*set) 
+	while (*set)
 	{
-        if (*set == c) 
-            return true;
-        set++;
-    }
-    return false;
+		if (*set == c)
+			return (true);
+		set++;
+	}
+	return (false);
 }
 
 int	array_len(char **arr)
 {
-	int	i;
-	
+	int		i;
+
 	i = 0;
 	while (arr[i])
 	{
@@ -36,4 +36,3 @@ int	array_len(char **arr)
 	}
 	return (i);
 }
-

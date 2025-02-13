@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:12:17 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/13 15:26:57 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/13 16:54:34 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	contains_invalid_char(char *line)
 	while (line[i])
 	{
 		if (!member_of_set(line[i], VALID_MAP_CHARS))
-				return (1);
+			return (1);
 		i++;
 	}
 	return (0);
@@ -35,18 +35,20 @@ int	parse_map(t_data *data, char *line)
 	if (contains_invalid_char(line))
 		return (1);
 	temp = ft_strdup(data->map.flat_map);
-	if (!temp) {
+	if (!temp)
+	{
 		error("Error: Memory allocation failed in ft_strdup.");
 		return (1);
 	}
 	free(data->map.flat_map);
 	data->map.flat_map = ft_strjoin(temp, line);
 	free(temp);
-	if (!data->map.flat_map) {
+	if (!data->map.flat_map)
+	{
 		error("Error: Memory allocation failed in ft_strjoin.");
 		return (1);
 	}
-	len = ft_strlen(line); 
+	len = ft_strlen(line);
 	if (len > data->map.width)
 		data->map.width = len;
 	data->map.height++;
@@ -55,8 +57,14 @@ int	parse_map(t_data *data, char *line)
 
 int	print_array(char **arr)
 {
-	for (int i = 0; i < array_len(arr); i++)
+	int		i;
+
+	i = 0;
+	while (i < array_len(arr))
+	{
 		printf("%s\n", arr[i]);
+		i++;
+	}
 	return (0);
 }
 
