@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:06:27 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/13 18:33:10 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/14 10:07:28 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,7 +250,7 @@ static int	validate_textures(t_data *data)
 	i = 0;
 	while (i < N_TEXTURES - 2)
 	{
-		if (data->map.conifig[i]
+		if (data->map.config[i]
 			&& ft_strncmp(data->map.config[i][0], "F", 2) != 0
 				&& ft_strncmp(data->map.config[i][0], "C", 2) != 0)
 		{

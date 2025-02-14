@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:22 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/13 18:04:38 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/14 10:27:23 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,6 @@ void	add_pixels(t_data *data, int x, int y)
 {
 	unsigned int color = 0xFFFFFFFF;
 	put_pixel_to_img(data, x, y, color);
-}
-
-void	add_random_pixels(t_data *data, int width, int height, int num_pixels)
-{
-    srand(time(NULL));
-    for (int i = 0; i < num_pixels; i++) 
-	{
-        int x = rand() % width;
-        int y = rand() % height;
-        unsigned int color = (rand() % 0xFFFFFF) | 0xFF000000;
-        put_pixel_to_img(data, x, y, color);
-    }
 }
 
 void	clear_image_to_colour(t_data *data, int colour)
