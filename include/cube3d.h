@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 13:04:29 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/09 11:38:15 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/14 10:27:18 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <math.h>
 # include <X11/Xlib.h>
 # include <X11/cursorfont.h>
+# include <X11/extensions/Xfixes.h>
 # include <time.h>
 # include <fcntl.h>
 # include <stdbool.h>
@@ -70,7 +71,7 @@ typedef struct s_map
 	unsigned int ceiling_color;
 }	t_map;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	double	x;
 	double	y;
@@ -102,7 +103,7 @@ typedef struct s_ray
 	int		side;
 }	t_ray;
 
-typedef struct	s_line_params
+typedef struct s_line_params
 {
 	int		x;
 	int		draw_start;
@@ -110,7 +111,7 @@ typedef struct	s_line_params
 	t_ray	*ray;
 }	t_line_params;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	void		*mlx;
 	void		*mlx_win;
@@ -129,6 +130,8 @@ typedef struct	s_data
 	int			b;
 	t_map		map;
 	int			ceiling_loaded;
+	Pixmap		blank;
+	Cursor		cursor;
 	int			debug_mode;
 }	t_data;
 
@@ -173,36 +176,54 @@ int		error(char *message);
 void	free_data(t_data *data);
 int		close_window(t_data *data);
 
-
 // utils
 void	init_colour_fade(t_data *data);
-int		terminator(t_data *data);
+int		terminator(t_data *data, int error);
 int		key_up(int keycode, t_data *data);
 void	init_img(t_data *data);
 void	put_pixel_to_img(t_data *data, int x, int y, int color);
 int		set_trgb(int t, int r, int g, int b);
-void	add_random_pixels(t_data *data, int width, int height, int num_pixels);
 void	clear_image_to_colour(t_data *data, int colour);
 void	free_2d_char_arr(char **arr);
 
 // load_map
 int		load_map_data(t_data *data, char *f_name);
 int		validate_map(t_data *data);
-//	static int		init_ids(t_data *data);
-//	static int	parse_line(t_data *data, char *line)
+//	 int		init_ids(t_data *data);
+//	 int	parse_line(t_data *data, char *line)
 
 // load_map_utils
 int		free_map_data(t_data *data);
 bool	member_of_set(char c, char *set);
 int		free_temp_return(char **temp, int r);
 int		array_len(char **arr);
-// static int		parse_map(t_data *data, char *line);
+int		open_map_file(const char *f_name);
+int		process_single_line(t_data *data, char *line, int fd);
+int		process_map_lines(t_data *data, int fd);
+void	debug_print_map(t_data *data);
+int		load_map_clean_up(t_data *data, char *line, int fd);
+int		parse_line(t_data *data, char *line);
+void	cleanup_on_error(t_data *data, int row);
+int		flat_map_to_map_array(t_data *data);
+int		load_map_clean_up(t_data *data, char *line, int fd);
+int		check_file_readable(const char *f_name);
+int		allocate_map_array(t_data *data);
+int		allocate_and_init_row(t_data *data, int row);
+int		copy_chars(t_data *data, char *flat_map);
+int		process_config_line(t_data *data, char *line);
+int		parse_map(t_data *data, char *line);
+int		no_valid_id(t_data *data, char *line);
+int		contains_invalid_char(char *line);
+int		parse_map(t_data *data, char *line);
+int		print_array(char **arr);
+int		no_valid_id(t_data *data, char *line);
+int		init_flat_map(t_data *data);
+int		init_config(t_data *data);
 
 // graphics_image
 void	init_img(t_data *data);
 void	put_pixel_to_img(t_data *data, int x, int y, int color);
 void	add_pixels(t_data *data, int x, int y);
-void	add_random_pixels(t_data *data, int width, int height, int num_pixels);//test function
 void	clear_image_to_colour(t_data *data, int colour);
 
 // graphics_lines
@@ -211,7 +232,7 @@ void	compute_line_points(t_data *data, t_line *line);
 
 // graphics_grid
 int		draw_grid(t_data *data);
-// static void	fill_square(t_data *data, int x, int y, int len_side)
+//  void	fill_square(t_data *data, int x, int y, int len_side)
 
 // keyboard_input
 int		key_down(int keycode, t_data *data);
@@ -227,9 +248,14 @@ void	rotate_player(t_data *data, double angle);
 
 // draw
 int		draw(t_data *data);
-int		render_with_transparency(t_data *data, t_texture *t, int img_x, int img_y);
+int		render_with_transparency(t_data *data,
+			t_texture *t, int img_x, int img_y);
 int		draw_player_position(t_data *data);
-void 	draw_ceiling(t_data *data);
+void	draw_ceiling(t_data *data);
+
+// draw_utils
+void	init_ceiling_values(t_data *data, t_ceiling *ceiling);
+int		calculate_sky_x(t_ceiling *ceiling, t_data *data);
 
 // initialization
 int		init_data(t_data *data);
@@ -256,5 +282,9 @@ void	init_player_position(t_data *data);
 
 // raycasting_visualisation
 int		draw_raycast(t_data *data);
+
+// proper_mouse_hide
+int		doomed_mouse_hide(t_data *doomed_data, t_xvar *xvar, t_win_list *win);
+void	free_doomed_data(t_data *data, t_xvar *xvar);
 
 #endif

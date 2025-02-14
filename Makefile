@@ -6,14 +6,15 @@
 #    By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/07 12:57:19 by pmolzer           #+#    #+#              #
-#    Updated: 2025/02/07 15:25:14 by pmolzer          ###   ########.fr        #
+#    Updated: 2025/02/13 17:41:13 by pmolzer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# -lXfixes not allowed by subject but only fix to mouse hide memory issues
 CLANG=cc
 CFLAGS=-Wall -Werror -Wextra -MMD -g
 INCL=-Iinclude -Ilibft
-LIBFLAGS=-Llibft -Lminilibx-linux -lft -lmlx -lXext -lX11 -lz -lm
+LIBFLAGS=-Llibft -Lminilibx-linux -lft -lmlx -lXext -lX11 -lz -lm -lXfixes
 PFLAGS=-D DEBUG=1
 NAME=cube3d
 SRC_DIR=src/
@@ -28,6 +29,12 @@ SRCS += $(SRC_DIR)error_msg.c
 SRCS += $(SRC_DIR)get_next_line.c
 SRCS += $(SRC_DIR)get_next_line_utils.c
 SRCS += $(SRC_DIR)load_map_utils.c
+SRCS += $(SRC_DIR)load_map_utils2.c
+SRCS += $(SRC_DIR)load_map_utils3.c
+SRCS += $(SRC_DIR)load_map_utils4.c
+SRCS += $(SRC_DIR)load_map_utils5.c
+SRCS += $(SRC_DIR)load_map_utils6.c
+SRCS += $(SRC_DIR)load_map_utils7.c
 SRCS += $(SRC_DIR)free_data.c
 SRCS += $(SRC_DIR)graphics_image.c
 SRCS += $(SRC_DIR)graphics_lines.c
@@ -38,7 +45,9 @@ SRCS += $(SRC_DIR)player_movement.c
 SRCS += $(SRC_DIR)raycasting.c
 SRCS += $(SRC_DIR)raycasting_visualisation.c
 SRCS += $(SRC_DIR)draw.c
+SRCS += $(SRC_DIR)draw_utils.c
 SRCS += $(SRC_DIR)initialization.c
+SRCS += $(SRC_DIR)proper_mouse_hide.c
 
 LIBFT_DIR=libft
 LIBFT=$(LIBFT_DIR)/libft.a

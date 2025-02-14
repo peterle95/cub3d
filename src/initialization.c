@@ -6,11 +6,30 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 15:11:37 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/07 15:12:06 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/13 17:38:31 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
+
+void	init_texture_struct(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < N_TEXTURES)
+	{
+		data->textures.img[i].ptr = NULL;
+		data->textures.img[i].id = NULL;
+		data->textures.img[i].width = 0;
+		data->textures.img[i].height = 0;
+		data->textures.img[i].addr = NULL;
+		data->textures.img[i].bpp = 0;
+		data->textures.img[i].size_line = 0;
+		data->textures.img[i].endian = 0;
+		i++;
+	}
+}
 
 int	init_data(t_data *data)
 {
@@ -18,30 +37,28 @@ int	init_data(t_data *data)
 	data->window_width = 1920;
 	data->window_height = 1080;
 	data->ceiling_loaded = 0;
-	// Initialize player position and direction, to be updated with map data
-	data->player.x = 22;  // Starting position
-	data->player.y = 12;
-	data->player.dir_x = -1;  // Initial direction vector
+	data->mlx = NULL;
+	data->mlx_win = NULL;
+	data->player.x = 0;
+	data->player.y = 0;
+	data->player.dir_x = 0;
 	data->player.dir_y = 0;
-	data->player.plane_x = 0;  // Camera plane
-	data->player.plane_y = 0.66; // FOV is about 66 degrees
+	data->player.plane_x = 0;
+	data->player.plane_y = 0;
+	init_texture_struct(data);
 	return (0);
 }
-
 
 int	init_hooks(t_data *data)
 {
 	mlx_hook(data->mlx_win, 3, KEY_RELEASE, key_up, data);
 	mlx_hook(data->mlx_win, 2, KEY_PRESS, key_down, data);
 	mlx_hook(data->mlx_win, ClientMessage, 0, close_window, data);
-	// mlx_mouse_hook(data->mlx_win, mouse_mv, data);
 	mlx_hook(data->mlx_win, 6, POINTER_MOTION, mouse_move, data);
 	mlx_loop_hook(data->mlx, draw, data);
 	return (0);
 }
 
-// seems as though the player speed must divide into some value
-// for the walls to render correctly
 int	init_player(t_data *data)
 {
 	data->player.x = 0;

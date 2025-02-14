@@ -1,38 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_map_utils.c                                   :+:      :+:    :+:   */
+/*   load_map_utils7.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/07 12:56:36 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/07 12:56:38 by pmolzer          ###   ########.fr       */
+/*   Created: 2025/02/13 15:28:22 by pmolzer           #+#    #+#             */
+/*   Updated: 2025/02/13 15:29:12 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-bool	member_of_set(char c, char *set)
+int	init_flat_map(t_data *data)
 {
-	if (!set)
-		return (false);
-	while (*set)
+	data->map.flat_map = ft_strdup("");
+	if (!data->map.flat_map)
 	{
-		if (*set == c)
-			return (true);
-		set++;
+		error("Error: Failed to allocate flat_map.");
+		return (1);
 	}
-	return (false);
+	return (0);
 }
 
-int	array_len(char **arr)
+int	init_config(t_data *data)
 {
 	int		i;
 
-	i = 0;
-	while (arr[i])
+	data->map.config = malloc((N_CONFIGS + 1) * sizeof(char **));
+	if (!data->map.config)
 	{
+		error("Error: Failed to allocate map.config.");
+		return (1);
+	}
+	i = 0;
+	while (i < N_CONFIGS + 1)
+	{
+		data->map.config[i] = NULL;
 		i++;
 	}
-	return (i);
+	return (0);
 }

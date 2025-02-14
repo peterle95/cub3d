@@ -1,0 +1,83 @@
+{
+   MLX_Function_Leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   fun:*
+   ...
+   fun:*mlx*
+}
+
+{
+   MLX_Function_Errors
+   Memcheck:Addr1
+   fun:*
+   ...
+   fun:*mlx*
+}
+
+{
+   MLX_Function_Errors
+   Memcheck:Addr2
+   fun:*
+   ...
+   fun:*mlx*
+}
+
+{
+   MLX_Function_Errors
+   Memcheck:Addr4
+   fun:*
+   ...
+   fun:*mlx*
+}
+
+{
+   MLX_Function_Errors
+   Memcheck:Addr8
+   fun:*
+   ...
+   fun:*mlx*
+}
+
+{
+   MLX_Function_Errors
+   Memcheck:Value1
+   fun:*
+   ...
+   fun:*mlx*
+}
+
+{
+   MLX_Function_Errors
+   Memcheck:Value2
+   fun:*
+   ...
+   fun:*mlx*
+}
+
+{
+   MLX_Function_Errors
+   Memcheck:Value4
+   fun:*
+   ...
+   fun:*mlx*
+}
+
+{
+   MLX_Function_Errors
+   Memcheck:Value8
+   fun:*
+   ...
+   fun:*mlx*
+}
+
+{
+   MLX_Function_Cond
+   Memcheck:Cond
+   fun:*
+   ...
+   fun:*mlx*
+}
+
+# to generate a log with suppression types
+# valgrind --gen-suppressions=all --log-file=memcheck.log --track-origins=yes --leak-check=full ./cube3d src/assets/maps/test_map.cub
