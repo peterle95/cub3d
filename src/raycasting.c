@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:15:52 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/14 10:52:17 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/14 12:26:31 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,16 @@ static int	get_texture_number(t_ray *ray)
 	if (ray->side == 0)
 	{
 		if (ray->ray_dir_x < 0)
-			return WEST;
+			return (WEST);
 		else
-			return EAST;
+			return (EAST);
 	}
 	else
 	{
 		if (ray->ray_dir_y < 0)
-			return NORTH;
+			return (NORTH);
 		else
-			return SOUTH;
+			return (SOUTH);
 	}
 }
 
@@ -86,12 +86,12 @@ static double	calculate_wall_x(t_ray *ray)
 	return (wall_x - floor(wall_x));
 }
 
-static void	draw_texture_pixel(t_data *data, t_texture *tex, int params[4], double tex_pos)
+static void	draw_texture_pixel(t_data *data,
+		t_texture *tex, int params[4], double tex_pos)
 {
 	int		tex_y;
 	int		pixel;
 	unsigned int	color;
-
 
 	tex_y = (int)tex_pos & (tex->height - 1);
 	if (tex_y >= 0 && tex_y < tex->height)
@@ -99,7 +99,7 @@ static void	draw_texture_pixel(t_data *data, t_texture *tex, int params[4], doub
 		pixel = (tex_y * tex->size_line) + (params[2] * (tex->bpp / 8));
 		if (pixel >= 0 && pixel < (tex->size_line * tex->height))
 		{
-			color = *(unsigned int*)(tex->addr + pixel);
+			color = *(unsigned int *)(tex->addr + pixel);
 			put_pixel_to_img(data, params[0], params[1], color);
 		}
 	}
@@ -113,26 +113,27 @@ static int	calculate_tex_x(t_ray *ray, t_texture *tex)
 	wall_x = calculate_wall_x(ray);
 	tex_x = (int)(wall_x * tex->width);
 	if (tex_x < 0)
-		return 0;
+		return (0);
 	if (tex_x >= tex->width)
-		return tex->width - 1;
-	return tex_x;
+		return (tex->width - 1);
+	return (tex_x);
 }
 
-static void	calculate_step_pos(t_data *data, t_line_params *line, t_texture *tex, double step_pos[2])
+static void	calculate_step_pos(t_data *data,
+		t_line_params *line, t_texture *tex, double step_pos[2])
 {
 	step_pos[0] = 1.0 * tex->height / (line->draw_end - line->draw_start);
-	step_pos[1] = (line->draw_start - data->window_height / 2 
-                  + (line->draw_end - line->draw_start) / 2) * step_pos[0];
+	step_pos[1] = (line->draw_start - data->window_height / 2
+			+ (line->draw_end - line->draw_start) / 2) * step_pos[0];
 }
 
 void	draw_textured_line(t_data *data, t_line_params *line)
 {
-	t_texture *tex;
+	t_texture	*tex;
 	double	step_pos[2];
 	int		params[4];
 	int		y;
-    
+
 	tex = &data->textures.img[get_texture_number(line->ray)];
 	if (!tex || !tex->ptr || !tex->addr || tex->width <= 0 || tex->height <= 0)
 	{
@@ -162,13 +163,13 @@ static void	init_ray(t_ray *ray, t_data *data, int x)
 	ray->ray_dir_x = data->player.dir_x + data->player.plane_x * camera_x;
 	ray->ray_dir_y = data->player.dir_y + data->player.plane_y * camera_x;
 	ray->map_x = (int)ray->pos_x;
-	ray->map_y = (int)ray->pos_y; 
+	ray->map_y = (int)ray->pos_y;
 	ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
 	ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
 	ray->hit = 0;
 }
 
-void calculate_step_and_side_dist(t_ray *ray)
+void	calculate_step_and_side_dist(t_ray *ray)
 {
 	if (ray->ray_dir_x < 0)
 	{
@@ -210,13 +211,13 @@ static void	update_ray_position(t_ray *ray)
 
 static int	check_bounds(t_data *data, t_ray *ray)
 {
-	if (ray->map_x < 0 || ray->map_y < 0 || 
-		ray->map_y >= data->map.height || ray->map_x >= data->map.width)
+	if (ray->map_x < 0 || ray->map_y < 0
+		|| ray->map_y >= data->map.height || ray->map_x >= data->map.width)
 	{
 		ray->hit = 1;
-		return 1;
+		return (1);
 	}
-	return 0;
+	return (0);
 }
 
 static void	check_wall_collision(t_data *data, t_ray *ray)
@@ -244,7 +245,7 @@ void	perform_dda(t_data *data, t_ray *ray)
 	{
 		update_ray_position(ray);
 		if (check_bounds(data, ray))
-			break;
+			break ;
 		check_wall_collision(data, ray);
 	}
 	calculate_perpendicular_distance(ray);
@@ -268,7 +269,7 @@ void	render_frame(t_data *data)
 		line_height = (int)(data->window_height / ray.perp_wall_dist);
 		line.draw_start = -line_height / 2 + data->window_height / 2;
 		if (line.draw_start < 0)
-		line.draw_start = 0;
+			line.draw_start = 0;
 		line.draw_end = line_height / 2 + data->window_height / 2;
 		if (line.draw_end >= data->window_height)
 			line.draw_end = data->window_height - 1;
@@ -276,23 +277,23 @@ void	render_frame(t_data *data)
 		line.ray = &ray;
 		draw_textured_line(data, &line);
 		x++;
-    }
+	}
 }
 
 static void	set_player_direction_ns(t_data *data, char direction)
 {
-	if (direction == 'N') 
+	if (direction == 'N')
 	{
-		data->player.dir_x = 0; 
+		data->player.dir_x = 0;
 		data->player.dir_y = -1;
-		data->player.plane_x = 0.66; 
+		data->player.plane_x = 0.66;
 		data->player.plane_y = 0;
 	}
-	else if (direction == 'S') 
+	else if (direction == 'S')
 	{
-		data->player.dir_x = 0; 
+		data->player.dir_x = 0;
 		data->player.dir_y = 1;
-		data->player.plane_x = -0.66; 
+		data->player.plane_x = -0.66;
 		data->player.plane_y = 0;
 	}
 }
@@ -301,28 +302,28 @@ static void	set_player_direction_ew(t_data *data, char direction)
 {
 	if (direction == 'E')
 	{
-		data->player.dir_x = 1; 
+		data->player.dir_x = 1;
 		data->player.dir_y = 0;
-		data->player.plane_x = 0; 
+		data->player.plane_x = 0;
 		data->player.plane_y = 0.66;
 	}
 	else if (direction == 'W')
 	{
-		data->player.dir_x = -1; 
+		data->player.dir_x = -1;
 		data->player.dir_y = 0;
-		data->player.plane_x = 0; 
+		data->player.plane_x = 0;
 		data->player.plane_y = -0.66;
 	}
 }
 
 static void	set_player_direction(t_data *data, char direction)
-{ 
-	if(direction == 'N' || direction == 'S') 
+{
+	if (direction == 'N' || direction == 'S')
 		set_player_direction_ns(data, direction);
 	else if (direction == 'E' || direction == 'W')
 		set_player_direction_ew(data, direction);
 }
-    
+
 static int	is_player_position(char c)
 {
 	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
@@ -351,7 +352,7 @@ void	init_player_position(t_data *data)
 			if (is_player_position(c))
 			{
 				set_player_position(data, x, y, c);
-				return;
+				return ;
 			}
 			x++;
 		}
