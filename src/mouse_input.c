@@ -22,16 +22,16 @@ int	mouse_move(int x, int y, t_data *data)
 {
 	static int ignore_warp = 0;
 	(void)y;
-    int		center_x;
-    int center_y;
-    int dx;
-    double sensitivity;
+	int		center_x;
+	int		center_y;
+	int		dx;
+	double	sensitivity;
 
-    if (ignore_warp)
+	if (ignore_warp)
 	{
-        ignore_warp = 0;
-        return (0);
-    }
+		ignore_warp = 0;
+		return (0);
+	}
     center_x = data->window_width / 2;
     center_y = data->window_height / 2;
 	dx = x - center_x;

@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:22 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/14 10:27:23 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/14 12:53:29 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	init_img(t_data *data)
 		exit(EXIT_FAILURE);
 	}
 	data->img_data0->addr = mlx_get_data_addr(data->img_data0->img,
-		&data->img_data0->bits_per_pixel,
-		&data->img_data0->line_length,
-		&data->img_data0->endian);
+			&data->img_data0->bits_per_pixel,
+			&data->img_data0->line_length,
+			&data->img_data0->endian);
 	if (!data->img_data0->addr)
 	{
 		mlx_destroy_image(data->mlx, data->img_data0->img);
@@ -55,22 +55,24 @@ void	put_pixel_to_img(t_data *data, int x, int y, int color)
 
 void	add_pixels(t_data *data, int x, int y)
 {
-	unsigned int color = 0xFFFFFFFF;
+	unsigned int	color;
+
+	color = 0xFFFFFFFF;
 	put_pixel_to_img(data, x, y, color);
 }
 
 void	clear_image_to_colour(t_data *data, int colour)
 {
-    int total_pixels;
-    int *img_buffer;
-	int i;
+	int		total_pixels;
+	int		*img_buffer;
+	int		i;
 
 	total_pixels = data->window_width * data->window_height;
-    img_buffer = (int *)data->img_data0->addr;
+	img_buffer = (int *)data->img_data0->addr;
 	i = 0;
-    while (i < total_pixels)
-    {
-        img_buffer[i] = colour;
+	while (i < total_pixels)
+	{
+		img_buffer[i] = colour;
 		i++;
-    }
+	}
 }
