@@ -41,12 +41,9 @@ static void	free_map_config(t_data *data)
 
 int	free_map_data(t_data *data)
 {
-	// free map.map_ids
 	free(data->map.map_ids);
 	data->map.map_ids = NULL;
-	// free map.config
 	free_map_config(data);
-	// free map.map_array
 	free_2d_char_arr(data->map.map_array);
 	return (-1);
 }

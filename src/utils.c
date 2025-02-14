@@ -6,14 +6,12 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:57:11 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/07 12:57:12 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/13 17:39:31 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-// rather than N_TEXTURES need dynamic variable
-// n_loaded_textures
 int	destroy_textures(t_data *data)
 {
 	int	i;
@@ -64,11 +62,10 @@ int	set_trgb(int t, int r, int g, int b)
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-
 void	free_2d_char_arr(char **arr)
 {
 	int	i;
-	
+
 	i = 0;
 	while (arr && arr[i])
 	{
@@ -78,5 +75,3 @@ void	free_2d_char_arr(char **arr)
 	free(arr);
 	arr = NULL;
 }
-
-

@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:18 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/07 13:36:33 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/13 17:19:19 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	draw_grid(t_data *data)
 	int	x;
 	int	greater;
 
-	data->offset = 0; // for debug visual clarity
+	data->offset = 0;
 	if (data->map.height > data->map.width)
 		greater = data->map.height;
 	else

@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:55:44 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/07 12:55:45 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/14 10:03:44 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # define N_TEXTURES 5
 
-typedef struct	s_line
+typedef struct s_line
 {
 	int	x1;
 	int	y1;
@@ -29,7 +29,7 @@ typedef struct	s_line
 	int	e2;
 }	t_line;
 
-typedef struct	s_texture
+typedef struct s_texture
 {
 	void	*ptr;
 	char	*id;
@@ -41,12 +41,12 @@ typedef struct	s_texture
 	int		endian;
 }	t_texture;
 
-typedef struct	s_textures
+typedef struct s_textures
 {
 	t_texture	img[N_TEXTURES];
 }	t_textures;
 
-typedef struct	s_ceiling
+typedef struct s_ceiling
 {
 	int		y;
 	int		x;
