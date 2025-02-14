@@ -26,16 +26,13 @@ int	destroy_textures(t_data *data)
 	return (0);
 }
 
-// oder of mlx_destroy funcs important
-// afrer calling mlx_destroy_image() can
-// then free mem allocated for struct t_img_data
 int	terminator(t_data *data, int error)
 {
 	free_data(data);
-	// mlx_loop_end(data->mlx); // is this required?
-	if (data->mlx && data->img_data0->img)
+	if (data->mlx)
 	{
-		mlx_destroy_image(data->mlx, data->img_data0->img);
+		if (data->img_data0 && data->img_data0->img)
+			mlx_destroy_image(data->mlx, data->img_data0->img);
 		free(data->img_data0);
 		data->img_data0 = NULL;
 	}

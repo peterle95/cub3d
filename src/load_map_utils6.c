@@ -37,7 +37,7 @@ int	parse_map(t_data *data, char *line)
 	temp = ft_strdup(data->map.flat_map);
 	if (!temp)
 	{
-		error("Error: Memory allocation failed in ft_strdup.");
+		error("Memory allocation failed in ft_strdup", ENOMEM);
 		return (1);
 	}
 	free(data->map.flat_map);
@@ -45,7 +45,7 @@ int	parse_map(t_data *data, char *line)
 	free(temp);
 	if (!data->map.flat_map)
 	{
-		error("Error: Memory allocation failed in ft_strjoin.");
+		error("Memory allocation failed in ft_strjoin", ENOMEM);
 		return (1);
 	}
 	len = ft_strlen(line);

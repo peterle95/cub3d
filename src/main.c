@@ -12,18 +12,18 @@
 
 #include "cube3d.h"
 
-int has_cub_extension(const char *filename)
+int	has_cub_extension(const char *filename)
 {
-    size_t len;
+	size_t	len;
 
-    if (!filename)
-        return (0);
-    len = ft_strlen(filename);
-    if (len < 4) // Must be at least ".cub"
-        return (0);
-    if (ft_strncmp(&filename[len - 4], ".cub", 4) == 0)
-        return (1);
-    return (0);
+	if (!filename)
+		return (0);
+	len = ft_strlen(filename);
+	if (len < 4)
+		return (0);
+	if (ft_strncmp(&filename[len - 4], ".cub", 4) == 0)
+		return (1);
+	return (0);
 }
 
 // this is probably doubling up terminator function
@@ -40,6 +40,19 @@ int	close_window(t_data *data)
 	return (0);
 }
 
+static int	return_bad_texture(char *id, char *path)
+{
+	printf("Failed to load texture %s at path %s\n", id, path);
+	return (0);
+}
+
+static int	return_bad_image(t_data *data, int index, char *id)
+{
+	printf("Error: Failed to get texture data address for %s\n", id);
+	mlx_destroy_image(data->mlx, data->textures.img[index].ptr);
+	return (0);
+}
+
 int	load_texture(t_data *data, char *path, char *id, int index)
 {
 	if (!path)
@@ -49,23 +62,17 @@ int	load_texture(t_data *data, char *path, char *id, int index)
 	}
 	data->textures.img[index].ptr = mlx_xpm_file_to_image(data->mlx, path,
 			&data->textures.img[index].width,
-			&data->textures.img[index].height);		
+			&data->textures.img[index].height);
 	if (!data->textures.img[index].ptr)
-	{
-		printf("Error: Failed to load texture %s at path %s\n", id, path);
-		return (0);
-	}
+		return (return_bad_texture(id, path));
 	data->textures.img[index].id = id;
-	data->textures.img[index].addr = mlx_get_data_addr(data->textures.img[index].ptr,
+	data->textures.img[index].addr
+		= mlx_get_data_addr(data->textures.img[index].ptr,
 			&(data->textures.img[index].bpp),
 			&(data->textures.img[index].size_line),
-			&(data->textures.img[index].endian));		
+			&(data->textures.img[index].endian));
 	if (!data->textures.img[index].addr)
-	{
-		printf("Error: Failed to get texture data address for %s\n", id);
-		mlx_destroy_image(data->mlx, data->textures.img[index].ptr);
-		return (0);
-	}
+		return (return_bad_image(data, index, id));
 	return (1);
 }
 
@@ -75,31 +82,36 @@ int	load_wall_textures(t_data *data, int i)
 {
 	if (ft_strncmp(data->map.config[i][0], "WE", 3) == 0)
 	{
-		if (!load_texture(data, data->map.config[i][1], "wall_texture_west", WEST))
+		if (!load_texture(data, data->map.config[i][1],
+			"wall_texture_west", WEST))
 			return (1);
 	}
 	else if (ft_strncmp(data->map.config[i][0], "EA", 3) == 0)
 	{
-		if (!load_texture(data, data->map.config[i][1], "wall_texture_east", EAST))
+		if (!load_texture(data, data->map.config[i][1],
+			"wall_texture_east", EAST))
 			return (1);
 	}
 	else if (ft_strncmp(data->map.config[i][0], "NO", 3) == 0)
 	{
-		if (!load_texture(data, data->map.config[i][1], "wall_texture_north", NORTH))
+		if (!load_texture(data, data->map.config[i][1],
+			"wall_texture_north", NORTH))
 			return (1);
 	}
 	else if (ft_strncmp(data->map.config[i][0], "SO", 3) == 0)
 	{
-		if (!load_texture(data, data->map.config[i][1], "wall_texture_south", SOUTH))
+		if (!load_texture(data, data->map.config[i][1],
+			"wall_texture_south", SOUTH))
 			return (1);
 	}
 	return (0);
 }
 
-// the texture size of the sky should be 360 / player viewing angle * screen width
-// since we are only dealing with a fixed window size this can be accounted for easily.
+// the texture size of the sky should be 360 / player 
+// viewing angle * screen width since we are only dealing 
+// with a fixed window size this can be accounted for easily.
 // otherwise some rescaling would have to occur
-int correct_texture_resolution(t_data *data, t_texture tex)
+int	correct_texture_resolution(t_data *data, t_texture tex)
 {
 	(void)data;
 	(void)tex;
@@ -111,7 +123,8 @@ int	load_ceiling_texture(t_data *data, int i)
 	if (ft_strncmp(data->map.config[i][0], "CE", 3) == 0)
 	{
 		if (load_texture(data, data->map.config[i][1], "ceiling", CEILING) == 1
-				&& correct_texture_resolution(data, data->textures.img[CEILING]) == 0)
+				&& correct_texture_resolution(data,
+					data->textures.img[CEILING]) == 0)
 			data->ceiling_loaded = 1;
 	}
 	return (0);
@@ -135,50 +148,52 @@ int	load_textures_from_config(t_data *data)
 	return (0);
 }
 
-void init_textures(t_data *data)
+void	init_textures(t_data *data)
 {
-    for (int i = 0; i < MAX_TEXTURES; i++) {
-        data->textures.img[i].ptr = NULL;
-        data->textures.img[i].addr = NULL;
-        data->textures.img[i].width = 0;
-        data->textures.img[i].height = 0;
-        data->textures.img[i].bpp = 0;
-        data->textures.img[i].size_line = 0;
-        data->textures.img[i].endian = 0;
-        data->textures.img[i].id = NULL;
-    }
+	int	i;
+
+	i = 0;
+	while (i < MAX_TEXTURES)
+	{
+		data->textures.img[i].ptr = NULL;
+		data->textures.img[i].addr = NULL;
+		data->textures.img[i].width = 0;
+		data->textures.img[i].height = 0;
+		data->textures.img[i].bpp = 0;
+		data->textures.img[i].size_line = 0;
+		data->textures.img[i].endian = 0;
+		data->textures.img[i].id = NULL;
+		i++;
+	}
 }
 
-// remember to check also valgrind without suppression file to check mlx
-// objects are freeed
+// XFixesHideCursor(((t_xvar *)data.mlx)->display,
+// 	((t_win_list *)data.mlx_win)->window);
 int	main(int argc, char **argv)
 {
-	t_data data = {0};
-
-	if (argc != 2)
-		return (error("Usage: ./cube3d file.cub"));
-
-	// Check if the file extension is ".cub"
-	if (!has_cub_extension(argv[1]))
-		return (error("Error\nInvalid file extension. File must end with .cub"));
+	t_data	data;
 
 	init_data(&data);
+	if (argc != 2)
+		return (error("Usage: ./cube3d <file>.cub", EINVAL));
+	if (!has_cub_extension(argv[1]))
+		return (error("Invalid file extension. File must end with .cub",
+				EINVAL));
 	if (load_map_data(&data, argv[1]) != 0)
-		return (error("Load map data: Invalid map configuration"));
+		return (error("Load map data: Invalid map configuration", EINVAL));
 	if (validate_map(&data))
-		return (error("(Check map: Invalid map configuration"));
+		return (error("(Check map: Invalid map configuration", EINVAL));
 	data.mlx = mlx_init();
-	data.mlx_win = mlx_new_window(data.mlx, data.window_width, data.window_height, "dooomed");
+	data.mlx_win = mlx_new_window(data.mlx, data.window_width,
+			data.window_height, "dooomed");
 	init_img(&data);
 	init_textures(&data);
 	if (load_textures_from_config(&data))
-		return (error("Failed to load textures"));
+		return (error("Failed to load textures", EFAULT));
 	init_hooks(&data);
-	XFixesHideCursor(((t_xvar *)data.mlx)->display, ((t_win_list *)data.mlx_win)->window);
-	// doomed_mouse_hide(&data, data.mlx, data.mlx_win);
+	mlx_mouse_hide(data.mlx, data.mlx_win);
 	init_player(&data);
 	init_player_position(&data);
 	mlx_loop(data.mlx);
-
 	return (0);
 }

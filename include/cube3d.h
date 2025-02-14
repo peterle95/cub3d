@@ -22,6 +22,7 @@
 # include <time.h>
 # include <fcntl.h>
 # include <stdbool.h>
+# include <errno.h>
 # include "mlx.h"
 # include "libft.h"
 # include "graphics_types.h"
@@ -170,7 +171,7 @@ void	print_string_array(char **array, int n);
 int		player_move(t_data *data, int dir);
 
 // error_msg
-int		error(char *message);
+int		error(char *message, int e);
 
 // free_data
 void	free_data(t_data *data);

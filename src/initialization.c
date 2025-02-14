@@ -45,6 +45,7 @@ int	init_data(t_data *data)
 	data->player.dir_y = 0;
 	data->player.plane_x = 0;
 	data->player.plane_y = 0;
+	data->scalar = 1;
 	init_texture_struct(data);
 	return (0);
 }

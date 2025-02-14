@@ -12,9 +12,10 @@
 
 #include "cube3d.h"
 
-int	error(char *message)
+int	error(char *message, int e)
 {
-	printf("Error\n");
+	errno = e;
+	write(2, "Error: ", 7);
 	perror(message);
 	return (1);
 }

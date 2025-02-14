@@ -28,7 +28,6 @@ static void	draw_floor_ceiling(t_data *data)
 {
 	int		y;
     
-	// Draw ceiling
     y = 0;
     while (y < data->window_height / 2) 
 	{
@@ -37,7 +36,6 @@ static void	draw_floor_ceiling(t_data *data)
         y++;
     }
     
-    // Draw floor
     y = data->window_height / 2;
     while (y < data->window_height)
 	{

@@ -47,7 +47,6 @@ SRCS += $(SRC_DIR)raycasting_visualisation.c
 SRCS += $(SRC_DIR)draw.c
 SRCS += $(SRC_DIR)draw_utils.c
 SRCS += $(SRC_DIR)initialization.c
-SRCS += $(SRC_DIR)proper_mouse_hide.c
 
 LIBFT_DIR=libft
 LIBFT=$(LIBFT_DIR)/libft.a
