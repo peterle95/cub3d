@@ -6,24 +6,24 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:48 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/13 14:49:55 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/14 12:41:37 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-int has_cub_extension(const char *filename)
+int	has_cub_extension(const char *filename)
 {
-    size_t len;
+	size_t	len;
 
-    if (!filename)
-        return (0);
-    len = ft_strlen(filename);
-    if (len < 4) // Must be at least ".cub"
-        return (0);
-    if (ft_strncmp(&filename[len - 4], ".cub", 4) == 0)
-        return (1);
-    return (0);
+	if (!filename)
+		return (0);
+	len = ft_strlen(filename);
+	if (len < 4)
+		return (0);
+	if (ft_strncmp(&filename[len - 4], ".cub", 4) == 0)
+		return (1);
+	return (0);
 }
 
 // this is probably doubling up terminator function
@@ -96,22 +96,11 @@ int	load_wall_textures(t_data *data, int i)
 	return (0);
 }
 
-// the texture size of the sky should be 360 / player viewing angle * screen width
-// since we are only dealing with a fixed window size this can be accounted for easily.
-// otherwise some rescaling would have to occur
-int correct_texture_resolution(t_data *data, t_texture tex)
-{
-	(void)data;
-	(void)tex;
-	return (0);
-}
-
 int	load_ceiling_texture(t_data *data, int i)
 {
 	if (ft_strncmp(data->map.config[i][0], "CE", 3) == 0)
 	{
-		if (load_texture(data, data->map.config[i][1], "ceiling", CEILING) == 1
-				&& correct_texture_resolution(data, data->textures.img[CEILING]) == 0)
+		if (load_texture(data, data->map.config[i][1], "ceiling", CEILING) == 1)
 			data->ceiling_loaded = 1;
 	}
 	return (0);
