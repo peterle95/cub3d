@@ -35,8 +35,6 @@ int	load_texture(t_data *data, char *path, char *id, int index)
 	return (1);
 }
 
-// some extra checks required to make sure there are textures loaded into config
-// and if not that map.config[i] is NULL 
 int	load_wall_textures(t_data *data, int i)
 {
 	if (ft_strncmp(data->map.config[i][0], "WE", 3) == 0)
@@ -66,14 +64,10 @@ int	load_wall_textures(t_data *data, int i)
 	return (0);
 }
 
-// the texture size of the sky should be 360 / player 
-// viewing angle * screen width since we are only dealing 
-// with a fixed window size this can be accounted for easily.
-// otherwise some rescaling would have to occur
 int	correct_texture_resolution(t_data *data, t_texture tex)
 {
 	if (tex.width < data->window_width
-			|| tex.height < data->window_height / 2)
+		|| tex.height < data->window_height / 2)
 		return (1);
 	return (0);
 }
