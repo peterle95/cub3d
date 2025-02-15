@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   graphics_image.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: pmolzer <pmolzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:22 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/14 10:27:23 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/15 15:31:11 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "cub3d.h"
 
 void	init_img(t_data *data)
 {

@@ -6,7 +6,7 @@
 #    By: pmolzer <pmolzer@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/07 12:57:19 by pmolzer           #+#    #+#              #
-#    Updated: 2025/02/15 15:17:23 by pmolzer          ###   ########.fr        #
+#    Updated: 2025/02/15 15:31:11 by pmolzer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS=-Wall -Werror -Wextra -MMD -g
 INCL=-Iinclude -Ilibft
 LIBFLAGS=-Llibft -Lminilibx-linux -lft -lmlx -lXext -lX11 -lz -lm -lXfixes
 PFLAGS=-D DEBUG=1
-NAME=cube3d
+NAME=cub3d
 SRC_DIR=src/
 OBJ_DIR=obj/
 

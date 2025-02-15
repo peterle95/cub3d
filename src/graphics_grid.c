@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   graphics_grid.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: pmolzer <pmolzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:18 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/13 17:19:19 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/15 16:47:26 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "cub3d.h"
 
 static void	fill_square(t_data *data, int x, int y, int len_side)
 {
@@ -32,18 +32,29 @@ static void	fill_square(t_data *data, int x, int y, int len_side)
 	}
 }
 
+static void	adjust_scaling(t_data *data)
+{
+	int		greater;
+
+	if (data->map.width > 100 || data->map.height > 100)
+		greater = 100;
+	else
+	{
+		if (data->map.height > data->map.width)
+			greater = data->map.height;
+		else
+			greater = data->map.width;
+	}
+	data->scalar = (data->window_height / greater) / 4;
+	data->offset = 0;
+}
+
 int	draw_grid(t_data *data)
 {
-	int	y;
-	int	x;
-	int	greater;
+	int		y;
+	int		x;
 
-	data->offset = 0;
-	if (data->map.height > data->map.width)
-		greater = data->map.height;
-	else
-		greater = data->map.width;
-	data->scalar = (data->window_height / greater) / 4;
+	adjust_scaling(data);
 	y = 0;
 	while (y < data->map.height)
 	{

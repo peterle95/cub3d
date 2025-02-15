@@ -6,11 +6,11 @@
 /*   By: pmolzer <pmolzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 14:57:57 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/15 14:57:58 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/15 15:31:11 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "cub3d.h"
 
 void	draw_horizontal_line(t_data *data, int y, unsigned int color)
 {

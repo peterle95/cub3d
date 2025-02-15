@@ -6,11 +6,11 @@
 /*   By: pmolzer <pmolzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:06:27 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/15 15:16:30 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/15 15:31:11 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "cub3d.h"
 
 static int	process_config_colors(t_data *data,
 		char **floor_color, char **ceiling_color)

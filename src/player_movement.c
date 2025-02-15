@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: pmolzer <pmolzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:57 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/08 13:03:19 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/15 15:31:11 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "cub3d.h"
 #include <math.h>
 
 void	rotate_player(t_data *data, double angle)

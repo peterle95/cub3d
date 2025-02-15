@@ -6,11 +6,11 @@
 /*   By: pmolzer <pmolzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:48 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/15 15:07:48 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/15 16:34:33 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "cub3d.h"
 
 // sky texture must be large enough (have default to colour if not big enough)
 int	load_textures_from_config(t_data *data)
@@ -49,6 +49,12 @@ void	init_textures(t_data *data)
 	}
 }
 
+static void	free_and_terminate(t_data data)
+{
+	error("Check map: Invalid map configuration", EINVAL);
+	terminator(&data, EXIT_FAILURE);
+}
+
 // XFixesHideCursor(((t_xvar *)data.mlx)->display,
 // 	((t_win_list *)data.mlx_win)->window);
 int	main(int argc, char **argv)
@@ -57,21 +63,21 @@ int	main(int argc, char **argv)
 
 	init_data(&data);
 	if (argc != 2)
-		return (error("Usage: ./cube3d <file>.cub", EINVAL));
+		return (error("Usage: ./cub3d <file>.cub", EINVAL));
 	if (!has_cub_extension(argv[1]))
 		return (error("Invalid file extension. File must end with .cub",
 				EINVAL));
 	if (load_map_data(&data, argv[1]) != 0)
 		return (error("Load map data: Invalid map configuration", EINVAL));
 	if (validate_map(&data))
-		return (error("(Check map: Invalid map configuration", EINVAL));
+		free_and_terminate(data);
 	data.mlx = mlx_init();
 	data.mlx_win = mlx_new_window(data.mlx, data.window_width,
 			data.window_height, "dooomed");
 	init_img(&data);
 	init_textures(&data);
 	if (load_textures_from_config(&data))
-		return (error("Failed to load textures", EFAULT));
+		free_and_terminate(data);
 	init_hooks(&data);
 	mlx_mouse_hide(data.mlx, data.mlx_win);
 	init_player(&data);
