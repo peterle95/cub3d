@@ -72,8 +72,9 @@ int	load_wall_textures(t_data *data, int i)
 // otherwise some rescaling would have to occur
 int	correct_texture_resolution(t_data *data, t_texture tex)
 {
-	(void)data;
-	(void)tex;
+	if (tex.width < data->window_width
+			|| tex.height < data->window_height / 2)
+		return (1);
 	return (0);
 }
 
