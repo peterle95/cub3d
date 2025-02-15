@@ -6,7 +6,7 @@
 #    By: pmolzer <pmolzer@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/07 12:57:19 by pmolzer           #+#    #+#              #
-#    Updated: 2025/02/15 15:01:44 by pmolzer          ###   ########.fr        #
+#    Updated: 2025/02/15 15:17:23 by pmolzer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,10 @@ SRCS += $(SRC_DIR)utils2.c
 SRCS += $(SRC_DIR)utils3.c
 SRCS += $(SRC_DIR)load_map.c
 SRCS += $(SRC_DIR)map_validation.c
+SRCS += $(SRC_DIR)map_validation_utils.c
+SRCS += $(SRC_DIR)map_validation_utils2.c
+SRCS += $(SRC_DIR)map_validation_utils3.c
+SRCS += $(SRC_DIR)map_validation_utils4.c
 SRCS += $(SRC_DIR)error_msg.c
 SRCS += $(SRC_DIR)get_next_line.c
 SRCS += $(SRC_DIR)get_next_line_utils.c
