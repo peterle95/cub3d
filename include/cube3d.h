@@ -31,9 +31,6 @@
 # define VALID_MAP_CHARS "01NESW \n"
 # define VALID_PLAYER_CHARS "NSEW"
 # define N_CONFIGS 7
-# define POINTER_MOTION 1L << 6
-# define KEY_PRESS 1L << 0
-# define KEY_RELEASE 1L << 1
 # define MAX_TEXTURES 6
 
 # ifndef DEBUG
@@ -56,20 +53,20 @@ typedef struct s_img_data
 
 typedef struct s_map
 {
-	char	**map_ids;
-	char	***config;
-	char	*flat_map;
-	char	**map_array;
-	int		height;
-	int		width;
-	int		player_x;
-	int		player_y;
-	char	player_dir;
-	int		elements_found;
-	int		id;
-	int		n;
-	unsigned int floor_color;
-	unsigned int ceiling_color;
+	char			**map_ids;
+	char			***config;
+	char			*flat_map;
+	char			**map_array;
+	int				height;
+	int				width;
+	int				player_x;
+	int				player_y;
+	char			player_dir;
+	int				elements_found;
+	int				id;
+	int				n;
+	unsigned int	floor_color;
+	unsigned int	ceiling_color;
 }	t_map;
 
 typedef struct s_player
@@ -125,10 +122,6 @@ typedef struct s_data
 	int			scalar;
 	int			offset;
 	t_ray		*ray;
-	int			t;
-	int			r;
-	int			g;
-	int			b;
 	t_map		map;
 	int			ceiling_loaded;
 	Pixmap		blank;
@@ -178,22 +171,14 @@ void	free_data(t_data *data);
 int		close_window(t_data *data);
 
 // utils
-void	init_colour_fade(t_data *data);
 int		terminator(t_data *data, int error);
-int		key_up(int keycode, t_data *data);
+int		destroy_textures(t_data *data);
 void	init_img(t_data *data);
-void	put_pixel_to_img(t_data *data, int x, int y, int color);
-int		set_trgb(int t, int r, int g, int b);
-void	clear_image_to_colour(t_data *data, int colour);
 void	free_2d_char_arr(char **arr);
 
 // load_map
 int		load_map_data(t_data *data, char *f_name);
 int		validate_map(t_data *data);
-//	 int		init_ids(t_data *data);
-//	 int	parse_line(t_data *data, char *line)
-
-// load_map_utils
 int		free_map_data(t_data *data);
 bool	member_of_set(char c, char *set);
 int		free_temp_return(char **temp, int r);
@@ -237,6 +222,7 @@ int		draw_grid(t_data *data);
 
 // keyboard_input
 int		key_down(int keycode, t_data *data);
+int		key_up(int keycode, t_data *data);
 void	move_player_strafe(t_data *data, double direction);
 
 // mouse_input
@@ -276,9 +262,30 @@ char	*set_line(char	**ln, int fd);
 char	*freel(char **ln, int fd);
 
 // raycasting
-void	perform_dda(t_data *data, t_ray *ray);
+void	draw_horizontal_line(t_data *data, int y, unsigned int color);
+void	draw_floor_ceiling(t_data *data);
+int		get_texture_number(t_ray *ray);
+void	draw_fallback_line(t_data *data, t_line_params *line);
+double	calculate_wall_x(t_ray *ray);
+void	draw_texture_pixel(t_data *data, t_texture *tex,
+			int params[4], double tex_pos);
+int		calculate_tex_x(t_ray *ray, t_texture *tex);
+void	calculate_step_pos(t_data *data, t_line_params *line,
+			t_texture *tex, double step_pos[2]);
 void	draw_textured_line(t_data *data, t_line_params *line);
+void	init_ray(t_ray *ray, t_data *data, int x);
+void	calculate_step_and_side_dist(t_ray *ray);
+void	update_ray_position(t_ray *ray);
+int		check_bounds(t_data *data, t_ray *ray);
+void	check_wall_collision(t_data *data, t_ray *ray);
+void	calculate_perpendicular_distance(t_ray *ray);
+void	perform_dda(t_data *data, t_ray *ray);
 void	render_frame(t_data *data);
+void	set_player_direction_ns(t_data *data, char direction);
+void	set_player_direction_ew(t_data *data, char direction);
+void	set_player_direction(t_data *data, char direction);
+int		is_player_position(char c);
+void	set_player_position(t_data *data, int x, int y, char direction);
 void	init_player_position(t_data *data);
 
 // raycasting_visualisation

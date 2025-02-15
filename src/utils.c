@@ -46,19 +46,6 @@ int	terminator(t_data *data, int error)
 	exit(error);
 }
 
-void	init_colour_fade(t_data *data)
-{
-	data->t = 0;
-	data->r = 255;
-	data->g = 0;
-	data->b = 0;
-}
-
-int	set_trgb(int t, int r, int g, int b)
-{
-	return (t << 24 | r << 16 | g << 8 | b);
-}
-
 void	free_2d_char_arr(char **arr)
 {
 	int	i;
