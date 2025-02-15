@@ -20,28 +20,27 @@
 // filtering, the issue is exposed)
 int	mouse_move(int x, int y, t_data *data)
 {
-	static int ignore_warp = 0;
+	static int	ignore_warp = 0;
+	int			center_x;
+	int			center_y;
+	int			dx;
+	double		sensitivity;
+
 	(void)y;
-    int		center_x;
-    int center_y;
-    int dx;
-    double sensitivity;
-
-    if (ignore_warp)
+	if (ignore_warp)
 	{
-        ignore_warp = 0;
-        return (0);
-    }
-    center_x = data->window_width / 2;
-    center_y = data->window_height / 2;
-	dx = x - center_x;
-    sensitivity = 0.0001;
-    if (dx <= -10 || dx >= 10)
-	{
-        rotate_player(data, dx * sensitivity);
-		ignore_warp = 1;
-    	mlx_mouse_move(data->mlx, data->mlx_win, center_x, center_y);
+		ignore_warp = 0;
+		return (0);
 	}
-    return (0);
+	center_x = data->window_width / 2;
+	center_y = data->window_height / 2;
+	dx = x - center_x;
+	sensitivity = 0.0001;
+	if (dx <= -10 || dx >= 10)
+	{
+		rotate_player(data, dx * sensitivity);
+		ignore_warp = 1;
+		mlx_mouse_move(data->mlx, data->mlx_win, center_x, center_y);
+	}
+	return (0);
 }
-

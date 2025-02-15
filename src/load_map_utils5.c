@@ -51,7 +51,7 @@ int	allocate_map_array(t_data *data)
 	data->map.map_array = malloc((data->map.height + 1) * sizeof(char *));
 	if (!data->map.map_array)
 	{
-		error("Error: Failed to allocate map.array.");
+		error("Failed to allocate map.array", ENOMEM);
 		return (1);
 	}
 	data->map.map_array[data->map.height] = NULL;

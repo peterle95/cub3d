@@ -17,28 +17,24 @@ void	init_img(t_data *data)
 	data->img_data0 = malloc(sizeof(t_img_data));
 	if (!data->img_data0)
 	{
-		free_map_data(data);
-		error("Error: Failed to allocate memory for image data");
-		exit(EXIT_FAILURE);
+		error("Failed to allocate memory for image data", ENOMEM);
+		terminator(data, EXIT_FAILURE);
 	}
 	data->img_data0->img = mlx_new_image(data->mlx,
 			data->window_width, data->window_height);
 	if (!data->img_data0->img)
 	{
-		free(data->img_data0);
-		free_map_data(data);
-		error("Error: Failed to create new image");
-		exit(EXIT_FAILURE);
+		error("Failed to create new image", EFAULT);
+		terminator(data, EXIT_FAILURE);
 	}
 	data->img_data0->addr = mlx_get_data_addr(data->img_data0->img,
-		&data->img_data0->bits_per_pixel,
-		&data->img_data0->line_length,
-		&data->img_data0->endian);
+			&data->img_data0->bits_per_pixel,
+			&data->img_data0->line_length,
+			&data->img_data0->endian);
 	if (!data->img_data0->addr)
 	{
-		terminator(data, 1);
-		error("Error: Failed to get image data address.");
-		exit(EXIT_FAILURE);
+		error("Failed to get image data address", EFAULT);
+		terminator(data, EXIT_FAILURE);
 	}
 }
 
@@ -56,22 +52,24 @@ void	put_pixel_to_img(t_data *data, int x, int y, int color)
 
 void	add_pixels(t_data *data, int x, int y)
 {
-	unsigned int color = 0xFFFFFFFF;
+	unsigned int	color;
+
+	color = 0xFFFFFFFF;
 	put_pixel_to_img(data, x, y, color);
 }
 
 void	clear_image_to_colour(t_data *data, int colour)
 {
-    int total_pixels;
-    int *img_buffer;
-	int i;
+	int	total_pixels;
+	int	*img_buffer;
+	int	i;
 
 	total_pixels = data->window_width * data->window_height;
-    img_buffer = (int *)data->img_data0->addr;
+	img_buffer = (int *)data->img_data0->addr;
 	i = 0;
-    while (i < total_pixels)
-    {
-        img_buffer[i] = colour;
+	while (i < total_pixels)
+	{
+		img_buffer[i] = colour;
 		i++;
-    }
+	}
 }

@@ -14,15 +14,13 @@
 
 int	draw(t_data *data)
 {
-	clear_image_to_colour(data, set_trgb(data->t, data->r, data->g, data->b));
+	clear_image_to_colour(data, 0x000000);
 	if (data->ceiling_loaded)
 		draw_ceiling(data);
 	render_frame(data);
 	draw_grid(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win,
 		data->img_data0->img, 0, 0);
-	if (data->r > 0)
-		data->r--;
 	return (0);
 }
 

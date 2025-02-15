@@ -93,8 +93,8 @@ static int	check_top(char **map, int i, int j)
 		printf("Error: Map not closed at position [%d][%d] (top)\n", i, j);
 		return (1);
 	}
-	line_len = ft_strlen(map[i-1]);
-	if (!map[i-1][j] || ((size_t)j >= line_len) || map[i-1][j] == ' ')
+	line_len = ft_strlen(map[i - 1]);
+	if (!map[i - 1][j] || ((size_t)j >= line_len) || map[i - 1][j] == ' ')
 	{
 		printf("Error: Map not closed at position [%d][%d] (top)\n", i, j);
 		return (1);
@@ -106,13 +106,13 @@ static int	check_bottom(char **map, int i, int j, int height)
 {
 	size_t	line_len;
 
-	if (i == height-1)
+	if (i == height - 1)
 	{
 		printf("Error: Map not closed at position [%d][%d] (bottom)\n", i, j);
 		return (1);
 	}
-	line_len = ft_strlen(map[i+1]);
-	if (!map[i+1][j] || ((size_t)j >= line_len) || map[i+1][j] == ' ')
+	line_len = ft_strlen(map[i + 1]);
+	if (!map[i + 1][j] || ((size_t)j >= line_len) || map[i + 1][j] == ' ')
 	{
 		printf("Error: Map not closed at position [%d][%d] (bottom)\n", i, j);
 		return (1);
@@ -122,7 +122,7 @@ static int	check_bottom(char **map, int i, int j, int height)
 
 static int	check_left(char **map, int i, int j)
 {
-	if (j == 0 || map[i][j-1] == ' ')
+	if (j == 0 || map[i][j - 1] == ' ')
 	{
 		printf("Error: Map not closed at position [%d][%d] (left)\n", i, j);
 		return (1);
@@ -132,7 +132,7 @@ static int	check_left(char **map, int i, int j)
 
 static int	check_right(char **map, int i, int j)
 {
-	if (!map[i][j+1] || map[i][j+1] == ' ')
+	if (!(map[i][j + 1]) || map[i][j + 1] == ' ')
 	{
 		printf("Error: Map not closed at position [%d][%d] (right)\n", i, j);
 		return (1);
@@ -171,7 +171,7 @@ static int	process_row(char *row, char *valid_chars, int *player_count)
 	{
 		if (!ft_strchr(valid_chars, row[j]))
 		{
-			error("Error: Invalid character in map");
+			error("Error: Invalid character in map", EINVAL);
 			return (1);
 		}
 		if (ft_strchr(VALID_PLAYER_CHARS, row[j]))
@@ -184,7 +184,7 @@ static int	check_player_count(int count)
 {
 	if (count != 1)
 	{
-		error("Error: There must be exactly one player in the map");
+		error("Error: There must be exactly one player in the map", EINVAL);
 		return (1);
 	}
 	return (0);
@@ -241,8 +241,6 @@ static int	validate_texture_path(char *path)
 	return (0);
 }
 
-// N_TEXTURES - 2 because last 2 elements of
-// map.config are colors
 static int	validate_textures(t_data *data)
 {
 	int	i;
@@ -303,18 +301,13 @@ static void	set_colors(t_data *data, unsigned int floor_rgb[3],
 
 int	validate_map(t_data *data)
 {
-	char	*floor_color;
-	char	*ceiling_color;
-	unsigned int		floor_rgb[3];
-	unsigned int		ceiling_rgb[3];
+	char			*floor_color;
+	char			*ceiling_color;
+	unsigned int	floor_rgb[3];
+	unsigned int	ceiling_rgb[3];
 
 	floor_color = NULL;
 	ceiling_color = NULL;
-	if (!data)
-	{
-		error("Error: Map data not properly initialized");
-		return (1);
-	}
 	if (validate_textures(data) != 0)
 		return (1);
 	if (validate_map_chars(data->map.map_array, "01NSEW ") != 0)

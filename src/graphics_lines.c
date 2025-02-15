@@ -16,10 +16,10 @@ t_line	*init_line(int x1, int y1, int x2, int y2)
 {
 	t_line	*line;
 
-	line = calloc(1, sizeof(t_line));
+	line = ft_calloc(1, sizeof(t_line));
 	if (!line)
 	{
-		error("Error: Memory allocation failed in init_line.");
+		error("Memory allocation failed in init_line", errno);
 		return (NULL);
 	}
 	line->x1 = x1;

@@ -22,7 +22,7 @@ int	draw_raycast(t_data *data)
 			(int)(data->ray->map_y * (data->scalar)));
 	if (!ray)
 	{
-		error("Error: Failed to allocate memory for line.");
+		error("Failed to allocate memory for line", errno);
 		return (1);
 	}
 	compute_line_points(data, ray);

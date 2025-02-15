@@ -45,16 +45,17 @@ int	init_data(t_data *data)
 	data->player.dir_y = 0;
 	data->player.plane_x = 0;
 	data->player.plane_y = 0;
+	data->scalar = 1;
 	init_texture_struct(data);
 	return (0);
 }
 
 int	init_hooks(t_data *data)
 {
-	mlx_hook(data->mlx_win, 3, KEY_RELEASE, key_up, data);
-	mlx_hook(data->mlx_win, 2, KEY_PRESS, key_down, data);
+	mlx_hook(data->mlx_win, 3, 1L << 1, key_up, data);
+	mlx_hook(data->mlx_win, 2, 1L << 0, key_down, data);
 	mlx_hook(data->mlx_win, ClientMessage, 0, close_window, data);
-	mlx_hook(data->mlx_win, 6, POINTER_MOTION, mouse_move, data);
+	mlx_hook(data->mlx_win, 6, 1L << 6, mouse_move, data);
 	mlx_loop_hook(data->mlx, draw, data);
 	return (0);
 }

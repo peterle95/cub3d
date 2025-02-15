@@ -17,7 +17,7 @@ void	cleanup_on_error(t_data *data, int row)
 	while (row-- > 0)
 		free(data->map.map_array[row]);
 	free(data->map.map_array);
-	error("Error: Failed to allocate row for map.array.");
+	error("Failed to allocate row for map.array", ENOMEM);
 }
 
 int	flat_map_to_map_array(t_data *data)
@@ -62,13 +62,13 @@ int	check_file_readable(const char *f_name)
 	fd = open(f_name, O_RDONLY);
 	if (fd < 0)
 	{
-		error("Error: Unable to open file for reading (first open).");
+		error("Unable to open file for reading (first open)", errno);
 		return (1);
 	}
 	if (read(fd, &buff, 1) < 1)
 	{
 		close(fd);
-		error("Error: File is empty or unreadable.");
+		error("File is empty or unreadable", errno);
 		return (1);
 	}
 	close(fd);

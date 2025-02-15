@@ -19,7 +19,7 @@ int	open_map_file(const char *f_name)
 	fd = open(f_name, O_RDONLY);
 	if (fd < 0)
 	{
-		error("Error: Unable to open file for reading (second open).");
+		error("Unable to open file for reading (second open)", errno);
 		return (-1);
 	}
 	return (fd);

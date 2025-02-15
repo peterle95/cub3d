@@ -43,11 +43,14 @@ SRCS += $(SRC_DIR)keyboard_input.c
 SRCS += $(SRC_DIR)mouse_input.c
 SRCS += $(SRC_DIR)player_movement.c
 SRCS += $(SRC_DIR)raycasting.c
+SRCS += $(SRC_DIR)raycasting_utils.c
+SRCS += $(SRC_DIR)raycasting_utils2.c
+SRCS += $(SRC_DIR)raycasting_utils3.c
+SRCS += $(SRC_DIR)raycasting_utils4.c
 SRCS += $(SRC_DIR)raycasting_visualisation.c
 SRCS += $(SRC_DIR)draw.c
 SRCS += $(SRC_DIR)draw_utils.c
 SRCS += $(SRC_DIR)initialization.c
-SRCS += $(SRC_DIR)proper_mouse_hide.c
 
 LIBFT_DIR=libft
 LIBFT=$(LIBFT_DIR)/libft.a
