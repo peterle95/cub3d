@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 13:04:29 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/15 15:03:54 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/15 15:19:35 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,16 +177,16 @@ void	init_img(t_data *data);
 void	free_2d_char_arr(char **arr);
 
 // utils2
-int	has_cub_extension(const char *filename);
-int	close_window(t_data *data);
-int	return_bad_texture(char *id, char *path);
-int	return_bad_image(t_data *data, int index, char *id);
+int		has_cub_extension(const char *filename);
+int		close_window(t_data *data);
+int		return_bad_texture(char *id, char *path);
+int		return_bad_image(t_data *data, int index, char *id);
 
 // utils3
-int	load_texture(t_data *data, char *path, char *id, int index);
-int	load_wall_textures(t_data *data, int i);
-int	correct_texture_resolution(t_data *data, t_texture tex);
-int	load_ceiling_texture(t_data *data, int i);
+int		load_texture(t_data *data, char *path, char *id, int index);
+int		load_wall_textures(t_data *data, int i);
+int		correct_texture_resolution(t_data *data, t_texture tex);
+int		load_ceiling_texture(t_data *data, int i);
 
 // load_map
 int		load_map_data(t_data *data, char *f_name);
@@ -217,6 +217,30 @@ int		print_array(char **arr);
 int		no_valid_id(t_data *data, char *line);
 int		init_flat_map(t_data *data);
 int		init_config(t_data *data);
+
+//map_validation_utils
+void	free_split(char **tokens);
+int		validate_number_string(const char *str);
+int		validate_rgb_value(const char *value);
+int		process_rgb_values(char **values, unsigned int rgb[3]);
+
+// map_validation_utils2
+int		validate_rgb(const char *color, unsigned int rgb[3]);
+int		check_top(char **map, int i, int j);
+int		check_bottom(char **map, int i, int j, int height);
+int		check_left(char **map, int i, int j);
+
+// map_validation_utils3
+int		check_right(char **map, int i, int j);
+int		is_surrounded_by_walls(char **map, int height, int width);
+int		process_row(char *row, char *valid_chars, int *player_count);
+int		check_player_count(int count);
+
+// map_validation_utils4
+int		validate_map_chars(char **map, char *valid_chars);
+int		try_path_with_prefix(char *path, char *prefix);
+int		validate_texture_path(char *path);
+int		validate_textures(t_data *data);
 
 // graphics_image
 void	init_img(t_data *data);
