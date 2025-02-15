@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: pmolzer <pmolzer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 13:04:29 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/14 10:27:18 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/15 15:03:54 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,18 @@ int		terminator(t_data *data, int error);
 int		destroy_textures(t_data *data);
 void	init_img(t_data *data);
 void	free_2d_char_arr(char **arr);
+
+// utils2
+int	has_cub_extension(const char *filename);
+int	close_window(t_data *data);
+int	return_bad_texture(char *id, char *path);
+int	return_bad_image(t_data *data, int index, char *id);
+
+// utils3
+int	load_texture(t_data *data, char *path, char *id, int index);
+int	load_wall_textures(t_data *data, int i);
+int	correct_texture_resolution(t_data *data, t_texture tex);
+int	load_ceiling_texture(t_data *data, int i);
 
 // load_map
 int		load_map_data(t_data *data, char *f_name);

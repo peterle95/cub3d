@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+         #
+#    By: pmolzer <pmolzer@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/07 12:57:19 by pmolzer           #+#    #+#              #
-#    Updated: 2025/02/13 17:41:13 by pmolzer          ###   ########.fr        #
+#    Updated: 2025/02/15 15:01:44 by pmolzer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ OBJ_DIR=obj/
 SRCS += $(SRC_DIR)debug.c
 SRCS += $(SRC_DIR)main.c
 SRCS += $(SRC_DIR)utils.c
+SRCS += $(SRC_DIR)utils2.c
+SRCS += $(SRC_DIR)utils3.c
 SRCS += $(SRC_DIR)load_map.c
 SRCS += $(SRC_DIR)map_validation.c
 SRCS += $(SRC_DIR)error_msg.c
