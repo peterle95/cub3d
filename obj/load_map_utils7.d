@@ -1,0 +1,3 @@
+obj/load_map_utils7.o: src/load_map_utils7.c include/cube3d.h \
+  include/mlx.h include/libft.h include/graphics_types.h \
+  include/exposed_minilibx_guts.h
