@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef cub3D_H
-# define cub3D_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -241,6 +241,9 @@ int		validate_map_chars(char **map, char *valid_chars);
 int		try_path_with_prefix(char *path, char *prefix);
 int		validate_texture_path(char *path);
 int		validate_textures(t_data *data);
+
+// map_validation_utils5
+int		validate_player_inside_map(char **map, int height, int width);
 
 // graphics_image
 void	init_img(t_data *data);

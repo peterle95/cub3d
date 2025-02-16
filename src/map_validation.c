@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:06:27 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/16 11:14:12 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/16 11:26:33 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,28 +49,6 @@ static void	set_colors(t_data *data, unsigned int floor_rgb[3],
 		| (floor_rgb[1] << 8) | floor_rgb[2];
 	data->map.ceiling_color = (ceiling_rgb[0] << 16)
 		| (ceiling_rgb[1] << 8) | ceiling_rgb[2];
-}
-
-static int validate_player_inside_map(char **map, int height, int width)
-{
-	int i, j;
-
-	for (i = 0; i < height; i++) {
-		for (j = 0; j < width; j++) {
-			if (is_player_position(map[i][j])) {
-				if (i == 0 || i == height - 1 || j == 0 || j == width - 1) {
-					printf("Error: Player is placed on the border of the map at [%d][%d]\n", i, j);
-					return 1;
-				}
-				if (map[i - 1][j] == ' ' || map[i + 1][j] == ' ' ||
-					map[i][j - 1] == ' ' || map[i][j + 1] == ' ') {
-					printf("Error: Player is not fully enclosed by walls at [%d][%d]\n", i, j);
-					return 1;
-				}
-			}
-		}
-	}
-	return 0;
 }
 
 int	validate_map(t_data *data)

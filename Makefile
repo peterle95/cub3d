@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pmolzer <pmolzer@student.42.fr>            +#+  +:+       +#+         #
+#    By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/07 12:57:19 by pmolzer           #+#    #+#              #
-#    Updated: 2025/02/15 15:31:11 by pmolzer          ###   ########.fr        #
+#    Updated: 2025/02/16 11:29:32 by pmolzer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRCS += $(SRC_DIR)map_validation_utils.c
 SRCS += $(SRC_DIR)map_validation_utils2.c
 SRCS += $(SRC_DIR)map_validation_utils3.c
 SRCS += $(SRC_DIR)map_validation_utils4.c
+SRCS += $(SRC_DIR)map_validation_utils5.c
 SRCS += $(SRC_DIR)error_msg.c
 SRCS += $(SRC_DIR)get_next_line.c
 SRCS += $(SRC_DIR)get_next_line_utils.c
