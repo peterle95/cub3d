@@ -18,7 +18,6 @@ int	init_map_ids_array(t_data *data)
 	if (!data->map.map_ids)
 	{
 		error("Failed to allocate map.map_ids", ENOMEM);
-		free(data->map.config);
 		return (1);
 	}
 	return (0);
@@ -55,7 +54,8 @@ int	load_map_data(t_data *data, char *f_name)
 {
 	int		fd;
 
-	init_ids(data);
+	if (init_ids(data))
+		return (1);
 	if (check_file_readable(f_name))
 		return (1);
 	fd = open_map_file(f_name);
@@ -66,6 +66,7 @@ int	load_map_data(t_data *data, char *f_name)
 	if (flat_map_to_map_array(data))
 	{
 		error("Bad configuration file", EINVAL);
+		return (1);
 	}
 	load_map_clean_up(data, NULL, fd);
 	debug_print_map(data);

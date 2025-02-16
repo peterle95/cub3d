@@ -68,6 +68,7 @@ int	print_array(char **arr)
 	return (0);
 }
 
+// if valid id found return with 0 else return with 1
 int	no_valid_id(t_data *data, char *line)
 {
 	int	i;

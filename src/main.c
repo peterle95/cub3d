@@ -12,7 +12,6 @@
 
 #include "cub3d.h"
 
-// sky texture must be large enough (have default to colour if not big enough)
 int	load_textures_from_config(t_data *data)
 {
 	int	i;
@@ -49,9 +48,9 @@ void	init_textures(t_data *data)
 	}
 }
 
-static void	free_and_terminate(t_data data)
+static void	free_and_terminate(t_data data, char *msg)
 {
-	error("Check map: Invalid map configuration", EINVAL);
+	error(msg, EINVAL);
 	terminator(&data, EXIT_FAILURE);
 }
 
@@ -68,18 +67,20 @@ int	main(int argc, char **argv)
 		return (error("Invalid file extension. File must end with .cub",
 				EINVAL));
 	if (load_map_data(&data, argv[1]) != 0)
-		return (error("Load map data: Invalid map configuration", EINVAL));
+		free_and_terminate(data, "Load map data: Invalid map configuration");
 	if (validate_map(&data))
-		free_and_terminate(data);
+		free_and_terminate(data, "Check map: Invalid map configuration");
 	data.mlx = mlx_init();
 	data.mlx_win = mlx_new_window(data.mlx, data.window_width,
 			data.window_height, "dooomed");
 	init_img(&data);
 	init_textures(&data);
 	if (load_textures_from_config(&data))
-		free_and_terminate(data);
+		free_and_terminate(data, "Failed to load textures");
 	init_hooks(&data);
-	mlx_mouse_hide(data.mlx, data.mlx_win);
+	// mlx_mouse_hide(data.mlx, data.mlx_win);
+	XFixesHideCursor(((t_xvar *)data.mlx)->display,
+		((t_win_list *)data.mlx_win)->window);
 	init_player(&data);
 	init_player_position(&data);
 	mlx_loop(data.mlx);
