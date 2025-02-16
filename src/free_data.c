@@ -39,16 +39,16 @@ static void	free_map_config(t_data *data)
 	}
 }
 
-int	free_map_data(t_data *data)
+int	free_data(t_data *data)
 {
-	free(data->map.map_ids);
-	data->map.map_ids = NULL;
+	if (data->map.map_ids)
+	{
+		free(data->map.map_ids);
+		data->map.map_ids = NULL;
+	}
+	if (data->map.flat_map)
+		free(data->map.flat_map);
 	free_map_config(data);
 	free_2d_char_arr(data->map.map_array);
 	return (-1);
-}
-
-void	free_data(t_data *data)
-{
-	free_map_data(data);
 }

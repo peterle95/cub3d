@@ -62,10 +62,10 @@ int	process_config_line(t_data *data, char *line)
 {
 	data->map.config[data->map.id] = ft_split(line, ' ');
 	if (verify_config_entry(data, data->map.config[data->map.id]))
-		return (free_map_data(data));
+		return (free_data(data));
 	if (process_config_path(data))
-		return (free_map_data(data));
+		return (free_data(data));
 	if (check_valid_map_id(data))
-		return (free_map_data(data));
+		return (free_data(data));
 	return (0);
 }

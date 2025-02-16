@@ -37,6 +37,9 @@ int	init_data(t_data *data)
 	data->window_width = 1920;
 	data->window_height = 1080;
 	data->ceiling_loaded = 0;
+	data->map.map_ids = NULL;
+	data->map.flat_map = NULL;
+	data->map.config = NULL;
 	data->mlx = NULL;
 	data->mlx_win = NULL;
 	data->player.x = 0;

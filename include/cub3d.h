@@ -167,7 +167,7 @@ int		player_move(t_data *data, int dir);
 int		error(char *message, int e);
 
 // free_data
-void	free_data(t_data *data);
+int		free_data(t_data *data);
 int		close_window(t_data *data);
 
 // utils
@@ -191,7 +191,6 @@ int		load_ceiling_texture(t_data *data, int i);
 // load_map
 int		load_map_data(t_data *data, char *f_name);
 int		validate_map(t_data *data);
-int		free_map_data(t_data *data);
 bool	member_of_set(char c, char *set);
 int		free_temp_return(char **temp, int r);
 int		array_len(char **arr);

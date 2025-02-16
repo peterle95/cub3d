@@ -51,6 +51,7 @@ int	load_map_clean_up(t_data *data, char *line, int fd)
 	}
 	close(fd);
 	free(data->map.flat_map);
+	data->map.flat_map = NULL;
 	return (-1);
 }
 
