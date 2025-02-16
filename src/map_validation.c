@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:06:27 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/16 11:26:33 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/16 23:50:54 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ int	validate_map(t_data *data)
 	if (is_surrounded_by_walls(data->map.map_array,
 			data->map.height, data->map.width))
 		return (1);
-	if (validate_player_inside_map(data->map.map_array, data->map.height, data->map.width))
+	if (validate_player_inside_map(data->map.map_array,
+			data->map.height, data->map.width))
 		return (1);
 	return (0);
 }

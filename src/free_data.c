@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   free_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmolzer <pmolzer@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:56:11 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/15 15:31:11 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/16 23:56:59 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	free_and_terminate(t_data data, char *msg)
+{
+	error(msg, EINVAL);
+	terminator(&data, EXIT_FAILURE);
+}
 
 static void	free_map_config(t_data *data)
 {

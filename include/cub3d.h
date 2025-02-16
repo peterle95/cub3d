@@ -169,6 +169,7 @@ int		error(char *message, int e);
 // free_data
 int		free_data(t_data *data);
 int		close_window(t_data *data);
+void	free_and_terminate(t_data data, char *msg);
 
 // utils
 int		terminator(t_data *data, int error);
