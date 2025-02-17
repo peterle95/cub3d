@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:13:15 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/17 09:14:37 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/17 09:38:41 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,18 @@ int	process_config_line(t_data *data, char *line)
 	if (verify_config_entry(data, config_entry))
 	{
 		free_split(config_entry);
-		return (1);  // Return error without freeing data
+		return (1);
 	}
 	data->map.config[data->map.id] = config_entry;
 	if (process_config_path(data))
 	{
 		free_split(config_entry);
-		return (1);  // Return error without freeing data
+		return (1);
 	}
 	if (check_valid_map_id(data))
 	{
 		free_split(config_entry);
-		return (1);  // Return error without freeing data
+		return (1);
 	}
 	return (0);
 }
