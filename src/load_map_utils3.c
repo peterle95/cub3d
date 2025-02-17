@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_map_utils3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmolzer <pmolzer@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:36 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/15 15:31:11 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/17 09:09:31 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,17 @@ int	flat_map_to_map_array(t_data *data)
 
 int	load_map_clean_up(t_data *data, char *line, int fd)
 {
-	(void)data;
 	while (line)
 	{
 		free(line);
 		line = get_next_line(fd);
 	}
 	close(fd);
-	free(data->map.flat_map);
-	data->map.flat_map = NULL;
+	if (data->map.flat_map)
+	{
+		free(data->map.flat_map);
+		data->map.flat_map = NULL;
+	}
 	return (-1);
 }
 

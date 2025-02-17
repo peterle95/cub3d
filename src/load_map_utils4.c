@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_map_utils4.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmolzer <pmolzer@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:13:15 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/15 15:31:11 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/17 09:14:37 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,24 @@ int	check_valid_map_id(t_data *data)
 
 int	process_config_line(t_data *data, char *line)
 {
-	data->map.config[data->map.id] = ft_split(line, ' ');
-	if (verify_config_entry(data, data->map.config[data->map.id]))
-		return (free_data(data));
+	char	**config_entry;
+
+	config_entry = ft_split(line, ' ');
+	if (verify_config_entry(data, config_entry))
+	{
+		free_split(config_entry);
+		return (1);  // Return error without freeing data
+	}
+	data->map.config[data->map.id] = config_entry;
 	if (process_config_path(data))
-		return (free_data(data));
+	{
+		free_split(config_entry);
+		return (1);  // Return error without freeing data
+	}
 	if (check_valid_map_id(data))
-		return (free_data(data));
+	{
+		free_split(config_entry);
+		return (1);  // Return error without freeing data
+	}
 	return (0);
 }
