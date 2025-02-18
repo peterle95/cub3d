@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmolzer <pmolzer@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lworden <lworden@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 15:11:37 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/15 15:31:11 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/18 13:23:38 by lworden          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	init_data(t_data *data)
 	data->player.plane_x = 0;
 	data->player.plane_y = 0;
 	data->scalar = 1;
+	data->fnbl = 0;
 	init_texture_struct(data);
 	return (0);
 }

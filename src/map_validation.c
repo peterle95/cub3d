@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: lworden <lworden@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 14:06:27 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/16 23:50:54 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/18 13:39:10 by lworden          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	validate_colors(char *floor_color, char *ceiling_color,
 		|| validate_rgb(floor_color, floor_rgb) != 0
 		|| validate_rgb(ceiling_color, ceiling_rgb) != 0)
 	{
-		printf("color did not load\n");
+		error("Color did not load", EINVAL);
 		return (1);
 	}
 	return (0);

@@ -127,6 +127,7 @@ typedef struct s_data
 	Pixmap		blank;
 	Cursor		cursor;
 	int			debug_mode;
+	int			fnbl;
 }	t_data;
 
 typedef enum s_texture_index

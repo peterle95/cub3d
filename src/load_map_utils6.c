@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_map_utils6.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmolzer <pmolzer@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lworden <lworden@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:12:17 by pmolzer           #+#    #+#             */
-/*   Updated: 2025/02/15 15:31:11 by pmolzer          ###   ########.fr       */
+/*   Updated: 2025/02/18 13:23:42 by lworden          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ int	no_valid_id(t_data *data, char *line)
 	{
 		if (ft_strnstr(line, data->map.map_ids[i],
 				ft_strlen(data->map.map_ids[i])))
+		{
+			data->fnbl = 1;
 			return (0);
+		}
 		i++;
 	}
 	return (1);
