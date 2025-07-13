@@ -90,11 +90,7 @@ C 225,30,0
 - Ray casting algorithm for 3D perspective
 - DDA (Digital Differential Analysis) for ray calculations
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## Acknowledgements
 
 - Inspired by Wolfenstein 3D and the raycasting techniques developed by id Software
-- Based on the 42 School curriculum project specifications
+- Based on the 42 School curriculum project specifications in collaboration with [Leon Worden](https://github.com/crispPacketTriangle)
