@@ -1,5 +1,9 @@
 # cub3d - 3D Raycasting Engine
 
+<p align="center">
+  <img src="https://github.com/mcombeau/mcombeau/blob/main/42_badges/cub3dm.png" alt="cub3d 42 project badge"/>
+</p>
+
 A simple 3D raycasting engine inspired by Wolfenstein 3D, built using the miniLibX graphics library.
 
 ## Overview
